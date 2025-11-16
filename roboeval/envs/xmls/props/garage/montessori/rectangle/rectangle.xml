@@ -1,0 +1,58 @@
+<mujoco model="rectangle">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
+
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh" mass="0" solimp="0.95 0.99 0.001" solref="0.004 1"/>
+    </default>
+      <default class="target_area">
+      <geom group="3" type="mesh" contype="0" conaffinity="0" friction="0 0 0" solimp="0.99 0.99 0.000001" solref="0.000001 1"/>
+    </default>
+  </default>
+  <asset>
+    <material name="Color_Yellow" specular="0.5" shininess="0.25" rgba="0.985026 1.000000 0.029482 1.000000"/>
+    <mesh file="rectangle.obj"/>
+    <mesh file="rectangle_collision_0.obj"/>
+    <mesh file="rectangle_collision_1.obj"/>
+    <mesh file="rectangle_collision_2.obj"/>
+    <mesh file="rectangle_collision_3.obj"/>
+    <mesh file="rectangle_collision_4.obj"/>
+    <mesh file="rectangle_collision_5.obj"/>
+    <mesh file="rectangle_collision_6.obj"/>
+    <mesh file="rectangle_collision_7.obj"/>
+    <mesh file="rectangle_collision_8.obj"/>
+    <mesh file="rectangle_collision_9.obj"/>
+    <mesh file="rectangle_collision_10.obj"/>
+    <mesh file="rectangle_collision_11.obj"/>
+    <mesh file="rectangle_collision_12.obj"/>
+    <mesh file="rectangle_collision_13.obj"/>
+  </asset>
+  <worldbody>
+    <body name="rectangle">
+
+    <body name="hole_site">
+      <geom name="hole_site_1" type="cylinder" size=".006 .002 .04" pos="-0.056 0.0035 0.121" euler="1.5708 0 0" rgba="1 1 0 0" class="target_area"/>
+      <geom name="hole_site_2" type="cylinder" size=".006 .002 .04" pos="-0.056 0.0035 0.098" euler="1.5708 0 0" rgba="1 1 0 0" class="target_area"/>
+    </body>
+
+      <geom material="Color_Yellow" mesh="rectangle" class="visual"/>
+      <geom mesh="rectangle_collision_0" rgba="0.31981407385846417 0.16502401812406475 0.12804878270393116 1" class="collision"/>
+      <geom mesh="rectangle_collision_1" rgba="0.8471911444281618 0.5135601759483315 0.7165994295568398 1" class="collision"/>
+      <geom mesh="rectangle_collision_2" rgba="0.6880095870096147 0.8693620189912402 0.294581894748127 1" class="collision"/>
+      <geom mesh="rectangle_collision_3" rgba="0.2526758006191654 0.44723003774743053 0.7968065936372405 1" class="collision"/>
+      <geom mesh="rectangle_collision_4" rgba="0.002125789869589112 0.4785183063342351 0.02035274208439386 1" class="collision"/>
+      <geom mesh="rectangle_collision_5" rgba="0.6051896183489112 0.5831415154832653 0.21045332232326086 1" class="collision"/>
+      <geom mesh="rectangle_collision_6" rgba="0.9582851611085875 0.9494580838144905 0.6275249340933852 1" class="collision"/>
+      <geom mesh="rectangle_collision_7" rgba="0.328940747928004 0.2461129721312585 0.787697926755911 1" class="collision"/>
+      <geom mesh="rectangle_collision_8" rgba="0.22510804324685352 0.8451739128543497 0.7449959169987286 1" class="collision"/>
+      <geom mesh="rectangle_collision_9" rgba="0.2928842156034882 0.6740391852663872 0.7592115902583528 1" class="collision"/>
+      <geom mesh="rectangle_collision_10" rgba="0.1901865260768696 0.42430240746934533 0.48835446782568304 1" class="collision"/>
+      <geom mesh="rectangle_collision_11" rgba="0.26703459557667764 0.9775761892364222 0.4092975202194914 1" class="collision"/>
+      <geom mesh="rectangle_collision_12" rgba="0.5608285583894823 0.7844473116382508 0.2174840657459941 1" class="collision"/>
+      <geom mesh="rectangle_collision_13" rgba="0.29907249585952544 0.7052008090023747 0.7559488636047208 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

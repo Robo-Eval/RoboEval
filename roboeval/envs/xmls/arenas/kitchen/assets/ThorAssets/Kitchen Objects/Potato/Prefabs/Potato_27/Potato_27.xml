@@ -1,0 +1,21 @@
+<mujoco model="Potato_27">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="Potato3_Mat2" specular="0.5" shininess="0.5" rgba="1 0.6544118 0.6544118 1.0"/>
+    <mesh file="Potato_27.obj"/>
+    <mesh file="Potato_27_collision_0.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Potato_27">
+      <geom material="Potato3_Mat2" mesh="Potato_27" class="visual"/>
+      <geom mesh="Potato_27_collision_0" rgba="0.6261508732781381 0.2209988127105309 0.8288063792298068 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

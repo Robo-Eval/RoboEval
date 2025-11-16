@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<mujoco model="kitchen-wall">
+  <compiler autolimits="true" angle="radian"/>
+  <default>
+    <default class="default">
+      <default class="visual">
+        <geom contype="0" conaffinity="0" group="0"/>
+      </default>
+      <default class="structural">
+        <geom contype="8" conaffinity="7" group="4" friction="0.90000000000000002 0.90000000000000002 0.001" solref="0.025000000000000001 1" solimp="0.998 0.998 0.001"/>
+      </default>
+    </default>
+  </default>
+  <asset>
+    <material name="mat_kitchen_tile" class="default" texture="tex_kitchen_tile"/>
+    <texture name="tex_kitchen_tile" type="2d" file="assets/kitchen_wall_3.png"/>
+    <mesh name="mesh_wall" class="default" file="assets/kitchen_wall_3.obj" scale="-1 1 1"/>
+  </asset>
+  <worldbody>
+    <body name="wall" quat="0 0 0.70710678118654746 0.70710678118654768">
+      <geom name="wall_visual" class="visual" type="mesh" material="mat_kitchen_tile" mesh="mesh_wall"/>
+      <geom name="wall_collider" class="structural" type="mesh" mesh="mesh_wall"/>
+    </body>
+  </worldbody>
+</mujoco>

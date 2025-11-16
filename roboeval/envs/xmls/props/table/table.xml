@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mujoco model="table">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
+  <asset>
+    <texture type="2d" name="table" file="table.png"/>
+    <material name="table" specular="0.3" shininess="0.5" rgba="0.62 0.62 0.6 1" texture="table"/>
+    <material name="table_legs" specular="0.3" shininess="0.5" rgba="1 1 1 1" texture="table"/>
+    <mesh file="table.obj"/>
+    <mesh file="table_legs.obj"/>
+    <mesh file="table_collision_001.obj"/>
+    <mesh file="table_collision_002.obj"/>
+    <mesh file="table_collision_003.obj"/>
+    <mesh file="table_collision_004.obj"/>
+    <mesh file="table_collision_005.obj"/>
+    <mesh file="table_collision_006.obj"/>
+    <mesh file="table_collision_007.obj"/>
+  </asset>
+  <default>
+    <default class="table">
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2" euler="1.5708 0 0"/>
+      </default>
+      <default class="collision">
+        <geom type="mesh" group="3" euler="1.5708 0 0" solimp="0.95 0.99 0.001" solref="0.004 1" friction="1.0 0.005 0.0001"/>
+      </default>
+    </default>
+  </default>
+  <worldbody>
+    <body name="table" childclass="table">
+      <geom name="mesh" mesh="table" class="visual" material="table" mass="3" density="500"  solimp="0.95 0.99 0.001" solref="0.004 1" friction="1.0 0.005 0.0001"/>
+      <geom name="mesh_legs" mesh="table_legs" class="visual" material="table_legs" mass="3" density="500"  solimp="0.95 0.99 0.001" solref="0.004 1" friction="1.0 0.005 0.0001"/>
+      <body name="counter">
+      <geom name="collider_001" mesh="table_collision_001" class="collision" friction="1.1 0.01 0.01"  />
+      </body>
+      <geom name="collider_002" mesh="table_collision_002" class="collision"/>
+      <geom name="collider_003" mesh="table_collision_003" class="collision"/>
+      <geom name="collider_004" mesh="table_collision_004" class="collision"/>
+      <geom name="collider_005" mesh="table_collision_005" class="collision"/>
+      <geom name="collider_006" mesh="table_collision_006" class="collision"/>
+      <geom name="collider_007" mesh="table_collision_007" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

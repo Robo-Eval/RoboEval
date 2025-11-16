@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<mujoco model="kitchen-wall">
+  <compiler autolimits="true" angle="radian"/>
+  <default>
+    <default class="default">
+      <default class="visual">
+        <geom contype="0" conaffinity="0" group="0"/>
+      </default>
+      <default class="structural">
+        <geom contype="8" conaffinity="7" group="4" friction="0.90000000000000002 0.90000000000000002 0.001" solref="0.025000000000000001 1" solimp="0.998 0.998 0.001"/>
+      </default>
+    </default>
+  </default>
+  <asset>
+    <material name="mat_kitchen_tile" class="default" texture="tex_kitchen_tile"/>
+    <texture name="tex_kitchen_tile" type="2d" file="assets/kitchen_wall_3.png"/>
+    <mesh name="mesh_wall" class="default" file="assets/kitchen_wall_4.obj" scale="-1 1 1"/>
+    <!-- Window assets-->
+    <texture name="LightWoodCounters" type="2d" file="assets/ThorAssets/Textures/LightWoodCounters.png"/>
+    <material name="Glass_White_Mat" class="default" rgba="1 1 1 0.5"/>
+    <material name="LightWoodCabinets" class="default" texture="LightWoodCounters" rgba="0.74528300000000003 0.46580189999999999 0.18632080000000001 1"/>
+    <material name="WhitePlastic" class="default" rgba="1 1 1 1"/>
+    <mesh name="Window_Slider_48x36_0" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_0.obj"/>
+    <mesh name="Window_Slider_48x36_1" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_1.obj"/>
+    <mesh name="Window_Slider_48x36_2" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_2.obj"/>
+    <mesh name="Window_Slider_48x36_collision_0" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_0.obj"/>
+    <mesh name="Window_Slider_48x36_collision_1" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_1.obj"/>
+    <mesh name="Window_Slider_48x36_collision_2" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_2.obj"/>
+    <mesh name="Window_Slider_48x36_collision_3" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_3.obj"/>
+    <mesh name="Window_Slider_48x36_collision_4" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_4.obj"/>
+    <mesh name="Window_Slider_48x36_collision_5" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_5.obj"/>
+    <mesh name="Window_Slider_48x36_collision_6" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_6.obj"/>
+    <mesh name="Window_Slider_48x36_collision_7" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_7.obj"/>
+    <mesh name="Window_Slider_48x36_collision_8" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_8.obj"/>
+    <mesh name="Window_Slider_48x36_collision_9" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_9.obj"/>
+    <mesh name="Window_Slider_48x36_collision_10" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_10.obj"/>
+    <mesh name="Window_Slider_48x36_collision_11" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_11.obj"/>
+    <mesh name="Window_Slider_48x36_collision_12" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_12.obj"/>
+    <mesh name="Window_Slider_48x36_collision_13" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_13.obj"/>
+    <mesh name="Window_Slider_48x36_collision_14" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_14.obj"/>
+    <mesh name="Window_Slider_48x36_collision_15" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_15.obj"/>
+    <mesh name="Window_Slider_48x36_collision_16" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Windows/Prefabs/Window_Slider_48x36/Window_Slider_48x36_collision_16.obj"/>
+  </asset>
+  <worldbody>
+    <!-- WALL -->
+    <body name="wall" quat="0 0 0.70710678118654746 0.70710678118654768">
+      <geom name="wall_visual" class="visual" type="mesh" material="mat_kitchen_tile" mesh="mesh_wall"/>
+      <geom name="wall_collider" class="structural" type="mesh" mesh="mesh_wall"/>
+    </body>
+    <!-- WINDOW -->
+    <body name="window|2|1" pos="0 2.8158841493519935 1.4973600432276724" quat="0.49999999999999989 0.50000000000000011 0.5 0.50000000000000011">
+      <geom name="window|2|1__0" class="visual" type="mesh" material="WhitePlastic" mesh="Window_Slider_48x36_0"/>
+      <geom name="window|2|1__1" class="visual" type="mesh" material="Glass_White_Mat" mesh="Window_Slider_48x36_1"/>
+      <geom name="window|2|1__2" class="visual" type="mesh" material="LightWoodCabinets" mesh="Window_Slider_48x36_2"/>
+      <geom name="window|2|1__3" class="structural" type="mesh" rgba="0.94458350097900767 0.99523520152493983 0.26118874846736551 1" mesh="Window_Slider_48x36_collision_0"/>
+      <geom name="window|2|1__4" class="structural" type="mesh" rgba="0.89655840759925998 0.063886357346283784 0.96858930347936256 1" mesh="Window_Slider_48x36_collision_1"/>
+      <geom name="window|2|1__5" class="structural" type="mesh" rgba="0.13319258218492758 0.13570720691153659 0.33199748124667028 1" mesh="Window_Slider_48x36_collision_2"/>
+      <geom name="window|2|1__6" class="structural" type="mesh" rgba="0.51000534761371075 0.83431542111927726 0.11175214253621735 1" mesh="Window_Slider_48x36_collision_3"/>
+      <geom name="window|2|1__7" class="structural" type="mesh" rgba="0.81987472580005238 0.98439440445455795 0.031000769173423759 1" mesh="Window_Slider_48x36_collision_4"/>
+      <geom name="window|2|1__8" class="structural" type="mesh" rgba="0.69870183619231285 0.89876090031655587 0.025221027776411442 1" mesh="Window_Slider_48x36_collision_5"/>
+      <geom name="window|2|1__9" class="structural" type="mesh" rgba="0.59646311374821137 0.9298775979720465 0.77691852398556427 1" mesh="Window_Slider_48x36_collision_6"/>
+      <geom name="window|2|1__10" class="structural" type="mesh" rgba="0.018744487694706602 0.07929780895619154 0.3430442485035845 1" mesh="Window_Slider_48x36_collision_7"/>
+      <geom name="window|2|1__11" class="structural" type="mesh" rgba="0.78969760387412347 0.60228689167563787 0.88956559507669375 1" mesh="Window_Slider_48x36_collision_8"/>
+      <geom name="window|2|1__12" class="structural" type="mesh" rgba="0.83298839459496854 0.44754546353830393 0.8497526260675764 1" mesh="Window_Slider_48x36_collision_9"/>
+      <geom name="window|2|1__13" class="structural" type="mesh" rgba="0.25304889471312597 0.55874318327425854 0.28739217082397128 1" mesh="Window_Slider_48x36_collision_10"/>
+      <geom name="window|2|1__14" class="structural" type="mesh" rgba="0.0979904166533202 0.10726087901840975 0.83090959084306526 1" mesh="Window_Slider_48x36_collision_11"/>
+      <geom name="window|2|1__15" class="structural" type="mesh" rgba="0.072504607291032253 0.96411043709845912 0.51851018725378772 1" mesh="Window_Slider_48x36_collision_12"/>
+      <geom name="window|2|1__16" class="structural" type="mesh" rgba="0.31411417870651392 0.26845023253168643 0.22620113597352942 1" mesh="Window_Slider_48x36_collision_13"/>
+      <geom name="window|2|1__17" class="structural" type="mesh" rgba="0.62837390430052142 0.56595030077185238 0.16781723820518313 1" mesh="Window_Slider_48x36_collision_14"/>
+      <geom name="window|2|1__18" class="structural" type="mesh" rgba="0.42021371961600018 0.69929203546024854 0.085106377591711913 1" mesh="Window_Slider_48x36_collision_15"/>
+      <geom name="window|2|1__19" class="structural" type="mesh" rgba="0.83166426207832367 0.099489984091974071 0.8368438763270738 1" mesh="Window_Slider_48x36_collision_16"/>
+    </body>
+  </worldbody>
+</mujoco>

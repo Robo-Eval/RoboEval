@@ -1,0 +1,31 @@
+<mujoco model="Paper_Towel_1">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="Paper_Towel_Mat" specular="0.5" shininess="0.5" rgba="1 1 1 1.0"/>
+    <mesh file="Paper_Towel_1.obj"/>
+    <mesh file="Paper_Towel_1_collision_0.obj"/>
+    <mesh file="Paper_Towel_1_collision_1.obj"/>
+    <mesh file="Paper_Towel_1_collision_2.obj"/>
+    <mesh file="Paper_Towel_1_collision_3.obj"/>
+    <mesh file="Paper_Towel_1_collision_4.obj"/>
+    <mesh file="Paper_Towel_1_collision_5.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Paper_Towel_1">
+      <geom material="Paper_Towel_Mat" mesh="Paper_Towel_1" class="visual"/>
+      <geom mesh="Paper_Towel_1_collision_0" rgba="0.3122415354897181 0.7177700874029895 0.2000099487156144 1" class="collision"/>
+      <geom mesh="Paper_Towel_1_collision_1" rgba="0.1902077773599643 0.020195337160173632 0.6917276932745329 1" class="collision"/>
+      <geom mesh="Paper_Towel_1_collision_2" rgba="0.5988177913226921 0.9368479790874492 0.8464404698960682 1" class="collision"/>
+      <geom mesh="Paper_Towel_1_collision_3" rgba="0.48655377443603887 0.25850712283239075 0.9754802293896024 1" class="collision"/>
+      <geom mesh="Paper_Towel_1_collision_4" rgba="0.09135442998831 0.16930800940327695 0.5102405868385507 1" class="collision"/>
+      <geom mesh="Paper_Towel_1_collision_5" rgba="0.4713310570675524 0.020400412583910343 0.24178743368877953 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,173 @@
+<mujoco model="Microwave_1">
+  <compiler autolimits="true" boundmass="0.01" angle="radian"/>
+  <default>
+    <default class="/">
+      <default class="__VISUAL_MJT__">
+        <geom contype="0" conaffinity="0" group="0"/>
+      </default>
+      <default class="__STRUCTURAL_MJT__">
+        <geom contype="8" conaffinity="7" group="4" friction="0.90000000000000002 0.90000000000000002 0.001" solref="0.025000000000000001 1" solimp="0.998 0.998 0.001"/>
+      </default>
+      <default class="__DYNAMIC_MJT__">
+        <geom contype="1" conaffinity="15" group="4" friction="0.90000000000000002 0.90000000000000002 0.001" solref="0.025000000000000001 1" solimp="0.998 0.998 0.001"/>
+      </default>
+    </default>
+  </default>
+  <asset>
+    <texture name="Microwave_Window1_Off_Mat" type="2d" file="Microwave_Window_AlbedoTransparency.png"/>
+    <material name="material_Microwave_Window1_Off_Mat" class="/" texture="Microwave_Window1_Off_Mat" specular="0.5" shininess="0.5" rgba="1 1 1 1"/>
+    <material name="material_Microwave_Plate1_Mat" class="/" specular="0.5" shininess="0.5" rgba="0.30303849999999999 0.34723480000000001 0.43382349999999997 1"/>
+    <texture name="Microwave_Metal_Mat" type="2d" file="BrushedIron_AlbedoTransparency.png"/>
+    <material name="material_Microwave_Metal_Mat" class="/" texture="Microwave_Metal_Mat" specular="0.5" shininess="0.5" rgba="1 1 1 1"/>
+    <texture name="Microwave_Primary1_Mat" type="2d" file="HammeredMetal_AlbedoTransparency.png"/>
+    <material name="material_Microwave_Primary1_Mat" class="/" texture="Microwave_Primary1_Mat" specular="0.5" shininess="0.5" rgba="0.56571709999999997 0.56617649999999997 0.55785039999999997 1"/>
+    <mesh name="Microwave_1_doormesh_1_0" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_0.obj" scale="1 1 1"/>
+    <mesh name="Microwave_1_doormesh_1_1" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_1.obj" scale="1 1 1"/>
+    <mesh name="Microwave_1_doormesh_1_2" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_2.obj" scale="1 1 1"/>
+    <mesh name="Microwave_1_doormesh_1_3" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_3.obj" scale="1 1 1"/>
+    <mesh name="Microwave_1_doormesh_1_4" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_4.obj" scale="1 1 1"/>
+    <mesh name="Microwave_1_doormesh_1_5" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_5.obj" scale="1 1 1"/>
+    <mesh name="Microwave_1_doormesh_1_6" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_6.obj" scale="1 1 1"/>
+    <mesh name="Microwave_1_doormesh_1_7" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_7.obj" scale="1 1 1"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_18" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_18.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_24" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_24.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_25" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_25.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_19" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_19.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_27" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_27.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_26" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_26.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_22" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_22.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_23" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_23.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_21" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_21.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_20" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_20.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_6" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_6.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_7" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_7.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_5" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_5.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_4" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_4.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_0" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_0.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_1" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_1.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_3" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_3.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_2" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_2.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_9" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_9.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_8" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_8.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_11" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_11.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_10" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_10.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_12" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_12.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_13" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_13.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_17" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_17.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_16" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_16.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_14" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_14.obj"/>
+    <mesh name="Microwave_1_doormesh_1_collision_collision_15" class="/" file="Microwave_1_doormesh_1/Microwave_1_doormesh_1_collision_collision_15.obj"/>
+    <material name="material_Microwave_Readout2B_Off_Mat" class="/" specular="0.5" shininess="0.5" rgba="0 0 0 1"/>
+    <texture name="Microwave_Decal_Mat" type="2d" file="Microwave_Decal_AlbedoTransparency.png"/>
+    <material name="material_Microwave_Decal_Mat" class="/" texture="Microwave_Decal_Mat" specular="0.5" shininess="0.5" rgba="1 1 1 1"/>
+    <material name="material_Microwave_Interior2_Mat" class="/" specular="0.5" shininess="0.5" rgba="0.60294119999999995 0.60294119999999995 0.60294119999999995 1"/>
+    <material name="material_Microwave_Secondary1_Mat" class="/" specular="0.5" shininess="0.5" rgba="0.36029410000000001 0.36029410000000001 0.36029410000000001 1"/>
+    <mesh name="Microwave_1_bodymesh_0_0" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_0.obj" scale="1 1 1"/>
+    <mesh name="Microwave_1_bodymesh_0_1" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_1.obj" scale="1 1 1"/>
+    <mesh name="Microwave_1_bodymesh_0_2" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_2.obj" scale="1 1 1"/>
+    <mesh name="Microwave_1_bodymesh_0_3" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_3.obj" scale="1 1 1"/>
+    <mesh name="Microwave_1_bodymesh_0_4" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_4.obj" scale="1 1 1"/>
+    <mesh name="Microwave_1_bodymesh_0_5" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_5.obj" scale="1 1 1"/>
+    <mesh name="Microwave_1_bodymesh_0_6" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_6.obj" scale="1 1 1"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_12" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_12.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_13" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_13.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_11" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_11.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_10" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_10.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_14" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_14.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_15" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_15.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_17" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_17.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_8" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_8.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_9" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_9.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_16" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_16.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_4" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_4.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_5" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_5.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_18" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_18.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_7" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_7.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_6" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_6.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_19" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_19.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_21" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_21.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_2" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_2.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_3" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_3.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_20" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_20.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_1" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_1.obj"/>
+    <mesh name="Microwave_1_bodymesh_0_collision_collision_0" class="/" file="Microwave_1_bodymesh_0/Microwave_1_bodymesh_0_collision_collision_0.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Microwave_1">
+      <joint name="Microwave_1_free" class="/" type="free" pos="0 0 0" axis="0 0 1" stiffness="0" range="0 0" armature="0" damping="0.10000000000000001" frictionloss="0"/>
+      <body name="Microwave_1_doormesh_1" pos="-0.29202829999999996 0.028091399999999989 0.092424199999999998" quat="1 0 0 0">
+        <geom name="Microwave_1_doormesh_1_0" class="__VISUAL_MJT__" type="mesh" material="material_Microwave_Window1_Off_Mat" shellinertia="false" mesh="Microwave_1_doormesh_1_0"/>
+        <geom name="Microwave_1_doormesh_1_1" class="__VISUAL_MJT__" type="mesh" material="material_Microwave_Plate1_Mat" shellinertia="true" mesh="Microwave_1_doormesh_1_1"/>
+        <geom name="Microwave_1_doormesh_1_2" class="__VISUAL_MJT__" type="mesh" material="material_Microwave_Plate1_Mat" shellinertia="true" mesh="Microwave_1_doormesh_1_2"/>
+        <geom name="Microwave_1_doormesh_1_3" class="__VISUAL_MJT__" type="mesh" material="material_Microwave_Plate1_Mat" shellinertia="true" mesh="Microwave_1_doormesh_1_3"/>
+        <geom name="Microwave_1_doormesh_1_4" class="__VISUAL_MJT__" type="mesh" material="material_Microwave_Plate1_Mat" shellinertia="true" mesh="Microwave_1_doormesh_1_4"/>
+        <geom name="Microwave_1_doormesh_1_5" class="__VISUAL_MJT__" type="mesh" material="material_Microwave_Metal_Mat" shellinertia="false" mesh="Microwave_1_doormesh_1_5"/>
+        <geom name="Microwave_1_doormesh_1_6" class="__VISUAL_MJT__" type="mesh" material="material_Microwave_Primary1_Mat" shellinertia="false" mesh="Microwave_1_doormesh_1_6"/>
+        <geom name="Microwave_1_doormesh_1_7" class="__VISUAL_MJT__" type="mesh" material="material_Microwave_Primary1_Mat" shellinertia="false" mesh="Microwave_1_doormesh_1_7"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_18" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_18"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_24" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_24"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_25" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_25"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_19" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_19"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_27" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_27"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_26" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_26"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_22" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_22"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_23" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_23"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_21" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_21"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_20" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_20"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_6" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_6"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_7" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_7"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_5" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_5"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_4" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_4"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_0" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_0"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_1" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_1"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_3" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_3"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_2" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_2"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_9" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_9"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_8" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_8"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_11" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_11"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_10" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_10"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_12" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_12"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_13" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_13"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_17" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_17"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_16" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_16"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_14" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_14"/>
+        <geom name="Microwave_1_doormesh_1_collision_collision_15" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_doormesh_1_collision_collision_15"/>
+        <joint name="Microwave_1_joint" class="/" type="hinge" pos="0 0 0" axis="0 -1 0" stiffness="0" range="0 1.5700000000000001" armature="0" damping="0.10000000000000001" frictionloss="0"/>
+      </body>
+      <body name="Microwave_1_bodymesh_0" pos="-0.0001 -0.17676 -0.023740000000000001" quat="1 0 0 0">
+        <geom name="Microwave_1_bodymesh_0_0" class="__VISUAL_MJT__" type="mesh" material="material_Microwave_Readout2B_Off_Mat" shellinertia="false" mesh="Microwave_1_bodymesh_0_0"/>
+        <geom name="Microwave_1_bodymesh_0_1" class="__VISUAL_MJT__" type="mesh" material="material_Microwave_Decal_Mat" shellinertia="false" mesh="Microwave_1_bodymesh_0_1"/>
+        <geom name="Microwave_1_bodymesh_0_2" class="__VISUAL_MJT__" type="mesh" material="material_Microwave_Interior2_Mat" shellinertia="false" mesh="Microwave_1_bodymesh_0_2"/>
+        <geom name="Microwave_1_bodymesh_0_3" class="__VISUAL_MJT__" type="mesh" material="material_Microwave_Plate1_Mat" shellinertia="false" mesh="Microwave_1_bodymesh_0_3"/>
+        <geom name="Microwave_1_bodymesh_0_4" class="__VISUAL_MJT__" type="mesh" material="material_Microwave_Metal_Mat" shellinertia="false" mesh="Microwave_1_bodymesh_0_4"/>
+        <geom name="Microwave_1_bodymesh_0_5" class="__VISUAL_MJT__" type="mesh" material="material_Microwave_Secondary1_Mat" shellinertia="false" mesh="Microwave_1_bodymesh_0_5"/>
+        <geom name="Microwave_1_bodymesh_0_6" class="__VISUAL_MJT__" type="mesh" material="material_Microwave_Primary1_Mat" shellinertia="false" mesh="Microwave_1_bodymesh_0_6"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_12" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_12"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_13" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_13"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_11" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_11"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_10" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_10"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_14" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_14"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_15" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_15"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_17" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_17"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_8" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_8"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_9" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_9"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_16" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_16"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_4" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_4"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_5" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_5"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_18" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_18"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_7" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_7"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_6" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_6"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_19" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_19"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_21" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_21"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_2" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_2"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_3" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_3"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_20" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_20"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_1" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_1"/>
+        <geom name="Microwave_1_bodymesh_0_collision_collision_0" class="__DYNAMIC_MJT__" type="mesh" mesh="Microwave_1_bodymesh_0_collision_collision_0"/>
+      </body>
+    </body>
+  </worldbody>
+  <contact>
+    <exclude name="//unnamed_contact_0" body1="Microwave_1" body2="Microwave_1_doormesh_1"/>
+  </contact>
+</mujoco>

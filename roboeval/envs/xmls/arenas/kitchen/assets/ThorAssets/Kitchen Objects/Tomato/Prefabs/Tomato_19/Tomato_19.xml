@@ -1,0 +1,35 @@
+<mujoco model="Tomato_19">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="Tomato2_Mat3" specular="0.5" shininess="0.5" rgba="1 0.6397059 0.516 1.0"/>
+    <mesh file="Tomato_19.obj"/>
+    <mesh file="Tomato_19_collision_0.obj"/>
+    <mesh file="Tomato_19_collision_1.obj"/>
+    <mesh file="Tomato_19_collision_2.obj"/>
+    <mesh file="Tomato_19_collision_3.obj"/>
+    <mesh file="Tomato_19_collision_4.obj"/>
+    <mesh file="Tomato_19_collision_5.obj"/>
+    <mesh file="Tomato_19_collision_6.obj"/>
+    <mesh file="Tomato_19_collision_7.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Tomato_19">
+      <geom material="Tomato2_Mat3" mesh="Tomato_19" class="visual"/>
+      <geom mesh="Tomato_19_collision_0" rgba="0.31099793727946057 0.9986986624186909 0.5867906937459223 1" class="collision"/>
+      <geom mesh="Tomato_19_collision_1" rgba="0.6869995272803647 0.23479057234913925 0.41357876808092353 1" class="collision"/>
+      <geom mesh="Tomato_19_collision_2" rgba="0.4803034650874426 0.8147768654326402 0.15710695330245306 1" class="collision"/>
+      <geom mesh="Tomato_19_collision_3" rgba="0.7101586930537693 0.6866192959216703 0.729324407065147 1" class="collision"/>
+      <geom mesh="Tomato_19_collision_4" rgba="0.34397954019750154 0.4669269912292462 0.42895785150662713 1" class="collision"/>
+      <geom mesh="Tomato_19_collision_5" rgba="0.7652620964385229 0.16950746847331355 0.010285188939370471 1" class="collision"/>
+      <geom mesh="Tomato_19_collision_6" rgba="0.3673599424899351 0.03776068909910213 0.4135994745849694 1" class="collision"/>
+      <geom mesh="Tomato_19_collision_7" rgba="0.3823813966694445 0.8529394769053783 0.054653089287542755 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

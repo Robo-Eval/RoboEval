@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<mujoco model="cube">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
+  <default>
+    <default class="cube">
+      <material specular="0.5" shininess="0.25"/>
+    </default>
+  </default>
+  <worldbody>
+    <body name="cube" childclass="cube">
+      <geom name="mesh" type="box" size="0.1 0.1 0.1" density="500" mass="2" friction="1.5 0.1 0.01" solimp="0.95 0.99 0.001" solref="0.004 1" rgba="1 0 0 1"/>
+      <site name="top" type="box" size=".01 .01 .001" pos="0 0 0.025" rgba="1 1 0 0"/>
+      <site name="bottom" type="box" size=".01 .01 .001" pos="0 0 -0.025" rgba="1 1 0 0"/>
+      <site name="right" type="box" size=".001 .01 .01" pos="0.025 0 0" rgba="0 1 0 0"/>
+      <site name="left" type="box" size=".001 .01 .01" pos="-0.025 0 0" rgba="0 1 0 0"/>
+      <site name="front" type="box" size=".01 .001 .01" pos="0 0.025 0" rgba="0 1 0 0"/>
+      <site name="back" type="box" size=".01 .001 .01" pos="0 -0.025 0" rgba="0 1 0 0"/>
+
+    </body>
+
+  </worldbody>
+</mujoco>

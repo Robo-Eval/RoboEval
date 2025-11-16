@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mujoco model="wood_tray">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh" solimp="0.95 0.99 0.001" solref="0.004 1" friction="0.8.0 0.005 0.0001" density="500" mass="0.75"/>
+    </default>
+  </default>
+  <asset>
+    <texture type="2d" name="wood_tray_diffuse" file="wood_tray_diffuse.png"/>
+    <material name="bake_to" texture="wood_tray_diffuse" specular="0.894545" shininess="0.0761653"/>
+    <mesh file="wood_tray.obj" scale="1.1 1.1 1.1"/>
+    <mesh file="wood_tray_collision_0.obj" scale="1.1 1.1 1.1"/>
+    <mesh file="wood_tray_collision_1.obj" scale="1.1 1.1 1.1"/>
+    <mesh file="wood_tray_collision_2.obj" scale="1.1 1.1 1.1"/>
+    <mesh file="wood_tray_collision_3.obj" scale="1.1 1.1 1.1"/>
+    <mesh file="wood_tray_collision_4.obj" scale="1.1 1.1 1.1"/>
+    <mesh file="wood_tray_collision_5.obj" scale="2.5 1.1 1.3"/>
+    <mesh file="wood_tray_collision_6.obj" scale="1.1 1.1 1.1"/>
+    <mesh file="wood_tray_collision_7.obj" scale="1.1 1.1 1.1"/>
+    <mesh file="wood_tray_collision_8.obj" scale="1.1 1.1 1.1"/>
+    <mesh file="wood_tray_collision_9.obj" scale="1.1 1.1 1.1"/>
+    <mesh file="wood_tray_collision_10.obj" scale="1.1 1.1 1.1"/>
+    <mesh file="wood_tray_collision_11.obj" scale="1.1 1.1 1.1"/>
+
+  </asset>
+  <worldbody>
+    <body name="wood_tray">
+      <geom material="bake_to" mesh="wood_tray" class="visual" />
+      <geom mesh="wood_tray_collision_0" rgba="0.4521902627063089 0.9945228180760667 0.5537872224910386 1" class="collision" />
+      <geom mesh="wood_tray_collision_1" rgba="0.5091132062360405 0.4293745058976225 0.29461236475039465 1" class="collision" />
+      <geom mesh="wood_tray_collision_2" rgba="0.4700722154009228 0.6256771382581452 0.8602099456158954 1" class="collision"/>
+      <geom mesh="wood_tray_collision_3" rgba="0.3111468831905849 0.43179954256935793 0.34683936789405134 1" class="collision"/>
+      <!-- <geom mesh="wood_tray_collision_4" rgba="0.9681070135298547 0.3407630877893575 0.15220728126867056 1" class="collision"/> -->
+
+      <geom mesh="wood_tray_collision_5" pos="-0.26 0 0" rgba="0.34770248640162815 0.7155382350271197 0.1269678726199005 1" class="collision" solimp="0.95 0.99 0.001" solref="0.004 1" friction="1.0 0.005 0.0001" />
+
+      <!-- <geom mesh="wood_tray_collision_6" rgba="0.8430330577359688 0.0676649870539513 0.7198700248671878 1" class="collision" friction="1.0 0.005 0.0001"/> -->
+
+      <geom mesh="wood_tray_collision_7" rgba="0.8992569372352012 0.6981681016311446 0.6965598398691744 1" class="collision" friction="1.0 0.005 0.0001"/>
+      
+      <!-- <geom mesh="wood_tray_collision_8" rgba="0.3959664621855511 0.5003933829492256 0.346099615808913 1" class="collision" friction="1.0 0.005 0.0001"/> -->
+
+      <geom mesh="wood_tray_collision_9" rgba="0.13688384649262042 0.8249984849383837 0.10874298160292162 1" class="collision"/>
+      <!-- <geom mesh="wood_tray_collision_10" rgba="0.7459493692094414 0.4756423771334548 0.09885026986169099 1" class="collision"/> -->
+      <geom mesh="wood_tray_collision_11" rgba="0.5746543320994515 0.2793695083737242 0.6145334552750714 1" class="collision"/>
+
+    </body>
+  </worldbody>
+</mujoco>

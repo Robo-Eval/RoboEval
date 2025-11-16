@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<mujoco model="partnet_a44c2110f646309bc7fb1a0a584939a5">
+  <compiler angle="radian" meshdir="assets/11231/textured_objs/"/>
+  <asset>
+    <mesh name="new-5" file="new-5.obj"/>
+    <mesh name="new-0" file="new-0.obj"/>
+    <mesh name="new-3" file="new-3.obj"/>
+    <mesh name="new-1" file="new-1.obj"/>
+    <mesh name="original-3" file="original-3.obj"/>
+    <mesh name="original-2" file="original-2.obj"/>
+    <mesh name="original-4" file="original-4.obj"/>
+    <mesh name="original-5" file="original-5.obj"/>
+    <mesh name="original-6" file="original-6.obj"/>
+    <mesh name="original-7" file="original-7.obj"/>
+    <mesh name="original-8" file="original-8.obj"/>
+    <mesh name="original-9" file="original-9.obj"/>
+    <mesh name="new-4" file="new-4.obj"/>
+    <mesh name="new-2" file="new-2.obj"/>
+  </asset>
+  <worldbody>
+    <body name="fridge">
+      <geom name="frame-5" pos="0 0 0" quat="0.5 0.5 -0.5 -0.5" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="new-5"/>
+      <geom pos="0 0 0" quat="0.5 0.5 -0.5 -0.5" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="new-0"/>
+      <geom pos="0 0 0" quat="0.5 0.5 -0.5 -0.5" type="mesh" mesh="new-5"/>
+      <geom pos="0 0 0" quat="0.5 0.5 -0.5 -0.5" type="mesh" mesh="new-0"/>
+      <body name="link_1" pos="-0.33094 -0.55436 0.772517" quat="0.5 0.5 -0.5 -0.5">
+        <joint name="joint_1" pos="0 0 0" axis="0 1 0" range="0 3.14159"/>
+        <geom name="door_frame-10" pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="new-3"/>
+        <geom name="handle-11" pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="new-1"/>
+        <geom name="other_leaf-13" pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="original-3"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="original-2"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="original-4"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="original-5"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="original-6"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="original-7"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="original-8"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="original-9"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" mesh="new-3"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" mesh="new-1"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" mesh="original-3"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" mesh="original-2"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" mesh="original-4"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" mesh="original-5"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" mesh="original-6"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" mesh="original-7"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" mesh="original-8"/>
+        <geom pos="-0.55436 -0.772517 -0.33094" quat="1 0 0 0" type="mesh" mesh="original-9"/>
+      </body>
+      <body name="link_2" pos="-0.322368 0.535019 0.772517" quat="0.5 0.5 -0.5 -0.5">
+        <joint name="joint_2" pos="0 0 0" axis="0 -1 0" range="0 3.14159"/>
+        <geom name="door_frame-8" pos="0.535019 -0.772517 -0.322368" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="new-4"/>
+        <geom name="handle-9" pos="0.535019 -0.772517 -0.322368" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="new-2"/>
+        <geom pos="0.535019 -0.772517 -0.322368" quat="1 0 0 0" type="mesh" mesh="new-4"/>
+        <geom pos="0.535019 -0.772517 -0.322368" quat="1 0 0 0" type="mesh" mesh="new-2"/>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

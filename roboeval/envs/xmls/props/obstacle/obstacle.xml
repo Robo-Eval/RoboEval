@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<mujoco model="cube">
+  <!-- <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/> -->
+  <worldbody>
+    <body>
+      <geom name="mesh" type="box" size="0.1 0.001 0.15" density="500" mass="2" friction="1 0.1 0.01" solimp="0.95 0.99 0.001" solref="0.004 1" rgba="0 0 0 0.5"/>
+    </body>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,78 @@
+<mujoco model="base">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"  solimp="0.95 0.99 0.001" solref="0.004 1" friction="1.0 0.005 0.0001"/>
+    </default>
+  </default>
+  <asset>
+    <material name="Plastic_black" specular="0.20000000000000004" shininess="0.49" rgba="0.030752 0.030752 0.030752 1.000000"/>
+    <mesh file="base.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_0.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_1.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_2.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_3.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_4.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_5.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_6.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_7.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_8.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_9.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_10.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_11.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_12.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_13.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_14.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_15.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_16.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_17.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_18.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_19.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_20.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_21.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_22.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_23.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_24.obj" scale="0.25 0.25 0.25"/>
+    <mesh file="base_collision_25.obj" scale="0.25 0.25 0.25"/>
+  </asset>
+  <worldbody>
+    <body name="base">
+      <geom material="Plastic_black" mesh="base" class="visual"/>
+      <geom mesh="base_collision_0" rgba="0.4139977033078729 0.965584190655115 0.038491470711151665 1" class="collision"/>
+      <geom mesh="base_collision_1" rgba="0.07008152399821799 0.1354792640544794 0.20051862123851427 1" class="collision"/>
+      <geom mesh="base_collision_2" rgba="0.8492940937178575 0.3063867522178073 0.6472138917985207 1" class="collision"/>
+      <geom mesh="base_collision_3" rgba="0.8077129521078048 0.15992197455632895 0.2635308697563976 1" class="collision"/>
+      <geom mesh="base_collision_4" rgba="0.2697317327818245 0.2763638324662565 0.2897450343024346 1" class="collision"/>
+      <geom mesh="base_collision_5" rgba="0.7312037870532633 0.6411388155765605 0.6381348136197436 1" class="collision"/>
+      <geom mesh="base_collision_6" rgba="0.3142567318908438 0.20722473068156577 0.7718702327341584 1" class="collision"/>
+      <geom mesh="base_collision_7" rgba="0.8671555885208966 0.022125211716656046 0.9003344014595976 1" class="collision"/>
+
+      <geom mesh="base_collision_8" rgba="0.26290452210664716 0.7825579262649912 0.96490520567217 1" class="collision"/>
+
+      <body name="top-rack">
+        <geom mesh="base_collision_9" rgba="0.8266384410480065 0.9028293486936798 0.9231132852014123 1" class="collision"/>
+      </body>
+
+      <geom mesh="base_collision_10" rgba="0.4457673917740731 0.5803422075066947 0.016900945383652055 1" class="collision"/>
+      <geom mesh="base_collision_11" rgba="0.9586445208701742 0.5120329490824171 0.30202950359684433 1" class="collision"/>
+      <geom mesh="base_collision_12" rgba="0.2991303344785302 0.2575673965680838 0.6138718572270379 1" class="collision"/>
+      <geom mesh="base_collision_13" rgba="0.47888310243349996 0.6590844655687733 0.11127974936836738 1" class="collision"/>
+      
+      <geom mesh="base_collision_14" rgba="0.273008319868388 0.6760576446546016 0.882139884128549 1" class="collision"/>
+      <geom mesh="base_collision_15" rgba="0.45601575654133 0.004314422753513791 0.11710554985734434 1" class="collision"/>
+      <geom mesh="base_collision_16" rgba="0.4267642035594801 0.3957172310137703 0.8768382286403134 1" class="collision"/>
+      <geom mesh="base_collision_17" rgba="0.6685205716291798 0.8277321375060079 0.37083806497654315 1" class="collision"/>
+      <geom mesh="base_collision_18" rgba="0.9623149175482841 0.36560263653229286 0.3942636526094848 1" class="collision"/>
+      <geom mesh="base_collision_19" rgba="0.057052849441164954 0.5960824056962274 0.20137748717898796 1" class="collision"/>
+      <geom mesh="base_collision_20" rgba="0.7694691797822715 0.8069172044412077 0.15456128783106182 1" class="collision"/>
+      <geom mesh="base_collision_21" rgba="0.2796978122710435 0.7847904306486788 0.8455058151242174 1" class="collision"/>
+      <geom mesh="base_collision_22" rgba="0.9783501882427527 0.23218206759239157 0.5086655860490242 1" class="collision"/>
+      <geom mesh="base_collision_23" rgba="0.32138052901086556 0.34493112996132114 0.7110027585646255 1" class="collision"/>
+      <geom mesh="base_collision_24" rgba="0.9600081894846154 0.6190766641764385 0.1633270495083089 1" class="collision"/>
+      <geom mesh="base_collision_25" rgba="0.19168204985800308 0.6690489425469313 0.9038241359328755 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mujoco model="wood_tray">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
+
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh" density="500" mass="2"/>
+    </default>
+  </default>
+  <asset>
+    <texture type="2d" name="wood_tray_diffuse" file="wood_tray_diffuse.png"/>
+    <material name="bake_to" texture="wood_tray_diffuse" specular="0.894545" shininess="0.0761653"/>
+    <mesh file="wood_tray.obj"/>
+  </asset>
+  <worldbody>
+    <body name="wood_tray">
+      <geom material="bake_to" mesh="wood_tray" class="visual" solimp="0.95 0.99 0.001" solref="0.004 1" friction="1.0 0.005 0.0001"/>
+      <geom mesh="wood_tray" class="collision" solimp="0.95 0.99 0.001" solref="0.004 1" condim="6" friction="1.5 0.1 0.01" mass="0.5"/>
+    </body>
+  </worldbody>
+</mujoco>

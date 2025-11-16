@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mujoco model="open_shelf_600">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
+  <asset>
+    <material name="shelf" shininess="0.1"/>
+  </asset>
+  <default>
+    <default class="open_shelf_600">
+      <geom solimp="0.998 0.998 0.001" solref="0.004 1"/>
+    </default>
+  </default>
+  <worldbody>
+    <body name="open_shelf_600" childclass="open_shelf_600">
+      <body name="wall_cabinet_600_offset" pos="0 0 1.466">
+        <geom pos="0 -0.008 0.18" size="0.3 0.172 0.008" type="box" material="shelf" euler="1.5708 0 0"/>
+        <body name="shelf">
+          <geom pos="0 -0.16 0" size="0.3 0.16 0.008" type="box" material="shelf" euler="0 0 0"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

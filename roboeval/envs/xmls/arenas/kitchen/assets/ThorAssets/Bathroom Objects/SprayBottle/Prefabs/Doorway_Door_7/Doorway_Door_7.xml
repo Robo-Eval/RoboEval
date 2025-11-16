@@ -1,0 +1,48 @@
+<mujoco model="Doorway_Door_7">
+  <compiler angle="radian"/>
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <texture type="2d" name="LightWoodCounters" file="LightWoodCounters.png"/>
+    <material name="LightWoodCounters2" texture="LightWoodCounters" specular="0.5" shininess="0.5" rgba="0.764151 0.5173546 0.2991723 1.0"/>
+    <material name="BlackPlastic" specular="0.5" shininess="0.5" rgba="0.1985294 0.1985294 0.1985294 1.0"/>
+    <mesh file="Doorway_Door_7_mesh_0_0.obj"/>
+    <mesh file="Doorway_Door_7_mesh_0_0_collision_0.obj"/>
+    <mesh file="Doorway_Door_7_mesh_0_1.obj"/>
+    <mesh file="Doorway_Door_7_mesh_0_1_collision_0.obj"/>
+    <mesh file="Doorway_Door_7_mesh_1_0.obj"/>
+    <mesh file="Doorway_Door_7_mesh_1_0_collision_0.obj"/>
+    <mesh file="Doorway_Door_7_mesh_1_0_collision_1.obj"/>
+    <mesh file="Doorway_Door_7_mesh_1_0_collision_2.obj"/>
+    <mesh file="Doorway_Door_7_mesh_1_0_collision_3.obj"/>
+    <mesh file="Doorway_Door_7_mesh_1_0_collision_4.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Doorway_Door_7">
+      <body name="Doorway_Door_7_mesh_0" pos="-0.0 0.0 0.0" quat="1.0 0.0 0.0 0.0">
+        <joint type="hinge" axis="0 1 0" range="-1.57 1.57"/>
+        <geom material="LightWoodCounters2" mesh="Doorway_Door_7_mesh_0_0" class="visual"/>
+        <geom mesh="Doorway_Door_7_mesh_0_0_collision_0" rgba="0.09212103998477328 0.33630329573595996 0.23646753520090602 1" class="collision"/>
+        <geom material="BlackPlastic" mesh="Doorway_Door_7_mesh_0_1" class="visual"/>
+        <geom mesh="Doorway_Door_7_mesh_0_1_collision_0" rgba="0.7030238123216951 0.42671154894675445 0.5896164854330483 1" class="collision"/>
+        <body name="Doorway_Door_7_mesh_1" pos="0.85557 -0.00052 -0.0066" quat="6.123233995736766e-17 0.0 1.0 0.0">
+          <geom material="BlackPlastic" mesh="Doorway_Door_7_mesh_1_0" class="visual"/>
+          <geom mesh="Doorway_Door_7_mesh_1_0_collision_0" rgba="0.604062363984719 0.5056616648236821 0.054457145802733864 1" class="collision"/>
+          <geom mesh="Doorway_Door_7_mesh_1_0_collision_1" rgba="0.9009451897573385 0.029262196052353917 0.08792141439091239 1" class="collision"/>
+          <geom mesh="Doorway_Door_7_mesh_1_0_collision_2" rgba="0.5162477665291345 0.8403206517058079 0.75866598480957 1" class="collision"/>
+          <geom mesh="Doorway_Door_7_mesh_1_0_collision_3" rgba="0.33485488003210206 0.4260705781508032 0.4495004909712329 1" class="collision"/>
+          <geom mesh="Doorway_Door_7_mesh_1_0_collision_4" rgba="0.6595679537546101 0.5477891421860377 0.8680726733600457 1" class="collision"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <contact>
+    <exclude body1="Doorway_Door_7" body2="Doorway_Door_7_mesh_0"/>
+  </contact>
+</mujoco>

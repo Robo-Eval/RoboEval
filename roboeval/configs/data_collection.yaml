@@ -1,0 +1,20 @@
+# defaults:
+#   - input_mode: Keyboard  # Can be changed to VR
+#   - action_mode: joint_position 
+#   - robot: 'Default' # ['Default', 'H1', 'H1 Fine Manipulation', 'Google Robot', 'Stretch Robot']
+#   - env: 'Reach Target Dual' # ['Cupboards Close All', 'Cupboards Open All', 'Dishwasher Close', 'Dishwasher Close Trays', 'Dishwasher Load Cups', 'Dishwasher Load Cutlery', 'Dishwasher Load Plates', 'Dishwasher Open', 'Dishwasher Open Trays', 'Dishwasher Unload Cups', 'Dishwasher Unload Cups Long', 'Dishwasher Unload Cutlery', 'Dishwasher Unload Cutlery Long', 'Dishwasher Unload Plates', 'Dishwasher Unload Plates Long', 'Drawer Top Close', 'Drawer Top Open', 'Drawers All Close', 'Drawers All Open', 'Flip Cup', 'Flip Cutlery', 'Flip Sandwich', 'Groceries Store Lower', 'Groceries Store Upper', 'Move Plate', 'Move Two Plates', 'Pick Box', 'Put Cups', 'Reach Target', 'Reach Target Dual', 'Reach Target Single', 'Remove Sandwich', 'Saucepan To Hob', 'Stack Blocks', 'Store Box', 'Store Kitchenware', 'Take Cups', 'Toast Sandwich', 'Wall Cupboard  Close', 'Wall Cupboard Open']
+#   - control_profile: 'H1 Upper Body Floating' # ['H1 Upper Body Floating', 'Universal', 'Keyboard Position Control']
+
+target_dir: ./recordings 
+input_mode: Oculus
+action_mode: joint_position
+robot: Bimanual Panda
+env: Cube Handover
+control_profile: H1 Upper Body Floating
+absolute_mode: true
+enable_all_floating_dof: false
+enable_floating_base: false
+# zero_out_axis_left: []
+zero_out_axis_right: []
+zero_out_axis_left: []
+# zero_out_axis_right: [1,2]

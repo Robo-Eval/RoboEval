@@ -1,0 +1,38 @@
+<mujoco model="Soap_Bottle_10">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="Soap_Bottle_Primary5_Mat" specular="0.5" shininess="0.5" rgba="0.6764706 0.6764706 0.6764706 0.1764706"/>
+    <material name="Soap_Bottle_Secondary5_Mat" specular="0.5" shininess="0.5" rgba="0.1803922 0.3254902 0.3294118 1.0"/>
+    <material name="Soap_Bottle_Tube_Mat" specular="0.5" shininess="0.5" rgba="0.6691177 0.6691177 0.6691177 0"/>
+    <material name="Soap_Bottle_Filling1_mat" specular="0.5" shininess="0.5" rgba="0.1665225 0.5277532 0.6470588 0.416"/>
+    <mesh file="Soap_Bottle_10_0.obj"/>
+    <mesh file="Soap_Bottle_10_1.obj"/>
+    <mesh file="Soap_Bottle_10_2.obj"/>
+    <mesh file="Soap_Bottle_10_3.obj"/>
+    <mesh file="Soap_Bottle_10_collision_0.obj"/>
+    <mesh file="Soap_Bottle_10_collision_1.obj"/>
+    <mesh file="Soap_Bottle_10_collision_2.obj"/>
+    <mesh file="Soap_Bottle_10_collision_3.obj"/>
+    <mesh file="Soap_Bottle_10_collision_4.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Soap_Bottle_10">
+      <geom mesh="Soap_Bottle_10_0" material="Soap_Bottle_Filling1_mat" class="visual"/>
+      <geom mesh="Soap_Bottle_10_1" material="Soap_Bottle_Tube_Mat" class="visual"/>
+      <geom mesh="Soap_Bottle_10_2" material="Soap_Bottle_Secondary5_Mat" class="visual"/>
+      <geom mesh="Soap_Bottle_10_3" material="Soap_Bottle_Primary5_Mat" class="visual"/>
+      <geom mesh="Soap_Bottle_10_collision_0" rgba="0.8374065663545105 0.6739074044397533 0.9547047066388087 1" class="collision"/>
+      <geom mesh="Soap_Bottle_10_collision_1" rgba="0.8684873313651637 0.029075340852965703 0.2565912195882917 1" class="collision"/>
+      <geom mesh="Soap_Bottle_10_collision_2" rgba="0.1976140658540272 0.5497829725852081 0.6204713859316427 1" class="collision"/>
+      <geom mesh="Soap_Bottle_10_collision_3" rgba="0.6059458522616473 0.45446738120101327 0.2739864438085923 1" class="collision"/>
+      <geom mesh="Soap_Bottle_10_collision_4" rgba="0.41325174371394824 0.8010107420503522 0.6553549545062011 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

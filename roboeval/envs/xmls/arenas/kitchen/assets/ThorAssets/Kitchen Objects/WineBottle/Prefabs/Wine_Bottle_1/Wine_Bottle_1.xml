@@ -1,0 +1,39 @@
+<mujoco model="Wine_Bottle_1">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="Glass_Detailed_Green_Mat" specular="0.5" shininess="0.5" rgba="0.04290061 0.1323529 0 0.484"/>
+    <material name="Labels" specular="0.5" shininess="0.5" rgba="1 1 1 1.0"/>
+    <material name="Wine_Volume_Mat" specular="0.5" shininess="0.5" rgba="0.1985294 0 0.02053755 1.0"/>
+    <mesh file="Wine_Bottle_1_0.obj"/>
+    <mesh file="Wine_Bottle_1_1.obj"/>
+    <mesh file="Wine_Bottle_1_2.obj"/>
+    <mesh file="Wine_Bottle_1_collision_0.obj"/>
+    <mesh file="Wine_Bottle_1_collision_1.obj"/>
+    <mesh file="Wine_Bottle_1_collision_2.obj"/>
+    <mesh file="Wine_Bottle_1_collision_3.obj"/>
+    <mesh file="Wine_Bottle_1_collision_4.obj"/>
+    <mesh file="Wine_Bottle_1_collision_5.obj"/>
+    <mesh file="Wine_Bottle_1_collision_6.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Wine_Bottle_1">
+      <geom mesh="Wine_Bottle_1_0" material="Wine_Volume_Mat" class="visual"/>
+      <geom mesh="Wine_Bottle_1_1" material="Labels" class="visual"/>
+      <geom mesh="Wine_Bottle_1_2" material="Glass_Detailed_Green_Mat" class="visual"/>
+      <geom mesh="Wine_Bottle_1_collision_0" rgba="0.10213699178175939 0.5341299890748448 0.23067725010092388 1" class="collision"/>
+      <geom mesh="Wine_Bottle_1_collision_1" rgba="0.39896158195691334 0.35741666676646355 0.8135031896073089 1" class="collision"/>
+      <geom mesh="Wine_Bottle_1_collision_2" rgba="0.24236740222934683 0.8084485326014661 0.9612994924987127 1" class="collision"/>
+      <geom mesh="Wine_Bottle_1_collision_3" rgba="0.715712450919922 0.19597381633629118 0.37076471283888557 1" class="collision"/>
+      <geom mesh="Wine_Bottle_1_collision_4" rgba="0.7127558669636385 0.1230322728213673 0.6370695126754947 1" class="collision"/>
+      <geom mesh="Wine_Bottle_1_collision_5" rgba="0.39275253551546097 0.046944993501339405 0.31340520851343556 1" class="collision"/>
+      <geom mesh="Wine_Bottle_1_collision_6" rgba="0.950719218639936 0.529431974714621 0.6588284937062827 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

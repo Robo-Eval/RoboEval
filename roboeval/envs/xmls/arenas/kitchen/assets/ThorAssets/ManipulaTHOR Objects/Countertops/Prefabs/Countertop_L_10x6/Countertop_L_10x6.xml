@@ -1,0 +1,26 @@
+<mujoco model="Countertop_L_10x6">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="marbleBase2" specular="0.5" shininess="0.5" rgba="1 1 1 1.0"/>
+    <material name="DarkWood2" specular="0.5" shininess="0.5" rgba="1 1 1 1.0"/>
+    <mesh file="Countertop_L_10x6_0.obj"/>
+    <mesh file="Countertop_L_10x6_1.obj"/>
+    <mesh file="Countertop_L_10x6_collision_0.obj"/>
+    <mesh file="Countertop_L_10x6_collision_1.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Countertop_L_10x6">
+      <geom mesh="Countertop_L_10x6_0" material="DarkWood2" class="visual"/>
+      <geom mesh="Countertop_L_10x6_1" material="marbleBase2" class="visual"/>
+      <geom mesh="Countertop_L_10x6_collision_0" rgba="0.4283072075012101 0.7265718097983931 0.8650400773606974 1" class="collision"/>
+      <geom mesh="Countertop_L_10x6_collision_1" rgba="0.5539201256654193 0.29157500594792385 0.4349546146699611 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

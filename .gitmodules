@@ -1,0 +1,3 @@
+[submodule "thirdparty/mujoco_menagerie"]
+	path = thirdparty/mujoco_menagerie
+	url = git@github.com:helen9975/mujoco_menagerie.git

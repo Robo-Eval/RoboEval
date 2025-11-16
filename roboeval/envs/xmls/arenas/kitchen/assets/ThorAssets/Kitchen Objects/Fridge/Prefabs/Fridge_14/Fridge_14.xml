@@ -1,0 +1,392 @@
+<mujoco model="Fridge_14">
+  <compiler autolimits="true" boundmass="0.01" angle="radian"/>
+  <default>
+    <default class="/">
+      <default class="__VISUAL_MJT__">
+        <geom contype="0" conaffinity="0" group="0"/>
+      </default>
+      <default class="__STRUCTURAL_MJT__">
+        <geom contype="8" conaffinity="7" group="4" friction="0.90000000000000002 0.90000000000000002 0.001" solref="0.025000000000000001 1" solimp="0.998 0.998 0.001"/>
+      </default>
+      <default class="__DYNAMIC_MJT__">
+        <geom contype="1" conaffinity="15" group="4" friction="0.90000000000000002 0.90000000000000002 0.001" solref="0.025000000000000001 1" solimp="0.998 0.998 0.001"/>
+      </default>
+    </default>
+  </default>
+  <asset>
+    <texture name="Fridge_Decal_Mat" type="2d" file="Fridge_Decal_AlbedoTransparency.png"/>
+    <material name="material_Fridge_Decal_Mat" class="/" texture="Fridge_Decal_Mat" specular="0.5" shininess="0.5" rgba="1 1 1 1"/>
+    <material name="material_Fridge_Window_Mat" class="/" specular="0.5" shininess="0.5" rgba="0.39705879999999999 0.39705879999999999 0.39705879999999999 0.5"/>
+    <material name="material_Fridge_Interior3_Mat" class="/" specular="0.5" shininess="0.5" rgba="0.25 0.25 0.25 1"/>
+    <texture name="Fridge_Metal_Mat" type="2d" file="BrushedAluminum_AlbedoTransparency.png"/>
+    <material name="material_Fridge_Metal_Mat" class="/" texture="Fridge_Metal_Mat" specular="0.5" shininess="0.5" rgba="0.875 0.875 0.875 1"/>
+    <texture name="Fridge_Secondary1_Mat" type="2d" file="BrushedAluminum_AlbedoTransparency.png"/>
+    <material name="material_Fridge_Secondary1_Mat" class="/" texture="Fridge_Secondary1_Mat" specular="0.5" shininess="0.5" rgba="0.83088240000000002 0.83088240000000002 0.83088240000000002 1"/>
+    <material name="material_Fridge_Primary1_Mat" class="/" specular="0.5" shininess="0.5" rgba="1 1 1 1"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_0" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_0.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_1" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_1.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_2" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_2.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_3" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_3.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_4" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_4.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_5" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_5.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_6" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_6.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_55" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_55.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_41" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_41.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_40" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_40.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_54" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_54.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_42" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_42.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_56" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_56.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_57" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_57.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_43" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_43.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_47" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_47.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_53" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_53.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_52" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_52.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_46" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_46.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_50" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_50.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_44" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_44.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_45" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_45.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_51" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_51.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_2" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_2.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_36" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_36.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_22" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_22.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_23" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_23.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_37" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_37.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_3" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_3.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_1" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_1.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_21" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_21.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_35" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_35.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_34" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_34.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_20" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_20.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_0" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_0.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_4" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_4.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_18" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_18.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_24" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_24.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_30" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_30.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_31" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_31.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_25" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_25.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_19" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_19.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_5" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_5.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_7" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_7.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_33" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_33.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_27" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_27.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_26" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_26.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_32" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_32.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_6" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_6.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_17" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_17.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_16" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_16.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_8" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_8.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_14" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_14.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_28" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_28.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_29" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_29.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_15" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_15.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_9" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_9.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_39" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_39.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_11" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_11.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_10" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_10.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_38" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_38.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_12" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_12.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_13" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_13.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_60" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_60.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_48" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_48.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_49" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_49.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_61" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_61.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_62" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_62.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_59" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_59.obj"/>
+    <mesh name="Fridge_14_FridgeBodyMesh_0_collision_collision_58" class="/" file="Fridge_14_FridgeBodyMesh_0/Fridge_14_FridgeBodyMesh_0_collision_collision_58.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_0" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_0.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_1" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_1.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_2" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_2.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_3" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_3.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_4" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_4.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_5" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_5.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_6" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_6.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_5" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_5.obj" />
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_4" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_4.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_6" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_6.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_20" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_20.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_21" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_21.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_7" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_7.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_3" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_3.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_19" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_19.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_18" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_18.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_2" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_2.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_0" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_0.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_1" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_1.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_16" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_16.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_17" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_17.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_15" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_15.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_14" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_14.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_10" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_10.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_11" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_11.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_9" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_9.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_13" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_13.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_12" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_12.obj"/>
+    <mesh name="Fridge_14_fridge_drawer1_21_1_collision_collision_8" class="/" file="Fridge_14_fridge_drawer1_21_1/Fridge_14_fridge_drawer1_21_1_collision_collision_8.obj"/>
+    <texture name="Fridge_Readout_Mat" type="2d" file="Fridge_Readout_AlbedoTransparency.png"/>
+    <material name="material_Fridge_Readout_Mat" class="/" texture="Fridge_Readout_Mat" specular="0.5" shininess="0.5" rgba="0 0 0 1"/>
+    <mesh name="Fridge_14_Mesh_2_0" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_0.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_Mesh_2_1" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_1.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_Mesh_2_2" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_2.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_Mesh_2_3" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_3.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_Mesh_2_4" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_4.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_Mesh_2_5" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_5.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_Mesh_2_6" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_6.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_13" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_13.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_2" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_2.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_3" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_3.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_12" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_12.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_1" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_1.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_10" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_10.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_11" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_11.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_0" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_0.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_4" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_4.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_15" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_15.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_29" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_29.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_28" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_28.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_14" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_14.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_5" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_5.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_16" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_16.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_7" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_7.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_6" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_6.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_17" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_17.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_26" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_26.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_27" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_27.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_19" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_19.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_8" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_8.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_25" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_25.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_30" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_30.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_24" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_24.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_9" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_9.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_18" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_18.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_20" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_20.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_21" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_21.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_23" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_23.obj"/>
+    <mesh name="Fridge_14_Mesh_2_collision_collision_22" class="/" file="Fridge_14_Mesh_2/Fridge_14_Mesh_2_collision_collision_22.obj"/>
+    <mesh name="Fridge_14_Mesh_3_0" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_0.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_Mesh_3_1" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_1.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_Mesh_3_2" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_2.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_Mesh_3_3" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_3.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_Mesh_3_4" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_4.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_Mesh_3_5" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_5.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_Mesh_3_6" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_6.obj" scale="1 1 1"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_15" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_15.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_14" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_14.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_16" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_16.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_17" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_17.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_13" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_13.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_12" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_12.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_10" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_10.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_11" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_11.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_9" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_9.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_8" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_8.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_6" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_6.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_7" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_7.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_5" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_5.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_4" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_4.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_0" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_0.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_1" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_1.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_3" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_3.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_2" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_2.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_20" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_20.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_21" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_21.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_23" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_23.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_22" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_22.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_26" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_26.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_27" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_27.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_19" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_19.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_25" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_25.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_24" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_24.obj"/>
+    <mesh name="Fridge_14_Mesh_3_collision_collision_18" class="/" file="Fridge_14_Mesh_3/Fridge_14_Mesh_3_collision_collision_18.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Fridge_14">
+      <joint name="Fridge_14_free" class="/" type="free" pos="0 0 0" axis="0 0 1" stiffness="0" range="0 0" armature="0" damping="0.10000000000000001" frictionloss="0"/>
+      <body name="Fridge_14_FridgeBodyMesh_0" pos="0.00072000000000000005 -0.75717000000000001 -0.01072" quat="1 0 0 0">
+        <geom name="Fridge_14_FridgeBodyMesh_0_0" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Decal_Mat" shellinertia="true" mesh="Fridge_14_FridgeBodyMesh_0_0"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_1" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Decal_Mat" shellinertia="true" mesh="Fridge_14_FridgeBodyMesh_0_1"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_2" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Window_Mat" shellinertia="false" mesh="Fridge_14_FridgeBodyMesh_0_2"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_3" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Interior3_Mat" shellinertia="false" mesh="Fridge_14_FridgeBodyMesh_0_3"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_4" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Metal_Mat" shellinertia="false" mesh="Fridge_14_FridgeBodyMesh_0_4"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_5" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Secondary1_Mat" shellinertia="false" mesh="Fridge_14_FridgeBodyMesh_0_5"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_6" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Primary1_Mat" shellinertia="false" mesh="Fridge_14_FridgeBodyMesh_0_6"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_55" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_55"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_41" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_41"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_40" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_40"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_54" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_54"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_42" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_42"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_56" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_56"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_57" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_57"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_43" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_43"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_47" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_47"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_53" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_53"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_52" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_52"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_46" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_46"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_50" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_50"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_44" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_44"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_45" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_45"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_51" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_51"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_2" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_2"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_36" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_36"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_22" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_22"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_23" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_23"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_37" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_37"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_3" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_3"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_1" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_1"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_21" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_21"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_35" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_35"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_34" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_34"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_20" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_20"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_0" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_0"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_4" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_4"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_18" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_18"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_24" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_24"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_30" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_30"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_31" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_31"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_25" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_25"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_19" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_19"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_5" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_5"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_7" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_7"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_33" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_33"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_27" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_27"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_26" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_26"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_32" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_32"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_6" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_6"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_17" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_17"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_16" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_16"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_8" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_8"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_14" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_14"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_28" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_28"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_29" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_29"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_15" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_15"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_9" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_9"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_39" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_39"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_11" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_11"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_10" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_10"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_38" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_38"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_12" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_12"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_13" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_13"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_60" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_60"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_48" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_48"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_49" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_49"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_61" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_61"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_62" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_62"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_59" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_59"/>
+        <geom name="Fridge_14_FridgeBodyMesh_0_collision_collision_58" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_FridgeBodyMesh_0_collision_collision_58"/>
+        <body name="Fridge_14_fridge_drawer1_21_1" pos="0.26308500000000001 0.41675790000000001 0.34589690000000001" quat="1 0 0 0">
+          <geom name="Fridge_14_fridge_drawer1_21_1_0" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Primary1_Mat" shellinertia="true" mesh="Fridge_14_fridge_drawer1_21_1_0"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_1" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Primary1_Mat" shellinertia="true" mesh="Fridge_14_fridge_drawer1_21_1_1"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_2" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Window_Mat" shellinertia="false" mesh="Fridge_14_fridge_drawer1_21_1_2"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_3" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Primary1_Mat" shellinertia="true" mesh="Fridge_14_fridge_drawer1_21_1_3"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_4" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Primary1_Mat" shellinertia="true" mesh="Fridge_14_fridge_drawer1_21_1_4"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_5" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Secondary1_Mat" shellinertia="false" mesh="Fridge_14_fridge_drawer1_21_1_5"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_6" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Primary1_Mat" shellinertia="true" mesh="Fridge_14_fridge_drawer1_21_1_6"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_5" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_5"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_4" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_4"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_6" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_6"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_20" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_20"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_21" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_21"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_7" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_7"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_3" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_3"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_19" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_19"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_18" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_18"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_2" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_2"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_0" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_0"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_1" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_1"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_16" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_16"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_17" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_17"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_15" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_15"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_14" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_14"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_10" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_10"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_11" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_11"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_9" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_9"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_13" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_13"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_12" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_12"/>
+          <geom name="Fridge_14_fridge_drawer1_21_1_collision_collision_8" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_fridge_drawer1_21_1_collision_collision_8"/>
+        </body>
+        <body name="Fridge_14_Mesh_2" pos="-0.54298880000000005 0.99972870000000003 0.3849108" quat="1 0 0 0">
+          <geom name="Fridge_14_Mesh_2_0" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Readout_Mat" shellinertia="false" mesh="Fridge_14_Mesh_2_0"/>
+          <geom name="Fridge_14_Mesh_2_1" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Decal_Mat" shellinertia="false" mesh="Fridge_14_Mesh_2_1"/>
+          <geom name="Fridge_14_Mesh_2_2" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Window_Mat" shellinertia="true" mesh="Fridge_14_Mesh_2_2"/>
+          <geom name="Fridge_14_Mesh_2_3" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Interior3_Mat" shellinertia="false" mesh="Fridge_14_Mesh_2_3"/>
+          <geom name="Fridge_14_Mesh_2_4" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Metal_Mat" shellinertia="false" mesh="Fridge_14_Mesh_2_4"/>
+          <geom name="Fridge_14_Mesh_2_5" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Secondary1_Mat" shellinertia="false" mesh="Fridge_14_Mesh_2_5"/>
+          <geom name="Fridge_14_Mesh_2_6" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Primary1_Mat" shellinertia="false" mesh="Fridge_14_Mesh_2_6"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_13" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_13"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_2" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_2"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_3" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_3"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_12" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_12"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_1" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_1"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_10" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_10"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_11" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_11"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_0" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_0"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_4" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_4"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_15" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_15"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_29" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_29"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_28" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_28"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_14" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_14"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_5" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_5"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_16" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_16"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_7" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_7"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_6" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_6"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_17" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_17"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_26" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_26"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_27" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_27"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_19" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_19"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_8" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_8"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_25" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_25"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_30" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_30"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_24" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_24"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_9" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_9"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_18" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_18"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_20" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_20"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_21" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_21"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_23" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_23"/>
+          <geom name="Fridge_14_Mesh_2_collision_collision_22" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_2_collision_collision_22"/>
+          <joint name="Fridge_14_joint" class="/" type="hinge" pos="0 0 0" axis="0 -1 0" stiffness="0" range="0 1.5700000000000001" armature="0" damping="0.10000000000000001" frictionloss="0"/>
+        </body>
+        <body name="Fridge_14_Mesh_3" pos="0.54548739999999996 0.99972850000000002 0.385716" quat="1 0 0 0">
+          <geom name="Fridge_14_Mesh_3_0" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Readout_Mat" shellinertia="true" mesh="Fridge_14_Mesh_3_0"/>
+          <geom name="Fridge_14_Mesh_3_1" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Decal_Mat" shellinertia="false" mesh="Fridge_14_Mesh_3_1"/>
+          <geom name="Fridge_14_Mesh_3_2" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Window_Mat" shellinertia="false" mesh="Fridge_14_Mesh_3_2"/>
+          <geom name="Fridge_14_Mesh_3_3" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Interior3_Mat" shellinertia="false" mesh="Fridge_14_Mesh_3_3"/>
+          <geom name="Fridge_14_Mesh_3_4" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Metal_Mat" shellinertia="false" mesh="Fridge_14_Mesh_3_4"/>
+          <geom name="Fridge_14_Mesh_3_5" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Secondary1_Mat" shellinertia="false" mesh="Fridge_14_Mesh_3_5"/>
+          <geom name="Fridge_14_Mesh_3_6" class="__VISUAL_MJT__" type="mesh" material="material_Fridge_Primary1_Mat" shellinertia="false" mesh="Fridge_14_Mesh_3_6"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_15" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_15"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_14" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_14"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_16" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_16"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_17" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_17"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_13" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_13"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_12" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_12"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_10" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_10"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_11" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_11"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_9" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_9"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_8" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_8"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_6" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_6"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_7" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_7"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_5" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_5"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_4" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_4"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_0" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_0"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_1" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_1"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_3" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_3"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_2" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_2"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_20" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_20"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_21" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_21"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_23" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_23"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_22" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_22"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_26" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_26"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_27" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_27"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_19" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_19"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_25" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_25"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_24" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_24"/>
+          <geom name="Fridge_14_Mesh_3_collision_collision_18" class="__DYNAMIC_MJT__" type="mesh" mesh="Fridge_14_Mesh_3_collision_collision_18"/>
+          <joint name="Fridge_14_Mesh_3__1" class="/" type="hinge" pos="0 0 0" axis="0 1 0" stiffness="0" range="0 1.5700000000000001" armature="0" damping="0.10000000000000001" frictionloss="0"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <contact>
+    <exclude name="//unnamed_contact_0" body1="Fridge_14_FridgeBodyMesh_0" body2="Fridge_14_Mesh_2"/>
+    <exclude name="//unnamed_contact_1" body1="Fridge_14_FridgeBodyMesh_0" body2="Fridge_14_Mesh_3"/>
+  </contact>
+</mujoco>

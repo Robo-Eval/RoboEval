@@ -1,0 +1,29 @@
+<mujoco model="Salt_Shaker_1">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="SaltNoise" specular="0.5" shininess="0.5" rgba="0.8897059 0.8897059 0.8897059 1.0"/>
+    <material name="HammeredMetal_AlbedoTransparency" specular="0.5" shininess="0.5" rgba="1 1 1 1.0"/>
+    <material name="Glass_Detailed_Lit_Medium_Mat" specular="0.5" shininess="0.5" rgba="1 1 1 0"/>
+    <mesh file="Salt_Shaker_1_0.obj"/>
+    <mesh file="Salt_Shaker_1_1.obj"/>
+    <mesh file="Salt_Shaker_1_2.obj"/>
+    <mesh file="Salt_Shaker_1_collision_0.obj"/>
+    <mesh file="Salt_Shaker_1_collision_1.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Salt_Shaker_1">
+      <geom mesh="Salt_Shaker_1_0" material="Glass_Detailed_Lit_Medium_Mat" class="visual"/>
+      <geom mesh="Salt_Shaker_1_1" material="HammeredMetal_AlbedoTransparency" class="visual"/>
+      <geom mesh="Salt_Shaker_1_2" material="SaltNoise" class="visual"/>
+      <geom mesh="Salt_Shaker_1_collision_0" rgba="0.3067190758650886 0.04563030839578208 0.6778507859522191 1" class="collision"/>
+      <geom mesh="Salt_Shaker_1_collision_1" rgba="0.13312496327956413 0.970341484680434 0.17132406135072542 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

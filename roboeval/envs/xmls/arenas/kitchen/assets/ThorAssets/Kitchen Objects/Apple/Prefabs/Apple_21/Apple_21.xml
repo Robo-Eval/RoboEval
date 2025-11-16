@@ -1,0 +1,41 @@
+<mujoco model="Apple_21">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="Apple2_Mat3" specular="0.5" shininess="0.5" rgba="1 1 1 1.0"/>
+    <mesh file="Apple_21.obj"/>
+    <mesh file="Apple_21_collision_0.obj"/>
+    <mesh file="Apple_21_collision_1.obj"/>
+    <mesh file="Apple_21_collision_2.obj"/>
+    <mesh file="Apple_21_collision_3.obj"/>
+    <mesh file="Apple_21_collision_4.obj"/>
+    <mesh file="Apple_21_collision_5.obj"/>
+    <mesh file="Apple_21_collision_6.obj"/>
+    <mesh file="Apple_21_collision_7.obj"/>
+    <mesh file="Apple_21_collision_8.obj"/>
+    <mesh file="Apple_21_collision_9.obj"/>
+    <mesh file="Apple_21_collision_10.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Apple_21">
+      <geom material="Apple2_Mat3" mesh="Apple_21" class="visual"/>
+      <geom mesh="Apple_21_collision_0" rgba="0.9849188694230936 0.8295115271937734 0.16713058271625048 1" class="collision"/>
+      <geom mesh="Apple_21_collision_1" rgba="0.06351013802275729 0.8767310873807531 0.6014142934550003 1" class="collision"/>
+      <geom mesh="Apple_21_collision_2" rgba="0.4223539127872562 0.6951478327142944 0.8995870867127399 1" class="collision"/>
+      <geom mesh="Apple_21_collision_3" rgba="0.8917974423014963 0.6371324760149683 0.8282197262183237 1" class="collision"/>
+      <geom mesh="Apple_21_collision_4" rgba="0.1805560331537629 0.8480368039243122 0.25997357204530835 1" class="collision"/>
+      <geom mesh="Apple_21_collision_5" rgba="0.31339840276321373 0.5942294665516036 0.7912791343027026 1" class="collision"/>
+      <geom mesh="Apple_21_collision_6" rgba="0.4835609514495126 0.30938524720574123 0.7939844845264453 1" class="collision"/>
+      <geom mesh="Apple_21_collision_7" rgba="0.48319000690566505 0.423776485531122 0.5808055237852763 1" class="collision"/>
+      <geom mesh="Apple_21_collision_8" rgba="0.8731734468152078 0.2727028815791117 0.9794586038312587 1" class="collision"/>
+      <geom mesh="Apple_21_collision_9" rgba="0.23001277568734946 0.6202711675305971 0.20230807364948866 1" class="collision"/>
+      <geom mesh="Apple_21_collision_10" rgba="0.09516389567081707 0.7076273698659735 0.8515611156966169 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

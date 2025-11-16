@@ -1,0 +1,51 @@
+
+<mujoco>
+  <extension>
+    <plugin plugin="mujoco.sdf.nut">
+      <instance name="nut">
+        <config key="radius" value="0.000026"/>
+      </instance>
+    </plugin>
+    <plugin plugin="mujoco.sdf.bolt">
+      <instance name="bolt">
+        <config key="radius" value="0.0000255"/>
+      </instance>
+    </plugin>
+  </extension>
+
+  <compiler autolimits="true"/>
+
+  <!-- <include file="scene.xml"/> -->
+
+  <visual>
+    <map force="0.05"/>
+  </visual>
+
+  <asset>
+    <mesh name="nut">
+      <plugin instance="nut"/>
+    </mesh>
+
+  </asset>
+
+  <option sdf_iterations="10" sdf_initpoints="20"/>
+
+  <default>
+    <geom friction="1.1 0.01 0.01" solimp="0.95 0.99 0.001" solref="0.004 1"/>
+  </default>
+
+  <statistic meansize=".05"/>
+
+  <worldbody>
+    <body pos="0 0 3" quat="-0.000212626 0.999996 -0.00200453 0.00185878">
+      <!-- <joint type="free" damping="30"/> -->
+      <geom type="sdf" name="nut" mesh="nut" rgba="0.83 0.68 0.4 1">
+        <plugin instance="nut"/>
+      </geom>
+
+      <site name="bolt_site" type="cylinder" size=".04 .05 .04" pos="0 0 -0.2" rgba="1 1 0 1"/>
+    </body>
+    <!-- <light name="left" pos="-1 0 2" cutoff="80"/>
+    <light name="right" pos="1 0 2" cutoff="80"/> -->
+  </worldbody>
+</mujoco>

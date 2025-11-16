@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<mujoco model="cube">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
+  <default>
+    <default class="cube">
+      <material specular="0.5" shininess="0.25"/>
+    </default>
+  </default>
+  <worldbody>
+    <body name="cube" childclass="cube">
+      <!-- Visual geom - no collision -->
+      <geom name="visual" group="2" type="box" size="0.02 0.02 0.02" contype="0" conaffinity="0" rgba="1 0 0 1"/>
+      <!-- Collision geom - with physical properties -->
+      <geom name="collision" group="3" type="box" size="0.02 0.02 0.02" mass="3" density="1500" friction="1.5 0.1 0.01" solimp="0.95 0.99 0.001" solref="0.005 1" condim="3" rgba="0 0 0 0"/>
+    </body>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,26 @@
+<mujoco model="Spatula_1">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="Material.003" specular="0.5" shininess="0.5" rgba="0.09850502 0.09850502 0.09850502 1.0"/>
+    <material name="HammeredMetal_AlbedoTransparency" specular="0.5" shininess="0.5" rgba="1 1 1 1.0"/>
+    <mesh file="Spatula_1_0.obj"/>
+    <mesh file="Spatula_1_1.obj"/>
+    <mesh file="Spatula_1_collision_0.obj"/>
+    <mesh file="Spatula_1_collision_1.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Spatula_1">
+      <geom mesh="Spatula_1_0" material="HammeredMetal_AlbedoTransparency" class="visual"/>
+      <geom mesh="Spatula_1_1" material="Material.003" class="visual"/>
+      <geom mesh="Spatula_1_collision_0" rgba="0.6710190164898909 0.9472423064845014 0.9319461181500446 1" class="collision"/>
+      <geom mesh="Spatula_1_collision_1" rgba="0.5887995059040021 0.7267000340615423 0.7481537525182357 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

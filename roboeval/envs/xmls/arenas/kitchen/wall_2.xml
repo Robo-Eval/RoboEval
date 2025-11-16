@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<mujoco model="kitchen-wall">
+  <compiler autolimits="true" angle="radian"/>
+  <default>
+    <default class="default">
+      <default class="visual">
+        <geom contype="0" conaffinity="0" group="0"/>
+      </default>
+      <default class="structural">
+        <geom contype="8" conaffinity="7" group="4" friction="0.90000000000000002 0.90000000000000002 0.001" solref="0.025000000000000001 1" solimp="0.998 0.998 0.001"/>
+      </default>
+    </default>
+  </default>
+  <asset>
+    <material name="mat_pure_white" class="default" texture="tex_white_fabric" rgba="1 1 1 1"/>
+    <texture name="tex_white_fabric" type="2d" file="assets/kitchen_wall_1.png"/>
+    <mesh name="mesh_wall" class="default" file="assets/kitchen_wall_2.obj" scale="-1 1 1"/>
+    <mesh name="mesh_wall_collider_0" class="default" file="assets/kitchen_wall_2_collider0.obj" scale="-1 1 1"/>
+    <mesh name="mesh_wall_collider_1" class="default" file="assets/kitchen_wall_2_collider1.obj" scale="-1 1 1"/>
+    <mesh name="mesh_wall_collider_2" class="default" file="assets/kitchen_wall_2_collider2.obj" scale="-1 1 1"/>
+    <texture name="LightWoodCounters" type="2d" file="assets/ThorAssets/Textures/LightWoodCounters.png"/>
+    <material name="BlackPlastic" class="default" rgba="0.19852939999999999 0.19852939999999999 0.19852939999999999 1"/>
+    <material name="LightWoodCounters2" class="default" texture="LightWoodCounters" rgba="0.76415100000000002 0.5173546 0.2991723 1"/>
+    <texture name="TexturesCom_WoodFine0050_1_seamless_S" type="2d" file="assets/ThorAssets/Textures/TexturesCom_WoodFine0050_1_seamless_S.png"/>
+    <material name="TexturesCom_WoodFine0050_1_seamless_S_rich" class="default" texture="TexturesCom_WoodFine0050_1_seamless_S" rgba="0.52941179999999999 0.30752600000000002 0.30752600000000002 1"/>
+    <mesh name="Doorway_Double_7_mesh_4_0" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_4_0.obj"/>
+    <mesh name="Doorway_Double_7_mesh_4_0_collision_0" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_4_0_collision_0.obj"/>
+    <mesh name="Doorway_Double_7_mesh_4_0_collision_1" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_4_0_collision_1.obj"/>
+    <mesh name="Doorway_Double_7_mesh_4_0_collision_2" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_4_0_collision_2.obj"/>
+    <mesh name="Doorway_Double_7_mesh_0_0" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_0_0.obj"/>
+    <mesh name="Doorway_Double_7_mesh_0_0_collision_0" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_0_0_collision_0.obj"/>
+    <mesh name="Doorway_Double_7_mesh_0_1" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_0_1.obj"/>
+    <mesh name="Doorway_Double_7_mesh_0_1_collision_0" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_0_1_collision_0.obj"/>
+    <mesh name="Doorway_Double_7_mesh_2_0" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_2_0.obj"/>
+    <mesh name="Doorway_Double_7_mesh_2_0_collision_0" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_2_0_collision_0.obj"/>
+    <mesh name="Doorway_Double_7_mesh_2_1" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_2_1.obj"/>
+    <mesh name="Doorway_Double_7_mesh_2_1_collision_0" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_2_1_collision_0.obj"/>
+    <mesh name="Doorway_Double_7_mesh_1_0" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_1_0.obj"/>
+    <mesh name="Doorway_Double_7_mesh_1_0_collision_0" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_1_0_collision_0.obj"/>
+    <mesh name="Doorway_Double_7_mesh_1_0_collision_1" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_1_0_collision_1.obj"/>
+    <mesh name="Doorway_Double_7_mesh_1_0_collision_2" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_1_0_collision_2.obj"/>
+    <mesh name="Doorway_Double_7_mesh_1_0_collision_3" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_1_0_collision_3.obj"/>
+    <mesh name="Doorway_Double_7_mesh_1_0_collision_4" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_1_0_collision_4.obj"/>
+    <mesh name="Doorway_Double_7_mesh_3_0" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_3_0.obj"/>
+    <mesh name="Doorway_Double_7_mesh_3_0_collision_0" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_3_0_collision_0.obj"/>
+    <mesh name="Doorway_Double_7_mesh_3_0_collision_1" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_3_0_collision_1.obj"/>
+    <mesh name="Doorway_Double_7_mesh_3_0_collision_2" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_3_0_collision_2.obj"/>
+    <mesh name="Doorway_Double_7_mesh_3_0_collision_3" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_3_0_collision_3.obj"/>
+    <mesh name="Doorway_Double_7_mesh_3_0_collision_4" class="default" file="assets/ThorAssets/ManipulaTHOR Objects/Doorways/Prefabs/Doorway_Double_7/Doorway_Double_7_mesh_3_0_collision_4.obj"/>
+  </asset>
+  <worldbody>
+    <body name="wall" quat="0 0 0.70710678118654746 0.70710678118654768">
+      <geom name="wall_visual" class="visual" type="mesh" material="mat_pure_white" mesh="mesh_wall"/>
+      <geom name="wall_collider_0" class="structural" type="mesh" mesh="mesh_wall_collider_0"/>
+      <geom name="wall_collider_1" class="structural" type="mesh" mesh="mesh_wall_collider_1"/>
+      <geom name="wall_collider_2" class="structural" type="mesh" mesh="mesh_wall_collider_2"/>
+    </body>
+    <body name="door|1|2" pos="4.964999999999999 1.5221646123724759 1.0462727337144313" quat="0.5 0.50000000000000011 -0.49999999999999989 -0.50000000000000011">
+      <body name="Doorway_Double_7_mesh_4" pos="-0.97460999999999998 -1.0484 0" quat="1 0 0 0">
+        <geom name="door|1|2__0" class="visual" type="mesh" material="TexturesCom_WoodFine0050_1_seamless_S_rich" mesh="Doorway_Double_7_mesh_4_0"/>
+        <geom name="door|1|2__1" class="structural" type="mesh" rgba="0.20842547224578523 0.97183659561081481 0.93221415507671335 1" density="400" mesh="Doorway_Double_7_mesh_4_0_collision_0"/>
+        <geom name="door|1|2__2" class="structural" type="mesh" rgba="0.79861045077493964 0.18702522817445733 0.43949566631211068 1" density="400" mesh="Doorway_Double_7_mesh_4_0_collision_1"/>
+        <geom name="door|1|2__3" class="structural" type="mesh" rgba="0.06719371950202524 0.13362480529194753 0.70874427919490335 1" density="400" mesh="Doorway_Double_7_mesh_4_0_collision_2"/>
+        <body name="Doorway_Double_7_mesh_0" pos="0.060479999999999999 1.016 0" quat="1 0 0 0">
+          <geom name="door|1|2__4" class="visual" type="mesh" material="LightWoodCounters2" mesh="Doorway_Double_7_mesh_0_0"/>
+          <geom name="door|1|2__5" class="structural" type="mesh" rgba="0.4882100642123034 0.47927750764162691 0.5782173253693631 1" density="400" mesh="Doorway_Double_7_mesh_0_0_collision_0"/>
+          <geom name="door|1|2__6" class="visual" type="mesh" material="BlackPlastic" mesh="Doorway_Double_7_mesh_0_1"/>
+          <geom name="door|1|2__7" class="structural" type="mesh" rgba="0.92391927114181061 0.94277511232939704 0.5862919843576514 1" density="400" mesh="Doorway_Double_7_mesh_0_1_collision_0"/>
+          <body name="Doorway_Double_7_mesh_1" pos="0.85557000000000005 -0.00051999999999999995 -0.0066" quat="6.123233995736766e-17 0 1 0">
+            <geom name="door|1|2__8" class="visual" type="mesh" material="BlackPlastic" mesh="Doorway_Double_7_mesh_1_0"/>
+            <geom name="door|1|2__9" class="structural" type="mesh" rgba="0.84879768923046506 0.45080912818973418 0.46663507735074183 1" density="400" mesh="Doorway_Double_7_mesh_1_0_collision_0"/>
+            <geom name="door|1|2__10" class="structural" type="mesh" rgba="0.53727028057370996 0.77511067991385463 0.43211505537172101 1" density="400" mesh="Doorway_Double_7_mesh_1_0_collision_1"/>
+            <geom name="door|1|2__11" class="structural" type="mesh" rgba="0.51161631636458349 0.80461092937419731 0.56622514174863048 1" density="400" mesh="Doorway_Double_7_mesh_1_0_collision_2"/>
+            <geom name="door|1|2__12" class="structural" type="mesh" rgba="0.42967492076011182 0.7849247300710297 0.18061480472779712 1" density="400" mesh="Doorway_Double_7_mesh_1_0_collision_3"/>
+            <geom name="door|1|2__13" class="structural" type="mesh" rgba="0.34040209083127482 0.027704479318406916 0.041599418646110276 1" density="400" mesh="Doorway_Double_7_mesh_1_0_collision_4"/>
+          </body>
+        </body>
+        <body name="Doorway_Double_7_mesh_2" pos="1.8887399999999999 1.016 0" quat="0.0007963 0 0.99999970000000005 0">
+          <geom name="door|1|2__14" class="visual" type="mesh" material="LightWoodCounters2" mesh="Doorway_Double_7_mesh_2_0"/>
+          <geom name="door|1|2__15" class="structural" type="mesh" rgba="0.50918736484371196 0.4093556998378296 0.48766979493541252 1" density="400" mesh="Doorway_Double_7_mesh_2_0_collision_0"/>
+          <geom name="door|1|2__16" class="visual" type="mesh" material="BlackPlastic" mesh="Doorway_Double_7_mesh_2_1"/>
+          <geom name="door|1|2__17" class="structural" type="mesh" rgba="0.66547492029412614 0.93685931734504146 0.1436390278239017 1" density="400" mesh="Doorway_Double_7_mesh_2_1_collision_0"/>
+          <body name="Doorway_Double_7_mesh_3" pos="0.85557000000000005 -0.00051999999999999995 -0.0066" quat="6.123233995736766e-17 0 1 0">
+            <geom name="door|1|2__18" class="visual" type="mesh" material="BlackPlastic" mesh="Doorway_Double_7_mesh_3_0"/>
+            <geom name="door|1|2__19" class="structural" type="mesh" rgba="0.34004651682446518 0.73588980532455206 0.49896597967192846 1" density="400" mesh="Doorway_Double_7_mesh_3_0_collision_0"/>
+            <geom name="door|1|2__20" class="structural" type="mesh" rgba="0.83400837226803182 0.20794430055569302 0.40894779306650986 1" density="400" mesh="Doorway_Double_7_mesh_3_0_collision_1"/>
+            <geom name="door|1|2__21" class="structural" type="mesh" rgba="0.16668671764846832 0.40290141984290406 0.75843987722059658 1" density="400" mesh="Doorway_Double_7_mesh_3_0_collision_2"/>
+            <geom name="door|1|2__22" class="structural" type="mesh" rgba="0.83264262121218846 0.56084604914915337 0.75748046846691353 1" density="400" mesh="Doorway_Double_7_mesh_3_0_collision_3"/>
+            <geom name="door|1|2__23" class="structural" type="mesh" rgba="0.72120897015655971 0.2838583229388022 0.49664003305211735 1" density="400" mesh="Doorway_Double_7_mesh_3_0_collision_4"/>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

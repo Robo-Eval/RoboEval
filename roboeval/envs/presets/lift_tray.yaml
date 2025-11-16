@@ -1,0 +1,22 @@
+props:
+  - type: BreakfastTray
+    position: [0.65, -.325, 0.9]
+    euler: [0, 90, 90]
+  - type: BaseCabinet
+    position: [1, -.325, 0]
+    euler: [0, 0, -90]
+    shelf_enable: true
+    door_right_enable: true
+    hob_enable: true  
+  - type: BaseCabinet
+    position: [1, 0.325, 0]
+    euler: [0, 0, -90]
+    shelf_enable: false
+    door_left_enable: true
+    hob_enable: true
+
+robot:
+  - name: Bimanual Panda
+    position: [0.1, -0.3, 0]
+  - name: h1
+    position: [0, 0, 0]

@@ -1,0 +1,11 @@
+# Table for the "stack blocks" task
+props:
+  - type: Table
+    position: [0.7, 0, 0]
+    euler: [0, 0, -90]
+robot:
+  - name: Bimanual Panda
+    position: [0.075, 0, 0]
+  - name: h1
+    position: [0, 0, 0]
+    

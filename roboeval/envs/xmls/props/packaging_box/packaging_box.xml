@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="packaging_box">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true" /><asset>
+    <mesh name="link_0_combined_mesh" file="link_0_combined_mesh.obj" scale="0.5 0.5 0.5" />
+    <mesh name="link_1_combined_mesh" file="link_1_combined_mesh.obj" scale="0.5 0.5 0.5" />
+    <mesh name="link_2_combined_mesh" file="link_2_combined_mesh.obj" scale="0.5 0.5 0.5" />
+    <mesh name="base_mesh" file="original-26.obj" scale="0.5 0.5 0.5"/>
+  </asset>
+  <worldbody>
+    <body name="base" pos="0 0 0"> 
+        <geom
+    name="base_visual"
+    quat="0.5 0.5 0.5 0.5"
+    type="mesh"
+    mesh="link_2_combined_mesh"
+    contype="0"        
+    conaffinity="0"   
+    condim="3"
+    solimp="0.95 0.98 0.001"
+    solref="0.004 1"
+  />
+  
+  <!-- 2) Invisible floor geom (colliding) -->
+  <geom
+    name="base_floor"
+    type="box"
+    pos="0 0 -0.2"        
+    size="0.22 0.22 0.04"
+    rgba="1 1 1 0"     
+    contype="1"
+    conaffinity="1"
+    solimp="0.95 0.98 0.001"
+    solref="0.004 1"
+  />
+  
+  <!-- 3) Invisible wall geoms (colliding) -->
+  <geom
+    name="wall_1"
+    type="box"
+    pos="0.21 0 -0.1"    
+    size="0.01 0.25 0.2"
+    rgba="1 1 1 0"
+    contype="1"
+    conaffinity="1"
+    solimp="0.95 0.98 0.001"
+    solref="0.004 1"
+  />
+  <geom
+    name="wall_2"
+    type="box"
+    pos="-0.21 0 -0.1"
+    size="0.01 0.25 0.2"
+    rgba="1 1 1 0"
+    contype="1"
+    conaffinity="1"
+    solimp="0.95 0.98 0.001"
+    solref="0.004 1"
+  />
+  <geom
+    name="wall_3"
+    type="box"
+    pos="0 0.21 -0.1"
+    size="0.25 0.01 0.2"
+    rgba="1 1 1 0"
+    contype="1"
+    conaffinity="1"
+    solimp="0.95 0.98 0.001"
+    solref="0.004 1"
+  />
+  <geom
+    name="wall_4"
+    type="box"
+    pos="0 -0.21 -0.1"
+    size="0.25 0.01 0.2"
+    rgba="1 1 1 0"
+    contype="1"
+    conaffinity="1"
+    solimp="0.95 0.98 0.001"
+    solref="0.004 1"
+  />
+    </body>
+    <body name="link_0" pos="-0.21 0.057203 0.144343" quat="0.5 0.5 0.5 0.5">
+      <joint name="joint_0" pos="0 0 0" axis="-1 0 0" range="-2.26893 0.523599" damping="10" armature="0.1" />
+      <geom pos="-0.057203 -0.144343 0.21" type="mesh" mesh="link_0_combined_mesh" solimp="0.95 0.98 0.001" solref="0.004 1" />
+    </body>
+    <body name="link_1" pos="0.217829 0.213904 0.144" quat="0.5 0.5 0.5 0.5">
+      <joint name="joint_1" pos="0 0 0" axis="1 0 0" range="-2.0944 0.698132" damping="10" armature="0.1"/>
+      <geom pos="-0.213904 -0.144 -0.217829" type="mesh" mesh="link_1_combined_mesh" solimp="0.95 0.98 0.001" solref="0.004 1" />
+    </body>
+  </worldbody>
+</mujoco>

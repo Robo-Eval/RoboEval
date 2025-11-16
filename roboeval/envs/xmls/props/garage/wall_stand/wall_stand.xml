@@ -1,0 +1,47 @@
+<mujoco model="wall_stand">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh" density="500" mass="2"/>
+    </default>
+  </default>
+  <asset>
+    <mesh file="wall_stand.obj" scale="0.002 0.0026 0.003"/>
+    <mesh file="wall_stand_collision_0.obj" scale="0.002 0.0026 0.003"/>
+    <mesh file="wall_stand_collision_1.obj" scale="0.002 0.0026 0.003"/>
+    <mesh file="wall_stand_collision_2.obj" scale="0.002 0.0026 0.003"/>
+    <mesh file="wall_stand_collision_3.obj" scale="0.002 0.0026 0.003"/>
+    <mesh file="wall_stand_collision_4.obj" scale="0.002 0.0026 0.003"/>
+    <mesh file="wall_stand_collision_5.obj" scale="0.002 0.0026 0.003"/>
+    <mesh file="wall_stand_collision_6.obj" scale="0.002 0.0026 0.003"/>
+    <mesh file="wall_stand_collision_7.obj" scale="0.002 0.0026 0.003"/>
+    <mesh file="wall_stand_collision_8.obj" scale="0.002 0.0026 0.003"/>
+    <mesh file="wall_stand_collision_9.obj" scale="0.002 0.0026 0.003"/>
+    <mesh file="wall_stand_collision_10.obj" scale="0.002 0.0026 0.003"/>
+    <mesh file="wall_stand_collision_11.obj" scale="0.002 0.0026 0.003"/>
+    <mesh file="wall_stand_collision_12.obj" scale="0.002 0.0026 0.003"/>
+  </asset>
+  <worldbody>
+    <body name="wall_stand">
+    <body name="surface">
+      <geom mesh="wall_stand" class="visual"/>
+    </body>
+      <geom mesh="wall_stand_collision_0" rgba="0.9107258052244467 0.13607695541948217 0.0026723809949670029 1" class="collision"/>
+      <geom mesh="wall_stand_collision_1" rgba="0.794794663093509 0.6325292876207017 0.14704006918304657 1" class="collision"/>
+      <geom mesh="wall_stand_collision_2" rgba="0.13323821099495237 0.9018135432498758 0.9954390735059715 1" class="collision"/>
+      <geom mesh="wall_stand_collision_3" rgba="0.6045137196089031 0.6019986806212584 0.479908224961908 1" class="collision"/>
+      <geom mesh="wall_stand_collision_4" rgba="0.27981506895099584 0.3166859770765218 0.6387740792938246 1" class="collision"/>
+      <geom mesh="wall_stand_collision_5" rgba="0.7559830708498927 0.2345816456289579 0.5105153221547655 1" class="collision"/>
+      <geom mesh="wall_stand_collision_6" rgba="0.187217643294587 0.16063648584638657 0.5860274024638293 1" class="collision"/>
+      <geom mesh="wall_stand_collision_7" rgba="0.23931239755678113 0.9661071015311222 0.05998039939292876 1" class="collision"/>
+      <geom mesh="wall_stand_collision_8" rgba="0.8612662134473328 0.7173007626896687 0.46732002953992824 1" class="collision"/>
+      <geom mesh="wall_stand_collision_9" rgba="0.43263493387908136 0.7873029449798871 0.18266082812061946 1" class="collision"/>
+      <geom mesh="wall_stand_collision_10" rgba="0.20600242268271152 0.7615594669401821 0.7969496862324548 1" class="collision"/>
+      <geom mesh="wall_stand_collision_11" rgba="0.2994527773425083 0.4449909196773899 0.6379719894979649 1" class="collision"/>
+      <geom mesh="wall_stand_collision_12" rgba="0.06534464506480986 0.1624030742267375 0.9336828991519022 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

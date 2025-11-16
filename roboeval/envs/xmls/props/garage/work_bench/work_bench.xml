@@ -1,0 +1,126 @@
+<mujoco model="work_bench">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <texture type="2d" name="Seamless-Wood-Texture-5" file="Seamless-Wood-Texture-5.png"/>
+    <material name="Arbetsbänk_Skiva" texture="Seamless-Wood-Texture-5" specular="0.5" shininess="0.225"/>
+    <material name="Arbetshylla" specular="0.330882" shininess="0.116830657" rgba="0.017386 0.017386 0.017386 1.000000"/>
+    <material name="Leg.001" specular="0.529412" shininess="0.42085315300000004" rgba="0.080009 0.080009 0.080009 1.000000"/>
+    <material name="Mat_01" specular="1.0" shininess="0.41185119800000003" rgba="0.057800 0.057800 0.057800 1.000000"/>
+    <mesh file="work_bench_0.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_1.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_2.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_3.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_0.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_1.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_2.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_3.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_4.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_5.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_6.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_7.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_8.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_9.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_10.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_11.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_12.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_13.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_14.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_15.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_16.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_17.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_18.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_19.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_20.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_21.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_22.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_23.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_24.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_25.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_26.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_27.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_28.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_29.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_30.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_31.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_32.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_33.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_34.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_35.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_36.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_37.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_38.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_39.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_40.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_41.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_42.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_43.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_44.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_45.obj" scale="0.6 1 0.6"/>
+    <mesh file="work_bench_collision_46.obj" scale="0.6 1 0.6"/>
+  </asset>
+  <worldbody>
+    <body name="work_bench">
+      <geom mesh="work_bench_0" material="Mat_01" class="visual"/>
+      <geom mesh="work_bench_1" material="Leg.001" class="visual"/>
+      <body name="counter">
+      <geom mesh="work_bench_2" material="Arbetsbänk_Skiva" class="visual"/>
+      </body>
+      <geom mesh="work_bench_3" material="Arbetshylla" class="visual"/>
+      <geom mesh="work_bench_collision_0" rgba="0.08760681755053856 0.034606311941142165 0.11906971858773541 1" class="collision"/>
+      <geom mesh="work_bench_collision_1" rgba="0.04925606610117439 0.4902348566908069 0.20581192944888993 1" class="collision"/>
+      <geom mesh="work_bench_collision_2" rgba="0.4773960111152524 0.11840076666713717 0.24784896587469274 1" class="collision"/>
+      <geom mesh="work_bench_collision_3" rgba="0.6685972863809381 0.12486379869616049 0.7166785832052218 1" class="collision"/>
+      <geom mesh="work_bench_collision_4" rgba="0.15375502683382247 0.920952840101013 0.11675658707547787 1" class="collision"/>
+      <geom mesh="work_bench_collision_5" rgba="0.9575461103356434 0.35376403047702165 0.32438497698646596 1" class="collision"/>
+      <geom mesh="work_bench_collision_6" rgba="0.24977852051046778 0.14591113872146955 0.17016017466502542 1" class="collision"/>
+      <geom mesh="work_bench_collision_7" rgba="0.31559365774366765 0.15594581134288188 0.6428101643433453 1" class="collision"/>
+      <geom mesh="work_bench_collision_8" rgba="0.4017753082720361 0.02138716371537841 0.6515962486659083 1" class="collision"/>
+      <geom mesh="work_bench_collision_9" rgba="0.6908518276560157 0.33479139321534546 0.6367557503252279 1" class="collision"/>
+      <geom mesh="work_bench_collision_10" rgba="0.1276755265093743 0.17631764070839506 0.09661037561177066 1" class="collision"/>
+      <geom mesh="work_bench_collision_11" rgba="0.36616940775779183 0.6550343366710774 0.024830863854995 1" class="collision"/>
+      <geom mesh="work_bench_collision_12" rgba="0.0726170449753808 0.6939525903108229 0.9662129488892861 1" class="collision"/>
+      <geom mesh="work_bench_collision_13" rgba="0.6164018059886025 0.31429863848753903 0.5998253072395006 1" class="collision"/>
+      <geom mesh="work_bench_collision_14" rgba="0.2381751661041568 0.24857781918633937 0.9324850789757124 1" class="collision"/>
+      <geom mesh="work_bench_collision_15" rgba="0.2325623384390254 0.29826794485636754 0.7249110658753687 1" class="collision"/>
+      <geom mesh="work_bench_collision_16" rgba="0.36271504962258905 0.9676285839822331 0.5131262660892869 1" class="collision"/>
+      <geom mesh="work_bench_collision_17" rgba="0.9443779963964682 0.6247837808801109 0.9111973277878226 1" class="collision"/>
+      <geom mesh="work_bench_collision_18" rgba="0.05206392517697689 0.6146190629462122 0.7394111149444618 1" class="collision"/>
+      <geom mesh="work_bench_collision_19" rgba="0.47841531878202737 0.7850526847061048 0.9397903762225851 1" class="collision"/>
+      <geom mesh="work_bench_collision_20" rgba="0.9865887095465407 0.5682235972288096 0.07117987356563638 1" class="collision"/>
+      <geom mesh="work_bench_collision_21" rgba="0.5963701606420491 0.46357626052217604 0.16193836061512312 1" class="collision"/>
+      <geom mesh="work_bench_collision_22" rgba="0.03565071278014298 0.13186397385577298 0.25365389238415903 1" class="collision"/>
+      <geom mesh="work_bench_collision_23" rgba="0.02688505961752341 0.650152358567765 0.7410059754445508 1" class="collision"/>
+      <geom mesh="work_bench_collision_24" rgba="0.5665042305160604 0.24013011618569347 0.7697161216667985 1" class="collision"/>
+      <geom mesh="work_bench_collision_25" rgba="0.20867986349278322 0.6811501873713092 0.5379341151235872 1" class="collision"/>
+      <geom mesh="work_bench_collision_26" rgba="0.762934336687853 0.049815747419465484 0.05104265979924327 1" class="collision"/>
+      <geom mesh="work_bench_collision_27" rgba="0.22139027456953042 0.7602897644181101 0.33499045730246346 1" class="collision"/>
+      <geom mesh="work_bench_collision_28" rgba="0.968725353170618 0.6169870029863008 0.6539782058682343 1" class="collision"/>
+      <geom mesh="work_bench_collision_29" rgba="0.7749613278624161 0.7796728852823386 0.6536747930012404 1" class="collision"/>
+      <geom mesh="work_bench_collision_30" rgba="0.39721620948113356 0.4593323845874696 0.941277921779735 1" class="collision"/>
+      <geom mesh="work_bench_collision_31" rgba="0.28592294576819255 0.6712435106033374 0.37565784536101454 1" class="collision"/>
+      <geom mesh="work_bench_collision_32" rgba="0.37763571320796463 0.015194341651128207 0.464414805250593 1" class="collision"/>
+      <geom mesh="work_bench_collision_33" rgba="0.6024219278334803 0.6108159835378442 0.06653133641376197 1" class="collision"/>
+      <geom mesh="work_bench_collision_34" rgba="0.38788308361835 0.2016875005766794 0.71525199949024 1" class="collision"/>
+      <geom mesh="work_bench_collision_35" rgba="0.7812631850534411 0.24168414536200267 0.17768883791038048 1" class="collision"/>
+      <geom mesh="work_bench_collision_36" rgba="0.44344238433420846 0.6728799437105806 0.7779635757451027 1" class="collision"/>
+      <geom mesh="work_bench_collision_37" rgba="0.6573798678087976 0.750708423486966 0.5119219228239023 1" class="collision"/>
+      <geom mesh="work_bench_collision_38" rgba="0.7069636560475299 0.16962535417456082 0.9308517309385348 1" class="collision"/>
+      <geom mesh="work_bench_collision_39" rgba="0.4469002649406285 0.1587745060210619 0.5802741355711944 1" class="collision"/>
+      <geom mesh="work_bench_collision_40" rgba="0.29780846728797905 0.08187524600230278 0.5494955269548026 1" class="collision"/>
+      <geom mesh="work_bench_collision_41" rgba="0.628085669231139 0.6361051404286384 0.48757293579408534 1" class="collision"/>
+      <geom mesh="work_bench_collision_42" rgba="0.6072458295803124 0.44574039276833866 0.5825103129501954 1" class="collision"/>
+      <geom mesh="work_bench_collision_43" rgba="0.9969297385234442 0.9583158229156733 0.5669248051810469 1" class="collision"/>
+      <geom mesh="work_bench_collision_44" rgba="0.4628662083779417 0.921541833982419 0.6509899741269427 1" class="collision"/>
+      <geom mesh="work_bench_collision_45" rgba="0.5669807095413488 0.6184703797603733 0.6080041568174946 1" class="collision"/>
+      <geom mesh="work_bench_collision_46" rgba="0.7905968713799425 0.6552880524471173 0.9029474554282716 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "roboeval"
+version = "0.1.0"  # Manually specify or load via dynamic mechanism
+description = ""
+authors = [
+  { name = "Yi Ru Wang", email = "yiruwang@cs.washington.edu" }
+]
+requires-python = ">=3.10"
+dependencies = [
+  "gymnasium @ git+https://git@github.com/stepjam/Gymnasium.git@0.29.2",
+  "numpy==1.26.*",
+  "safetensors==0.4.3",
+  "mujoco==3.3.3",
+  "dm_control==1.0.31",
+  "imageio",
+  "pyquaternion",
+  "mujoco_utils",
+  "wget",
+  "mojo @ git+https://github.com/helen9975/mojo.git",
+  "pyyaml",
+  "dearpygui",
+  "pyopenxr",
+  "click-prompt",
+  "rich-click",
+  "hydra-core==1.3.*",
+  "pynput==1.7.7",
+
+]
+
+[project.optional-dependencies]
+dev = [
+  "pre-commit",
+  "pytest",
+]
+examples = [
+  "moviepy==1.0.3",
+  "pygame",
+  "opencv-python",
+  "matplotlib",
+]
+vr = [
+  "pyopenxr",
+  "dearpygui",
+  "click-prompt",
+  "rich-click",
+  "pyyaml",
+  "oculus-reader @ git+https://github.com/helen9975/oculus_reader.git"
+  # ⚠️ Oculus Quest setup requires Git LFS and ADB (see docs/vr_teleop.md)
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["roboeval*"]
+
+[tool.setuptools.package-data]
+roboeval = [
+  "envs/xmls/**/*",
+  "envs/presets/**/*.yaml"
+]
+vr = [
+  "viewer/xmls/**/*"
+]

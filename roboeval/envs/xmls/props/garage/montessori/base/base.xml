@@ -1,0 +1,100 @@
+<mujoco model="base">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0" euler="1.57 0 0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh" euler="1.57 0 0" density="500" mass="250" friction="10.5 1 0.1" solimp="0.95 0.99 0.001" solref="0.004 1"/>
+    </default>
+  </default>
+  <asset>
+    <texture type="2d" name="TexturesCom_Wood_MapleVeneer_512_albedo" file="TexturesCom_Wood_MapleVeneer_512_albedo.png"/>
+    <material name="Wood_Pillar_mat" texture="TexturesCom_Wood_MapleVeneer_512_albedo" specular="0.5" shininess="0.5"/>
+    <material name="Wood_a_mat" texture="TexturesCom_Wood_MapleVeneer_512_albedo" specular="0.5" shininess="0.5"/>
+    <material name="Wood_b_mat" specular="0.5" shininess="0.06311792" rgba="0.500000 0.500000 0.500000 1.000000"/>
+    <mesh file="base_0.obj"/>
+    <mesh file="base_1.obj"/>
+    <mesh file="base_2.obj"/>
+    <mesh file="base_collision_0.obj"/>
+    <mesh file="base_collision_1.obj"/>
+    <mesh file="base_collision_2.obj"/>
+    <mesh file="base_collision_3.obj"/>
+    <mesh file="base_collision_4.obj" scale="0.7 1.2 0.7"/>
+    <mesh file="base_collision_5.obj"/>
+    <mesh file="base_collision_6.obj" scale="1 1 1"/>
+    <mesh file="base_collision_7.obj"/>
+    <mesh file="base_collision_8.obj"/>
+    <mesh file="base_collision_9.obj" scale="0.7 1 0.7"/>
+    <mesh file="base_collision_10.obj"/>
+    <mesh file="base_collision_11.obj" scale="0.8 1 0.8"/>
+    <mesh file="base_collision_12.obj" scale="0.8 1 0.8"/>
+    <mesh file="base_collision_13.obj"/>
+    <mesh file="base_collision_14.obj"/>
+    <mesh file="base_collision_15.obj"/>
+    <mesh file="base_collision_16.obj"/>
+  </asset>
+  <worldbody>
+    <body name="base">
+      <geom mesh="base_0" material="Wood_Pillar_mat" class="visual"/>
+      <site name="circle_site" type="box" size=".015 .02 .015" pos="-.105 -0.01 0.03" euler="1.5708 0 0" rgba="1 0 0 0" />
+      <site name="triangle_site" type="box" size=".015 .02 .015" pos="-.05 -0.015 0.03" euler="1.5708 0 0" rgba="1 1 0 0" />
+      <site name="cube_site" type="box" size=".015 .02 .015" pos="0 -0.01 0.03" euler="1.5708 0 0" rgba="1 1 1 0" />
+      <site name="pentagon_site" type="box" size=".015 .02 .015" pos=".05 -0.01 0.03" euler="1.5708 0 0" rgba="0 1 0 0" />
+      <site name="rectangle_site" type="box" size=".015 .02 .015" pos=".105 -0.01 0.03" euler="1.5708 0 0" rgba="0 1 1 0" />
+
+
+
+      <geom mesh="base_1" material="Wood_a_mat" class="visual"/>
+      <geom mesh="base_2" material="Wood_b_mat" class="visual"/>
+      <geom mesh="base_collision_0" rgba="0.9630859504259922 0.4774302957265909 0.6799406178539847 1" class="collision"/>
+      <!-- <geom mesh="base_collision_1" rgba="0.9442046887790321 0.16967919626455685 0.4515087357294484 1" class="collision"/> -->
+      <!-- <geom mesh="base_collision_2" rgba="0.22923046017370796 0.2128850334601966 0.005063022825412711 1" class="collision"/> -->
+      <!-- <geom mesh="base_collision_3" rgba="0.4109067621311251 0.9527103347984394 0.9741228291864689 1" class="collision"/> -->
+      <body name="triangle">
+      <geom mesh="base_collision_4" pos= "-0.0012 -0.006 -0.008" rgba="0.8107316607824177 0.5276161191525742 0.16038745811909683 1" class="collision"/>
+      <geom mesh="base_collision_4" pos="0.0075 0.0105 -0.008" rgba="0.8107316607824177 0.5276161191525742 0.16038745811909683 1" class="collision"/>
+      <geom mesh="base_collision_4" pos="-0.010 0.0105 -0.008" rgba="0.8107316607824177 0.5276161191525742 0.16038745811909683 1" class="collision"/>
+      </body>
+
+      <body name="cube" pos="0.054 -.0045 0">
+      <geom mesh="base_collision_4" pos="0.0078 -0.006 -0.008" rgba="0.8107316607824177 0.5276161191525742 0.16038745811909683 1" class="collision"/>
+      <geom mesh="base_collision_4" pos="-0.0105 -0.006 -0.008" rgba="0.8107316607824177 0.5276161191525742 0.16038745811909683 1" class="collision"/>
+      <geom mesh="base_collision_4" pos="0.008 0.011 -0.008" rgba="0.8107316607824177 0.5276161191525742 0.16038745811909683 1" class="collision"/>
+      <geom mesh="base_collision_4" pos="-0.01 0.011 -0.008" rgba="0.8107316607824177 0.5276161191525742 0.16038745811909683 1" class="collision"/>
+      </body>
+      <!-- <geom mesh="base_collision_5" rgba="0.1466301548958341 0.5726896945029085 0.9664376233025866 1" class="collision"/> -->
+      
+      <body name="circle">
+      <geom mesh="base_collision_4" pos="-0.0965 -0.0001 -0.0075" rgba="0.8107316607824177 0.5276161191525742 0.16038745811909683 1" class="collision"/>
+      <!-- <geom mesh="base_collision_6" rgba="0.6677612181439601 0.962678107452359 0.06755638136975983 1" class="collision"/> -->
+      </body>
+      
+      <geom mesh="base_collision_7" rgba="0.1007542726995565 0.35798038443467917 0.7818582528927761 1" class="collision"/>
+      <geom mesh="base_collision_8" rgba="0.4785593537799713 0.7198020674286586 0.8088860590889941 1" class="collision"/>
+
+      <body name="pentagon">
+      <geom mesh="base_collision_9" pos="0.0345 -0.005 0" rgba="0.6922585299924209 0.46355723941482385 0.5851875220217875 1" class="collision"/>
+      <geom mesh="base_collision_9" pos="0.029 0.013 0" rgba="0.6922585299924209 0.46355723941482385 0.5851875220217875 1" class="collision"/>
+
+      <geom mesh="base_collision_9" pos="0.01 0.012 0" rgba="0.6922585299924209 0.46355723941482385 0.5851875220217875 1" class="collision"/>
+
+      <geom mesh="base_collision_9" pos="0.0195 -0.0163 0" rgba="0.6922585299924209 0.46355723941482385 0.5851875220217875 1" class="collision"/>
+
+      <geom mesh="base_collision_9" pos="0.0043 -0.0055 0" rgba="0.6922585299924209 0.46355723941482385 0.5851875220217875 1" class="collision"/>
+      </body>
+
+      <!-- <geom mesh="base_collision_10" rgba="0.6419525303212152 0.09500250333178539 0.7260701629192895 1" class="collision"/> -->
+      
+      <body name="rectangle">
+        <geom mesh="base_collision_11" pos="-0.01025 -0.005 0" rgba="0.8680534899849732 0.9247820525664353 0.5551147097311501 1" class="collision"/>
+        <geom mesh="base_collision_12" pos="-0.01025 -0.0005 0" rgba="0.825175892949324 0.3461671545063314 0.6109634667854636 1" class="collision"/>
+      </body>
+
+      <geom mesh="base_collision_13" rgba="0.009220356590398993 0.5186540702034904 0.7236228244609376 1" class="collision"/>
+      <geom mesh="base_collision_14" rgba="0.6521379269486127 0.6937444611155249 0.8827536298512864 1" class="collision"/>
+      <geom mesh="base_collision_15" rgba="0.7385092810902892 0.6549390193577855 0.7382449644263097 1" class="collision"/>
+      <geom mesh="base_collision_16" rgba="0.8741106456951283 0.2869163512130948 0.2268793163220043 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

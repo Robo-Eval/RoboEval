@@ -1,0 +1,82 @@
+<mujoco model="Bowl_21">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="Bowl_Mat5 (Plastic - UB)" specular="0.5" shininess="0.5" rgba="0.6323529 0.4207135 0.2836289 1.0"/>
+    <material name="Bowl_Decals_Off_Mat" specular="0.5" shininess="0.5" rgba="1 1 1 0"/>
+    <mesh file="Bowl_21_0.obj"/>
+    <mesh file="Bowl_21_1.obj"/>
+    <mesh file="Bowl_21_collision_0.obj"/>
+    <mesh file="Bowl_21_collision_1.obj"/>
+    <mesh file="Bowl_21_collision_2.obj"/>
+    <mesh file="Bowl_21_collision_3.obj"/>
+    <mesh file="Bowl_21_collision_4.obj"/>
+    <mesh file="Bowl_21_collision_5.obj"/>
+    <mesh file="Bowl_21_collision_6.obj"/>
+    <mesh file="Bowl_21_collision_7.obj"/>
+    <mesh file="Bowl_21_collision_8.obj"/>
+    <mesh file="Bowl_21_collision_9.obj"/>
+    <mesh file="Bowl_21_collision_10.obj"/>
+    <mesh file="Bowl_21_collision_11.obj"/>
+    <mesh file="Bowl_21_collision_12.obj"/>
+    <mesh file="Bowl_21_collision_13.obj"/>
+    <mesh file="Bowl_21_collision_14.obj"/>
+    <mesh file="Bowl_21_collision_15.obj"/>
+    <mesh file="Bowl_21_collision_16.obj"/>
+    <mesh file="Bowl_21_collision_17.obj"/>
+    <mesh file="Bowl_21_collision_18.obj"/>
+    <mesh file="Bowl_21_collision_19.obj"/>
+    <mesh file="Bowl_21_collision_20.obj"/>
+    <mesh file="Bowl_21_collision_21.obj"/>
+    <mesh file="Bowl_21_collision_22.obj"/>
+    <mesh file="Bowl_21_collision_23.obj"/>
+    <mesh file="Bowl_21_collision_24.obj"/>
+    <mesh file="Bowl_21_collision_25.obj"/>
+    <mesh file="Bowl_21_collision_26.obj"/>
+    <mesh file="Bowl_21_collision_27.obj"/>
+    <mesh file="Bowl_21_collision_28.obj"/>
+    <mesh file="Bowl_21_collision_29.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Bowl_21">
+      <geom mesh="Bowl_21_0" material="Bowl_Decals_Off_Mat" class="visual"/>
+      <geom mesh="Bowl_21_1" material="Bowl_Mat5 (Plastic - UB)" class="visual"/>
+      <geom mesh="Bowl_21_collision_0" rgba="0.8551651650493067 0.20921567464862612 0.30895965279871485 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_1" rgba="0.04344367145053685 0.4697259908870931 0.5075073267886988 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_2" rgba="0.520416667020256 0.42319305819825037 0.4454827425037826 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_3" rgba="0.8364447295337238 0.8553246426817862 0.5295438178931613 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_4" rgba="0.7225506504772844 0.1623094730853304 0.6213324674256949 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_5" rgba="0.1603224456837119 0.07726536164683784 0.6840342985842804 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_6" rgba="0.07716584674561555 0.7837629488425703 0.5183353533949392 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_7" rgba="0.6187499174203971 0.5092459246338665 0.5159937421416421 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_8" rgba="0.9086295841787299 0.31176064329221875 0.18201478712946217 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_9" rgba="0.9322049706121396 0.2773364014774633 0.6681716854968008 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_10" rgba="0.4322941126637344 0.08585163492876524 0.47534154807192097 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_11" rgba="0.6348516723497695 0.9133885959964052 0.7225002218677397 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_12" rgba="0.036584425419960986 0.5145875872010635 0.7755485427235693 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_13" rgba="0.47086507810146994 0.295775475146118 0.8036860289006804 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_14" rgba="0.6727905725573393 0.1280032977589003 0.3621927807840899 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_15" rgba="0.8292642003344388 0.9054763896025935 0.6466742840787562 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_16" rgba="0.2108820922494723 0.0701476550952197 0.9337062708390079 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_17" rgba="0.10214900892718459 0.6531407411186695 0.8327055117653068 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_18" rgba="0.8730977363239849 0.8124362756878151 0.6471958802078687 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_19" rgba="0.32122783039617053 0.6493438707189085 0.848813725223837 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_20" rgba="0.9051923338718761 0.257442798164602 0.17101656821576394 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_21" rgba="0.9320886911613647 0.718338629167877 0.3055779546436904 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_22" rgba="0.5963957313826406 0.6576108532685019 0.6417496406507583 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_23" rgba="0.230278524245622 0.3364895689913744 0.4444262950091481 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_24" rgba="0.4122503075519789 0.6844007873466013 0.541532026693999 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_25" rgba="0.957873369307526 0.8361604811227024 0.9848011373199711 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_26" rgba="0.6757781795113601 0.18307455783335136 0.4462102745741041 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_27" rgba="0.6912662808355843 0.24337696271402076 0.25526383933916286 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_28" rgba="0.6778618745791836 0.2805657334386771 0.27315659809523607 1" class="collision"/>
+      <geom mesh="Bowl_21_collision_29" rgba="0.04979343326537866 0.17094215631047416 0.6487022963022461 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

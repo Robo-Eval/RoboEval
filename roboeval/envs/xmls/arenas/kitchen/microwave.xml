@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<mujoco model="partnet_dc5c91c8c01b1c8c506c648223cdabe9">
+  <compiler angle="radian" meshdir="assets/7167/textured_objs/"/>
+  <default>
+    <default class="default">
+      <default class="microwave-visual">
+        <mesh scale="0.5 0.5 0.5"/>
+      </default>
+    </default>
+  </default>
+  <asset>
+    <mesh class="microwave-visual" name="original-12" file="original-12.obj"/>
+    <mesh class="microwave-visual" name="original-9" file="original-9.obj"/>
+    <mesh class="microwave-visual" name="original-11" file="original-11.obj"/>
+    <mesh class="microwave-visual" name="original-10" file="original-10.obj"/>
+    <mesh class="microwave-visual" name="original-4" file="original-4.obj"/>
+    <mesh class="microwave-visual" name="original-3" file="original-3.obj"/>
+    <mesh class="microwave-visual" name="original-5" file="original-5.obj"/>
+    <mesh class="microwave-visual" name="new-4" file="new-4.obj"/>
+    <mesh class="microwave-visual" name="new-3" file="new-3.obj"/>
+    <mesh class="microwave-visual" name="new-2" file="new-2.obj"/>
+    <mesh class="microwave-visual" name="new-1" file="new-1.obj"/>
+    <mesh class="microwave-visual" name="new-0" file="new-0.obj"/>
+  </asset>
+  <worldbody>
+    <body name="microwave">
+      <geom pos="0 0 0" quat="0.5 0.5 -0.5 -0.5" type="mesh" mesh="original-5"/>
+      <geom pos="0 0 0" quat="0.5 0.5 -0.5 -0.5" type="mesh" mesh="new-4"/>
+      <geom pos="0 0 0" quat="0.5 0.5 -0.5 -0.5" type="mesh" mesh="new-3"/>
+      <geom pos="0 0 0" quat="0.5 0.5 -0.5 -0.5" type="mesh" mesh="new-2"/>
+      <geom pos="0 0 0" quat="0.5 0.5 -0.5 -0.5" type="mesh" mesh="new-1"/>
+      <geom pos="0 0 0" quat="0.5 0.5 -0.5 -0.5" type="mesh" mesh="new-0"/>
+      <body name="link_0" pos="-0.422377 0.722522 0.435315" quat="0.5 0.5 -0.5 -0.5">
+        <joint name="joint_0" pos="0 0 0" axis="0 -1 0" range="0 1.5708"/>
+        <geom pos="0.722522 -0.435315 -0.422377" quat="1 0 0 0" type="mesh" mesh="original-12"/>
+        <geom pos="0.722522 -0.435315 -0.422377" quat="1 0 0 0" type="mesh" mesh="original-9"/>
+        <geom pos="0.722522 -0.435315 -0.422377" type="mesh" mesh="original-11"/>
+        <geom pos="0.722522 -0.435315 -0.422377" type="mesh" mesh="original-10"/>
+      </body>
+      <body name="link_1" pos="-0.576265 -0.629274 -0.113024" quat="0.5 0.5 -0.5 -0.5">
+        <geom pos="-0.629274 0.113024 -0.576265" quat="1 0 0 0" type="mesh" mesh="original-4"/>
+      </body>
+      <body name="link_2" pos="-0.57378 -0.627714 0.156373" quat="0.5 0.5 -0.5 -0.5">
+        <geom pos="-0.627714 -0.156373 -0.57378" quat="1 0 0 0" type="mesh" mesh="original-3"/>
+      </body>
+    </body>
+  </worldbody>
+  <contact>
+    <exclude body1="microwave" body2="link_0"/>
+    <exclude body1="microwave" body2="link_1"/>
+    <exclude body1="microwave" body2="link_2"/>
+  </contact>
+</mujoco>

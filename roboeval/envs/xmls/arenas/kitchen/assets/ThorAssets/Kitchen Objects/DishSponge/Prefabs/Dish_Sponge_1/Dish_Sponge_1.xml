@@ -1,0 +1,21 @@
+<mujoco model="Dish_Sponge_1">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="SpongeGreenYellow" specular="0.5" shininess="0.5" rgba="1 1 1 1.0"/>
+    <mesh file="Dish_Sponge_1.obj"/>
+    <mesh file="Dish_Sponge_1_collision_0.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Dish_Sponge_1">
+      <geom material="SpongeGreenYellow" mesh="Dish_Sponge_1" class="visual"/>
+      <geom mesh="Dish_Sponge_1_collision_0" rgba="0.7067204376963303 0.42090086659132675 0.09514913920341395 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

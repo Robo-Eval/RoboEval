@@ -1,0 +1,198 @@
+<mujoco model="pentagon">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh" mass="0" />
+    </default>
+    <default class="target_area">
+      <geom group="3" type="mesh" contype="0" conaffinity="0" friction="0 0 0" solimp="0.99 0.99 0.000001" solref="0.000001 1" />
+    </default>
+  </default>
+  <asset>
+    <material name="Color_Pink" specular="0.5" shininess="0.25" rgba="1.000000 0.140523 0.438079 1.000000"/>
+    <mesh file="pentagon.obj"/>
+    <mesh file="pentagon_collision_0.obj"/>
+    <mesh file="pentagon_collision_1.obj"/>
+    <mesh file="pentagon_collision_2.obj"/>
+    <mesh file="pentagon_collision_3.obj"/>
+    <mesh file="pentagon_collision_4.obj"/>
+    <mesh file="pentagon_collision_5.obj"/>
+    <mesh file="pentagon_collision_6.obj"/>
+    <mesh file="pentagon_collision_7.obj"/>
+    <mesh file="pentagon_collision_8.obj"/>
+    <mesh file="pentagon_collision_9.obj"/>
+    <mesh file="pentagon_collision_10.obj"/>
+    <mesh file="pentagon_collision_11.obj"/>
+    <mesh file="pentagon_collision_12.obj"/>
+    <mesh file="pentagon_collision_13.obj"/>
+    <mesh file="pentagon_collision_14.obj"/>
+    <mesh file="pentagon_collision_15.obj"/>
+    <mesh file="pentagon_collision_16.obj"/>
+    <mesh file="pentagon_collision_17.obj"/>
+    <mesh file="pentagon_collision_18.obj"/>
+    <mesh file="pentagon_collision_19.obj"/>
+    <mesh file="pentagon_collision_20.obj"/>
+    <mesh file="pentagon_collision_21.obj"/>
+    <mesh file="pentagon_collision_22.obj"/>
+    <mesh file="pentagon_collision_23.obj"/>
+    <mesh file="pentagon_collision_24.obj"/>
+    <mesh file="pentagon_collision_25.obj"/>
+    <mesh file="pentagon_collision_26.obj"/>
+    <mesh file="pentagon_collision_27.obj"/>
+    <mesh file="pentagon_collision_28.obj"/>
+    <mesh file="pentagon_collision_29.obj"/>
+    <mesh file="pentagon_collision_30.obj"/>
+    <mesh file="pentagon_collision_31.obj"/>
+    <mesh file="pentagon_collision_32.obj"/>
+    <mesh file="pentagon_collision_33.obj"/>
+    <mesh file="pentagon_collision_34.obj"/>
+    <mesh file="pentagon_collision_35.obj"/>
+    <mesh file="pentagon_collision_36.obj"/>
+    <mesh file="pentagon_collision_37.obj"/>
+    <mesh file="pentagon_collision_38.obj"/>
+    <mesh file="pentagon_collision_39.obj"/>
+    <mesh file="pentagon_collision_40.obj"/>
+    <mesh file="pentagon_collision_41.obj"/>
+    <mesh file="pentagon_collision_42.obj"/>
+    <mesh file="pentagon_collision_43.obj"/>
+    <mesh file="pentagon_collision_44.obj"/>
+    <mesh file="pentagon_collision_45.obj"/>
+    <mesh file="pentagon_collision_46.obj"/>
+    <mesh file="pentagon_collision_47.obj"/>
+    <mesh file="pentagon_collision_48.obj"/>
+    <mesh file="pentagon_collision_49.obj"/>
+    <mesh file="pentagon_collision_50.obj"/>
+    <mesh file="pentagon_collision_51.obj"/>
+    <mesh file="pentagon_collision_52.obj"/>
+    <mesh file="pentagon_collision_53.obj"/>
+    <mesh file="pentagon_collision_54.obj"/>
+    <mesh file="pentagon_collision_55.obj"/>
+    <mesh file="pentagon_collision_56.obj"/>
+    <mesh file="pentagon_collision_57.obj"/>
+    <mesh file="pentagon_collision_58.obj"/>
+    <mesh file="pentagon_collision_59.obj"/>
+    <mesh file="pentagon_collision_60.obj"/>
+    <mesh file="pentagon_collision_61.obj"/>
+    <mesh file="pentagon_collision_62.obj"/>
+    <mesh file="pentagon_collision_63.obj"/>
+    <mesh file="pentagon_collision_64.obj"/>
+    <mesh file="pentagon_collision_65.obj"/>
+    <mesh file="pentagon_collision_66.obj"/>
+    <mesh file="pentagon_collision_67.obj"/>
+    <mesh file="pentagon_collision_68.obj"/>
+    <mesh file="pentagon_collision_69.obj"/>
+    <mesh file="pentagon_collision_70.obj"/>
+    <mesh file="pentagon_collision_71.obj"/>
+    <mesh file="pentagon_collision_72.obj"/>
+    <mesh file="pentagon_collision_73.obj"/>
+    <mesh file="pentagon_collision_74.obj"/>
+    <mesh file="pentagon_collision_75.obj"/>
+    <mesh file="pentagon_collision_76.obj"/>
+    <mesh file="pentagon_collision_77.obj"/>
+    <mesh file="pentagon_collision_78.obj"/>
+    <mesh file="pentagon_collision_79.obj"/>
+    <mesh file="pentagon_collision_80.obj"/>
+    <mesh file="pentagon_collision_81.obj"/>
+    <mesh file="pentagon_collision_82.obj"/>
+  </asset>
+  <worldbody>
+    <body name="pentagon">
+
+    <body name="hole_site">
+      <geom name="hole_site_1" type="cylinder" size=".006 .002 .04" pos=".087 0.0035 0.095" euler="1.5708 0 0" rgba="1 1 0 0" class="target_area"/>
+      <geom name="hole_site_2" type="cylinder" size=".006 .002 .04" pos=".105 0.0035 0.095" euler="1.5708 0 0" rgba="1 1 0 0" class="target_area"/>
+      <geom name="hole_site_3" type="cylinder" size=".006 .002 .04" pos=".112 0.0035 0.113" euler="1.5708 0 0" rgba="1 1 0 0" class="target_area"/>
+      <geom name="hole_site_4" type="cylinder" size=".006 .002 .04" pos=".081 0.0035 0.113" euler="1.5708 0 0" rgba="1 1 0 0" class="target_area"/>
+      <geom name="hole_site_5" type="cylinder" size=".006 .002 .04" pos=".097 0.0035 0.124" euler="1.5708 0 0" rgba="1 1 0 0" class="target_area"/>
+    </body>
+
+      <geom material="Color_Pink" mesh="pentagon" class="visual"/>
+      <geom mesh="pentagon_collision_0" rgba="0.18928736783596523 0.21415381072380602 0.7347727286566446 1" class="collision"/>
+      <geom mesh="pentagon_collision_1" rgba="0.3953351936518602 0.31533536327007916 0.33839745028297397 1" class="collision"/>
+      <geom mesh="pentagon_collision_2" rgba="0.40501064774713125 0.8578350275745369 0.19308799989157854 1" class="collision"/>
+      <geom mesh="pentagon_collision_3" rgba="0.187754265202824 0.2692498616944232 0.7982593675627317 1" class="collision"/>
+      <geom mesh="pentagon_collision_4" rgba="0.015284037470366663 0.037255536969716396 0.09968941513821217 1" class="collision"/>
+      <geom mesh="pentagon_collision_5" rgba="0.5589759687227656 0.8243027735942786 0.393662466323932 1" class="collision"/>
+      <geom mesh="pentagon_collision_6" rgba="0.577750405415954 0.8682212651271172 0.9650188090582833 1" class="collision"/>
+      <geom mesh="pentagon_collision_7" rgba="0.6751403992376878 0.15944912715965465 0.5441896761645553 1" class="collision"/>
+      <geom mesh="pentagon_collision_8" rgba="0.5886350419247985 0.3228515242615885 0.7502169561273717 1" class="collision"/>
+      <geom mesh="pentagon_collision_9" rgba="0.43009728870202457 0.6625678985237822 0.7348797824900674 1" class="collision"/>
+      <geom mesh="pentagon_collision_10" rgba="0.6700582874707223 0.7397694491166976 0.09937206714187385 1" class="collision"/>
+      <geom mesh="pentagon_collision_11" rgba="0.45180145976493014 0.5414755393359151 0.18012309893916434 1" class="collision"/>
+      <geom mesh="pentagon_collision_12" rgba="0.02652685971005586 0.22476962885340446 0.6984704591816585 1" class="collision"/>
+      <geom mesh="pentagon_collision_13" rgba="0.28629594270979897 0.4278796702856812 0.7844888047856409 1" class="collision"/>
+      <geom mesh="pentagon_collision_14" rgba="0.5472500655367175 0.6452537014214424 0.030681546238285562 1" class="collision"/>
+      <geom mesh="pentagon_collision_15" rgba="0.828761628963699 0.5755416835068663 0.5961342099412773 1" class="collision"/>
+      <geom mesh="pentagon_collision_16" rgba="0.996298861826532 0.2628383932830316 0.8380581867662852 1" class="collision"/>
+      <geom mesh="pentagon_collision_17" rgba="0.22998242535438607 0.8935204269709209 0.06142060966005736 1" class="collision"/>
+      <geom mesh="pentagon_collision_18" rgba="0.1938687700239281 0.23267088414761017 0.5243611910601628 1" class="collision"/>
+      <geom mesh="pentagon_collision_19" rgba="0.3826804598425376 0.5985453878316561 0.9722144250711796 1" class="collision"/>
+      <geom mesh="pentagon_collision_20" rgba="0.01339018232672462 0.9135416950928236 0.7235443701255097 1" class="collision"/>
+      <geom mesh="pentagon_collision_21" rgba="0.550412320240376 0.4626812956453623 0.14380104915119285 1" class="collision"/>
+      <geom mesh="pentagon_collision_22" rgba="0.0010956090452824974 0.6021069001795402 0.6225694133146608 1" class="collision"/>
+      <geom mesh="pentagon_collision_23" rgba="0.5265450134979686 0.62069867242874 0.3223758018199395 1" class="collision"/>
+      <geom mesh="pentagon_collision_24" rgba="0.42134971811767974 0.7023573913118693 0.686901521872944 1" class="collision"/>
+      <geom mesh="pentagon_collision_25" rgba="0.9047797298914522 0.37066149884470645 0.4455877081219375 1" class="collision"/>
+      <geom mesh="pentagon_collision_26" rgba="0.5655404914079926 0.49866381398637016 0.7151788613329637 1" class="collision"/>
+      <geom mesh="pentagon_collision_27" rgba="0.8619846552423392 0.37575077041740623 0.9876890372527862 1" class="collision"/>
+      <geom mesh="pentagon_collision_28" rgba="0.7560203550191913 0.9911771970865871 0.9735694921935311 1" class="collision"/>
+      <geom mesh="pentagon_collision_29" rgba="0.6142865501696575 0.326234711209041 0.3690020283814057 1" class="collision"/>
+      <geom mesh="pentagon_collision_30" rgba="0.8225792995022131 0.027148539795263105 0.39912162451149 1" class="collision"/>
+      <geom mesh="pentagon_collision_31" rgba="0.11245966863787482 0.8491940803463349 0.09160526280421177 1" class="collision"/>
+      <geom mesh="pentagon_collision_32" rgba="0.8789401754531031 0.5434124089640888 0.04753962201397721 1" class="collision"/>
+      <geom mesh="pentagon_collision_33" rgba="0.12234736457396578 0.2347844075944142 0.15356961640535405 1" class="collision"/>
+      <geom mesh="pentagon_collision_34" rgba="0.3206819218114976 0.6805509047944114 0.3455964497162243 1" class="collision"/>
+      <geom mesh="pentagon_collision_35" rgba="0.8499205474677503 0.7281431045015225 0.8286050500935276 1" class="collision"/>
+      <geom mesh="pentagon_collision_36" rgba="0.23470492887738803 0.4465989500919907 0.1579837502175384 1" class="collision"/>
+      <geom mesh="pentagon_collision_37" rgba="0.12698498141724845 0.7605430802471547 0.965572206617366 1" class="collision"/>
+      <geom mesh="pentagon_collision_38" rgba="0.3616972137904969 0.9166125005168283 0.9538223607022162 1" class="collision"/>
+      <geom mesh="pentagon_collision_39" rgba="0.20301923003496314 0.464359097881503 0.6789596263240635 1" class="collision"/>
+      <geom mesh="pentagon_collision_40" rgba="0.9431568043281646 0.0880564214159365 0.07282351956714206 1" class="collision"/>
+      <geom mesh="pentagon_collision_41" rgba="0.9642896365424982 0.672538605510178 0.9098956756407487 1" class="collision"/>
+      <geom mesh="pentagon_collision_42" rgba="0.9920509723117037 0.07768745122764498 0.3234188631332936 1" class="collision"/>
+      <geom mesh="pentagon_collision_43" rgba="0.988127559676156 0.9723863434343124 0.9107736941892961 1" class="collision"/>
+      <geom mesh="pentagon_collision_44" rgba="0.1598665350168742 0.6366601709184323 0.14246322684468815 1" class="collision"/>
+      <geom mesh="pentagon_collision_45" rgba="0.025491508770058124 0.8397364860543786 0.5404026068131519 1" class="collision"/>
+      <geom mesh="pentagon_collision_46" rgba="0.4418081189474581 0.17488745800964622 0.9291444596943365 1" class="collision"/>
+      <geom mesh="pentagon_collision_47" rgba="0.26634526965730154 0.10334292470119621 0.2943585846797575 1" class="collision"/>
+      <geom mesh="pentagon_collision_48" rgba="0.5037156460855682 0.09835521898705246 0.8967428712833939 1" class="collision"/>
+      <geom mesh="pentagon_collision_49" rgba="0.812801270348986 0.9235765526092982 0.7247234948296813 1" class="collision"/>
+      <geom mesh="pentagon_collision_50" rgba="0.22429962131362546 0.19506522863749687 0.1582816537766386 1" class="collision"/>
+      <geom mesh="pentagon_collision_51" rgba="0.2889196984322179 0.28003526961899616 0.15134982641896377 1" class="collision"/>
+      <geom mesh="pentagon_collision_52" rgba="0.4135972596706059 0.1668870469226259 0.78153376983594 1" class="collision"/>
+      <geom mesh="pentagon_collision_53" rgba="0.3226738670988487 0.6488702451039231 0.42260541922215966 1" class="collision"/>
+      <geom mesh="pentagon_collision_54" rgba="0.42788898311288925 0.4569861522930342 0.30309447844927695 1" class="collision"/>
+      <geom mesh="pentagon_collision_55" rgba="0.94489159420773 0.6465717570569655 0.8232850139704859 1" class="collision"/>
+      <geom mesh="pentagon_collision_56" rgba="0.02183163727832338 0.2744352662208477 0.9934373120025833 1" class="collision"/>
+      <geom mesh="pentagon_collision_57" rgba="0.5686455039852568 0.21921874964608956 0.34512059103483994 1" class="collision"/>
+      <geom mesh="pentagon_collision_58" rgba="0.6149690029964671 0.07097950700512667 0.695971628698522 1" class="collision"/>
+      <geom mesh="pentagon_collision_59" rgba="0.5563023508844658 0.752449961107459 0.8958513296176112 1" class="collision"/>
+      <geom mesh="pentagon_collision_60" rgba="0.15888826173119586 0.9979283395919103 0.9143693446488866 1" class="collision"/>
+      <geom mesh="pentagon_collision_61" rgba="0.6172986313757678 0.7907296749229639 0.45260351353730865 1" class="collision"/>
+      <geom mesh="pentagon_collision_62" rgba="0.3704651217295841 0.19378894384483036 0.8131303633903493 1" class="collision"/>
+      <geom mesh="pentagon_collision_63" rgba="0.09122294935369679 0.4406225031843277 0.5648387332406254 1" class="collision"/>
+      <geom mesh="pentagon_collision_64" rgba="0.21997953487277844 0.6629929121562067 0.8455579494097891 1" class="collision"/>
+      <geom mesh="pentagon_collision_65" rgba="0.3188972261533336 0.7290522478182089 0.15431638083920385 1" class="collision"/>
+      <geom mesh="pentagon_collision_66" rgba="0.9424937835532956 0.1184828710696243 0.8255455807439994 1" class="collision"/>
+      <geom mesh="pentagon_collision_67" rgba="0.5048154203125063 0.5140144920222668 0.20938002474046413 1" class="collision"/>
+      <geom mesh="pentagon_collision_68" rgba="0.3508779923310864 0.36504256111424715 0.5397818787340477 1" class="collision"/>
+      <geom mesh="pentagon_collision_69" rgba="0.7385827859324201 0.8613639611326074 0.13209932239831756 1" class="collision"/>
+      <geom mesh="pentagon_collision_70" rgba="0.3091964911390006 0.08344911510229824 0.009812342640589167 1" class="collision"/>
+      <geom mesh="pentagon_collision_71" rgba="0.09043881150703403 0.7310987046693472 0.3930325742716816 1" class="collision"/>
+      <geom mesh="pentagon_collision_72" rgba="0.5529365010228698 0.25107977194996756 0.011410157473473403 1" class="collision"/>
+      <geom mesh="pentagon_collision_73" rgba="0.13764102650682153 0.08337656272365324 0.7667106233710398 1" class="collision"/>
+      <geom mesh="pentagon_collision_74" rgba="0.567152405651727 0.5802181965424299 0.33434512984901055 1" class="collision"/>
+      <geom mesh="pentagon_collision_75" rgba="0.9527707483848418 0.6982312000981755 0.6705078267971141 1" class="collision"/>
+      <geom mesh="pentagon_collision_76" rgba="0.8507086840173327 0.9900988267399169 0.5337586760078438 1" class="collision"/>
+      <geom mesh="pentagon_collision_77" rgba="0.19530967314406744 0.07425881847339133 0.550879722396106 1" class="collision"/>
+      <geom mesh="pentagon_collision_78" rgba="0.42881727202143505 0.9808669354836762 0.2348986766748925 1" class="collision"/>
+      <geom mesh="pentagon_collision_79" rgba="0.1268321961860991 0.9815333819182032 0.9733436727888117 1" class="collision"/>
+      <geom mesh="pentagon_collision_80" rgba="0.27571497507244636 0.4132252203254779 0.7730565304439873 1" class="collision"/>
+      <geom mesh="pentagon_collision_81" rgba="0.9512347015743011 0.8828375419417269 0.1335887196544554 1" class="collision"/>
+      <geom mesh="pentagon_collision_82" rgba="0.1466015939161639 0.10681717577234418 0.951168594365745 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,33 @@
+<mujoco model="Spoon_1">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="BrushedAluminum_AlbedoTransparency" specular="0.5" shininess="0.5" rgba="1 1 1 1.0"/>
+    <mesh file="Spoon_1.obj"/>
+    <mesh file="Spoon_1_collision_0.obj"/>
+    <mesh file="Spoon_1_collision_1.obj"/>
+    <mesh file="Spoon_1_collision_2.obj"/>
+    <mesh file="Spoon_1_collision_3.obj"/>
+    <mesh file="Spoon_1_collision_4.obj"/>
+    <mesh file="Spoon_1_collision_5.obj"/>
+    <mesh file="Spoon_1_collision_6.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Spoon_1">
+      <geom material="BrushedAluminum_AlbedoTransparency" mesh="Spoon_1" class="visual"/>
+      <geom mesh="Spoon_1_collision_0" rgba="0.19777711191177116 0.3343603346096715 0.5044218000461733 1" class="collision"/>
+      <geom mesh="Spoon_1_collision_1" rgba="0.8995773752543484 0.20815663148341002 0.9386844232127693 1" class="collision"/>
+      <geom mesh="Spoon_1_collision_2" rgba="0.8588613721116437 0.4427789865201689 0.15503119546696487 1" class="collision"/>
+      <geom mesh="Spoon_1_collision_3" rgba="0.3423988348405489 0.16947793048952586 0.44521953503832157 1" class="collision"/>
+      <geom mesh="Spoon_1_collision_4" rgba="0.6793869954181623 0.09548611045033983 0.4385446435374222 1" class="collision"/>
+      <geom mesh="Spoon_1_collision_5" rgba="0.26744835795603705 0.0037412458614628497 0.44101287409845746 1" class="collision"/>
+      <geom mesh="Spoon_1_collision_6" rgba="0.06297551584568739 0.1497274572157956 0.4724871927884947 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

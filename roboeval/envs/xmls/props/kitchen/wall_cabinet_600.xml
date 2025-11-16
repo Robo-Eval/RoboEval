@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mujoco model="wall_cabinet_600">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
+  <asset>
+    <texture type="2d" name="hanging_drawer_600" file="hanging_drawer_600.png"/>
+    <texture type="2d" name="vent" file="vent.png"/>
+    <texture type="2d" name="handle" file="handle.png"/>
+    <material name="cabinet" shininess="0.1"/>
+    <material name="back" shininess="0.1"/>
+    <material name="glass" specular="0.8" shininess="0.5" rgba="0.9 0.9 0.9 0.5"/>
+    <material name="vent" texture="vent"/>
+    <material name="hanging_drawer_600" shininess="0.1" texture="hanging_drawer_600"/>
+    <material name="handle" rgba="0.5 0.5 0.5 1" texture="handle"/>
+    <mesh file="hanging_drawer_600.obj"/>
+    <mesh file="hanging_drawer_600_glass.obj"/>
+    <mesh file="drawer_handle.obj"/>
+  </asset>
+  <default>
+    <default class="wall_cabinet_600">
+      <geom density="10" solimp="0.998 0.998 0.001" solref="0.004 1"/>
+      <joint solimplimit="0.998 0.998 0.001" solreflimit="0.004 1"/>
+      <default class="visual">
+        <geom contype="0" conaffinity="0"/>
+      </default>
+      <default class="collision">
+        <geom mass="0" group="3"/>
+      </default>
+    </default>
+  </default>
+  <worldbody>
+    <body name="wall_cabinet_600" childclass="wall_cabinet_600">
+      <body name="wall_cabinet_600_offset" pos="0 0 1.466">
+        <geom pos="0 -0.022 0.352" size="0.294 0.354 0.002" type="box" material="back" euler="1.5708 0 0"/>
+        <geom pos="0.292 -0.16 0.352" size="0.16 0.36 0.008" type="box" material="cabinet" euler="1.5708 1.5708 0"/>
+        <geom pos="-0.292 -0.16 0.352" size="0.16 0.36 0.008" type="box" material="cabinet" euler="1.5708 1.5708 0"/>
+        <body name="shelf_bottom">
+          <geom pos="0 -0.16 0" size="0.16 0.284 0.008" type="box" material="cabinet" euler="0 0 1.5708"/>
+        </body>
+        <geom pos="0 -0.16 0.704" size="0.16 0.284 0.008" type="box" material="cabinet" euler="0 0 1.5708"/>
+        <body name="shelf" pos="0 0 0.352">
+          <geom pos="0 -0.17 0" size="0.1475 0.284 0.008" type="box" material="cabinet" euler="0 0 1.5708"/>
+        </body>
+        <body name="door_right" pos="-0.292 -0.328 0.352">
+          <joint pos="0 -0.008 0" name="door_right" type="hinge" axis="0 0 -1" damping="0.01" range="0 1.5708"/>
+          <geom pos="0.145 -0.004 0" type="mesh" mesh="hanging_drawer_600" material="hanging_drawer_600" euler="1.5708 0 0"/>
+          <body pos="0.26 0 -0.26" euler="-3.1416 1.5708 0">
+            <geom type="mesh" mesh="drawer_handle" material="handle" class="visual" euler="1.5708 0 0"/>
+            <geom pos="0 0.027 0" size="0.06 0.0032 0.006" type="box" class="collision"/>
+            <geom pos="-0.0425 0.015 0" size="0.006 0.015 0.006" type="box" class="collision"/>
+            <geom pos="0.0425 0.015 0" size="0.006 0.015 0.006" type="box" class="collision"/>
+          </body>
+        </body>
+        <body name="door_left" pos="0.292 -0.328 0.352">
+          <joint pos="0 -0.008 0" name="door_left" type="hinge" axis="0 0 1" damping="0.01" range="0 1.5708"/>
+          <geom pos="-0.145 -0.004 0" type="mesh" mesh="hanging_drawer_600" material="hanging_drawer_600" euler="1.5708 0 0"/>
+          <body pos="-0.26 0 -0.26" euler="-3.1416 1.5708 0">
+            <geom type="mesh" mesh="drawer_handle" material="handle" class="visual" euler="1.5708 0 0"/>
+            <geom pos="0 0.027 0" size="0.06 0.0032 0.006" type="box" class="collision"/>
+            <geom pos="-0.0425 0.015 0" size="0.006 0.015 0.006" type="box" class="collision"/>
+            <geom pos="0.0425 0.015 0" size="0.006 0.015 0.006" type="box" class="collision"/>
+          </body>
+        </body>
+        <body name="door_right_glass" pos="-0.292 -0.328 0.352">
+          <joint pos="0 -0.008 0" name="door_right_glass" type="hinge" axis="0 0 -1" damping="0.01" range="0 1.5708"/>
+          <geom pos="0.145 -0.004 0" type="mesh" mesh="hanging_drawer_600_glass" material="hanging_drawer_600" euler="1.5708 0 0"/>
+          <geom pos="0.145 -0.004 0" size="0.1 0.31 0.002" type="box" material="glass" euler="1.5708 0 0"/>
+          <body pos="0.26 0 -0.26" euler="-3.1416 1.5708 0">
+            <geom type="mesh" mesh="drawer_handle" material="handle" class="visual" euler="1.5708 0 0"/>
+            <geom pos="0 0.027 0" size="0.06 0.0032 0.006" type="box" class="collision"/>
+            <geom pos="-0.0425 0.015 0" size="0.006 0.015 0.006" type="box" class="collision"/>
+            <geom pos="0.0425 0.015 0" size="0.006 0.015 0.006" type="box" class="collision"/>
+          </body>
+        </body>
+        <body name="door_left_glass" pos="0.292 -0.328 0.352">
+          <joint pos="0 -0.008 0" name="door_left_glass" type="hinge" axis="0 0 1" damping="0.01" range="0 1.5708"/>
+          <geom pos="-0.145 -0.004 0" type="mesh" mesh="hanging_drawer_600_glass" material="hanging_drawer_600" euler="1.5708 0 0"/>
+          <geom pos="-0.145 -0.004 0" size="0.1 0.31 0.002" type="box" material="glass" euler="1.5708 0 0"/>
+          <body pos="-0.26 0 -0.26" euler="-3.1416 1.5708 0">
+            <geom type="mesh" mesh="drawer_handle" material="handle" class="visual" euler="1.5708 0 0"/>
+            <geom pos="0 0.027 0" size="0.06 0.0032 0.006" type="box" class="collision"/>
+            <geom pos="-0.0425 0.015 0" size="0.006 0.015 0.006" type="box" class="collision"/>
+            <geom pos="0.0425 0.015 0" size="0.006 0.015 0.006" type="box" class="collision"/>
+          </body>
+        </body>
+        <body name="vent">
+          <geom pos="0 -0.1825 -0.0263" size="0.298 0.1375 0.017" type="box" material="vent"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

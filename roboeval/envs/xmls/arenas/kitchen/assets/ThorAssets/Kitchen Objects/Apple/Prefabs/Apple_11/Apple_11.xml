@@ -1,0 +1,33 @@
+<mujoco model="Apple_11">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="Apple1_Mat3" specular="0.5" shininess="0.5" rgba="1 1 1 1.0"/>
+    <mesh file="Apple_11.obj"/>
+    <mesh file="Apple_11_collision_0.obj"/>
+    <mesh file="Apple_11_collision_1.obj"/>
+    <mesh file="Apple_11_collision_2.obj"/>
+    <mesh file="Apple_11_collision_3.obj"/>
+    <mesh file="Apple_11_collision_4.obj"/>
+    <mesh file="Apple_11_collision_5.obj"/>
+    <mesh file="Apple_11_collision_6.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Apple_11">
+      <geom material="Apple1_Mat3" mesh="Apple_11" class="visual"/>
+      <geom mesh="Apple_11_collision_0" rgba="0.049490458876088605 0.8155906472411028 0.9174262129412066 1" class="collision"/>
+      <geom mesh="Apple_11_collision_1" rgba="0.5957001673560393 0.9510789140359277 0.7083130409609992 1" class="collision"/>
+      <geom mesh="Apple_11_collision_2" rgba="0.1414789588776727 0.4445941806352428 0.5991376517187738 1" class="collision"/>
+      <geom mesh="Apple_11_collision_3" rgba="0.674463822028148 0.5807556025296335 0.5789592736646044 1" class="collision"/>
+      <geom mesh="Apple_11_collision_4" rgba="0.6759297322757667 0.7436141379488491 0.680154441311775 1" class="collision"/>
+      <geom mesh="Apple_11_collision_5" rgba="0.3159221475593128 0.26340215574302417 0.4054710067305992 1" class="collision"/>
+      <geom mesh="Apple_11_collision_6" rgba="0.38866600359446735 0.00490349540606938 0.6249556698551983 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

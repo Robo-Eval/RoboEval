@@ -1,0 +1,48 @@
+<mujoco model="Ladle_2">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="HammeredMetal_AlbedoTransparency" specular="0.5" shininess="0.5" rgba="1 1 1 1.0"/>
+    <material name="Black.001" specular="0.5" shininess="0.5" rgba="0.07489837 0.07489837 0.07489837 1.0"/>
+    <mesh file="Ladle_2_0.obj"/>
+    <mesh file="Ladle_2_1.obj"/>
+    <mesh file="Ladle_2_collision_0.obj"/>
+    <mesh file="Ladle_2_collision_1.obj"/>
+    <mesh file="Ladle_2_collision_2.obj"/>
+    <mesh file="Ladle_2_collision_3.obj"/>
+    <mesh file="Ladle_2_collision_4.obj"/>
+    <mesh file="Ladle_2_collision_5.obj"/>
+    <mesh file="Ladle_2_collision_6.obj"/>
+    <mesh file="Ladle_2_collision_7.obj"/>
+    <mesh file="Ladle_2_collision_8.obj"/>
+    <mesh file="Ladle_2_collision_9.obj"/>
+    <mesh file="Ladle_2_collision_10.obj"/>
+    <mesh file="Ladle_2_collision_11.obj"/>
+    <mesh file="Ladle_2_collision_12.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Ladle_2">
+      <geom mesh="Ladle_2_0" material="Black.001" class="visual"/>
+      <geom mesh="Ladle_2_1" material="HammeredMetal_AlbedoTransparency" class="visual"/>
+      <geom mesh="Ladle_2_collision_0" rgba="0.47573751162662015 0.34475805177216745 0.7266315462463413 1" class="collision"/>
+      <geom mesh="Ladle_2_collision_1" rgba="0.4665222346881185 0.3712535370948272 0.863493453115707 1" class="collision"/>
+      <geom mesh="Ladle_2_collision_2" rgba="0.014539736149295268 0.28782711002225514 0.14451224726921785 1" class="collision"/>
+      <geom mesh="Ladle_2_collision_3" rgba="0.20642569697489888 0.021766753907992875 0.6701788767414174 1" class="collision"/>
+      <geom mesh="Ladle_2_collision_4" rgba="0.8807247033500799 0.6710720069110211 0.6339496178717733 1" class="collision"/>
+      <geom mesh="Ladle_2_collision_5" rgba="0.6354005285836072 0.7981675849821781 0.9540178915116687 1" class="collision"/>
+      <geom mesh="Ladle_2_collision_6" rgba="0.7004934237746361 0.27608084286225376 0.1113604008039828 1" class="collision"/>
+      <geom mesh="Ladle_2_collision_7" rgba="0.9146442808291879 0.005154752512325778 0.5567712795659012 1" class="collision"/>
+      <geom mesh="Ladle_2_collision_8" rgba="0.9717944434604521 0.055251284272598955 0.8909146336915348 1" class="collision"/>
+      <geom mesh="Ladle_2_collision_9" rgba="0.2033783656114747 0.45007495153680876 0.43021754288793157 1" class="collision"/>
+      <geom mesh="Ladle_2_collision_10" rgba="0.5744962696670113 0.5587582384316641 0.8338045324187404 1" class="collision"/>
+      <geom mesh="Ladle_2_collision_11" rgba="0.5714962766316597 0.13393441877354517 0.6186045304950029 1" class="collision"/>
+      <geom mesh="Ladle_2_collision_12" rgba="0.42820970709564277 0.5533148703297345 0.17095011967965767 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

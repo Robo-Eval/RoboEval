@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<mujoco model="h1_floating_base">
+  <compiler angle="radian" meshdir="assets" autolimits="true"/>
+  <default>
+    <default class="h1_floating_base">
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2" material="black"/>
+      </default>
+      <default class="collision">
+        <geom group="3" mass="0" density="0"/>
+      </default>
+    </default>
+  </default>
+  <asset>
+    <material name="black" rgba="0.1 0.1 0.1 1"/>
+    <material name="white" rgba="1 1 1 1"/>
+    <mesh file="pelvis.stl"/>
+    <mesh file="left_hip_yaw_link.stl"/>
+    <mesh file="left_hip_roll_link.stl"/>
+    <mesh file="left_hip_pitch_link.stl"/>
+    <mesh file="left_knee_link.stl"/>
+    <mesh file="left_ankle_link.stl"/>
+    <mesh file="right_hip_yaw_link.stl"/>
+    <mesh file="right_hip_roll_link.stl"/>
+    <mesh file="right_hip_pitch_link.stl"/>
+    <mesh file="right_knee_link.stl"/>
+    <mesh file="right_ankle_link.stl"/>
+  </asset>
+  <worldbody>
+    <body name="h1_floating_base" childclass="h1_floating_base">
+      <joint name="h1_floating_base" axis="0 0 1" range="-2.35 2.35" damping="50" stiffness="100"/>
+      <geom class="visual" mesh="pelvis"/>
+      <body name="left_hip_yaw_link" pos="0 0.0875 -0.1742">
+        <inertial pos="-0.04923 0.0001 0.0072" quat="0.69699 0.219193 0.233287 0.641667" mass="1e-15"/>
+        <geom class="visual" mesh="left_hip_yaw_link"/>
+        <body name="left_hip_roll_link" pos="0.039468 0 0">
+          <inertial pos="-0.0058 -0.00319 -9e-05" quat="0.0438242 0.70721 -0.0729075 0.701867" mass="1e-15"/>
+          <geom class="visual" mesh="left_hip_roll_link"/>
+          <body name="left_hip_pitch_link" pos="0 0.11536 0">
+            <inertial pos="0.00746 -0.02346 -0.08193" quat="0.979828 0.0513522 -0.0169854 -0.192382" mass="1e-15"/>
+            <geom class="visual" mesh="left_hip_pitch_link"/>
+            <body name="left_knee_link" pos="0 0 -0.4">
+              <inertial pos="-0.00136 -0.00512 -0.1384" quat="0.626132 -0.034227 -0.0416277 0.777852" mass="1e-15"/>
+              <geom class="visual" mesh="left_knee_link"/>
+              <body name="left_ankle_link" pos="0 0 -0.4">
+                <inertial pos="0.06722 0.00015 -0.04497" quat="0.489101 0.503197 0.565782 0.432972" mass="1e-15"/>
+                <geom class="visual" mesh="left_ankle_link"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="left_hip_yaw_link_collision_min" pos="0 0.0875 -0.1742">
+        <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+        <geom size="0.06 0.035" pos="-0.067 0 0" quat="0.707123 0 0.70709 0" type="cylinder" class="collision"/>
+        <body name="left_hip_roll_link_collision_min" pos="0.039468 0 0">
+          <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+          <geom class="collision" type="cylinder" size="0.05 0.03" quat="1 1 0 0" pos="0 -0.02 0"/>
+          <body name="left_hip_pitch_link_collision_min" pos="0 0.11536 0">
+            <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+            <geom class="collision" type="capsule" size="0.03" fromto="0.02 0 -0.4 -0.02 0 0.02"/>
+            <geom class="collision" type="capsule" size="0.03" fromto="0.02 0 -0.4 0.02 0 0.02"/>
+            <geom class="collision" type="cylinder" size="0.05 0.02" quat="1 1 0 0" pos="0 -0.07 0"/>
+            <body name="left_knee_link_collision_min" pos="0 0 -0.4">
+              <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+              <geom class="collision" type="capsule" size="0.025" fromto="0.02 0 -0.4 0.02 0 0"/>
+              <geom class="collision" type="sphere" size="0.05" pos="0 0 -0.115"/>
+              <body name="left_ankle_link_collision_min" pos="0 0 -0.4">
+                <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="left_hip_yaw_link_collision_max" pos="0 0.0875 -0.1742">
+        <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+        <geom size="0.06 0.035" pos="-0.067 0 0" quat="0.707123 0 0.70709 0" type="cylinder" class="collision"/>
+        <body name="left_hip_roll_link_collision_max" pos="0.039468 0 0">
+          <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+          <geom class="collision" type="cylinder" size="0.05 0.03" quat="1 1 0 0" pos="0 -0.02 0"/>
+          <body name="left_hip_pitch_link_collision_max" pos="0 0.11536 0">
+            <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+            <geom class="collision" type="capsule" size="0.03" fromto="0.02 0 -0.4 -0.02 0 0.02"/>
+            <geom class="collision" type="capsule" size="0.03" fromto="0.02 0 -0.4 0.02 0 0.02"/>
+            <geom class="collision" type="cylinder" size="0.05 0.02" quat="1 1 0 0" pos="0 -0.07 0"/>
+            <body name="left_knee_link_collision_max" pos="0 0 -0.4">
+              <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+              <geom class="collision" type="capsule" size="0.025" fromto="0.02 0 -0.4 0.02 0 0"/>
+              <geom class="collision" type="sphere" size="0.05" pos="0 0 -0.115"/>
+              <body name="left_ankle_link_collision_max" pos="0 0 -0.4">
+                <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="right_hip_yaw_link" pos="0 -0.0875 -0.1742">
+        <inertial pos="-0.04923 -0.0001 0.0072" quat="0.641667 0.233287 0.219193 0.69699" mass="1e-15"/>
+        <geom class="visual" mesh="right_hip_yaw_link"/>
+        <body name="right_hip_roll_link" pos="0.039468 0 0">
+          <inertial pos="-0.0058 0.00319 -9e-05" quat="-0.0438242 0.70721 0.0729075 0.701867" mass="1e-15"/>
+          <geom class="visual" mesh="right_hip_roll_link"/>
+          <body name="right_hip_pitch_link" pos="0 -0.11536 0">
+            <inertial pos="0.00746 0.02346 -0.08193" quat="0.979828 -0.0513522 -0.0169854 0.192382" mass="1e-15"/>
+            <geom class="visual" mesh="right_hip_pitch_link"/>
+            <body name="right_knee_link" pos="0 0 -0.4">
+              <inertial pos="-0.00136 0.00512 -0.1384" quat="0.777852 -0.0416277 -0.034227 0.626132" mass="1e-15"/>
+              <geom class="visual" mesh="right_knee_link"/>
+              <body name="right_ankle_link" pos="0 0 -0.4">
+                <inertial pos="0.06722 -0.00015 -0.04497" quat="0.432972 0.565782 0.503197 0.489101" mass="1e-15"/>
+                <geom class="visual" mesh="right_ankle_link"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="right_hip_yaw_link_collision_min" pos="0 -0.0875 -0.1742">
+        <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+        <geom size="0.06 0.035" pos="-0.067 0 0" quat="0.707123 0 0.70709 0" type="cylinder" class="collision"/>
+        <body name="right_hip_roll_link_collision_min" pos="0.039468 0 0">
+          <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+          <geom class="collision" type="cylinder" size="0.05 0.03" quat="1 1 0 0" pos="0 0.02 0"/>
+          <body name="right_hip_pitch_link_collision_min" pos="0 -0.11536 0">
+            <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+            <geom class="collision" type="capsule" size="0.03" fromto="0.02 0 -0.4 -0.02 0 0.02"/>
+            <geom class="collision" type="capsule" size="0.03" fromto="0.02 0 -0.4 0.02 0 0.02"/>
+            <geom class="collision" type="cylinder" size="0.05 0.02" quat="1 1 0 0" pos="0 0.07 0"/>
+            <body name="right_knee_link_collision_min" pos="0 0 -0.4">
+              <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+              <geom class="collision" type="capsule" size="0.025" fromto="0.02 0 -0.4 0.02 0 0"/>
+              <geom class="collision" type="sphere" size="0.05" pos="0 0 -0.115"/>
+              <body name="right_ankle_link_collision_min" pos="0 0 -0.4">
+                <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="right_hip_yaw_link_collision_max" pos="0 -0.0875 -0.1742">
+        <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+        <geom size="0.06 0.035" pos="-0.067 0 0" quat="0.707123 0 0.70709 0" type="cylinder" class="collision"/>
+        <body name="right_hip_roll_link_collision_max" pos="0.039468 0 0">
+          <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+          <geom class="collision" type="cylinder" size="0.05 0.03" quat="1 1 0 0" pos="0 0.02 0"/>
+          <body name="right_hip_pitch_link_collision_max" pos="0 -0.11536 0">
+            <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+            <geom class="collision" type="capsule" size="0.03" fromto="0.02 0 -0.4 -0.02 0 0.02"/>
+            <geom class="collision" type="capsule" size="0.03" fromto="0.02 0 -0.4 0.02 0 0.02"/>
+            <geom class="collision" type="cylinder" size="0.05 0.02" quat="1 1 0 0" pos="0 0.07 0"/>
+            <body name="right_knee_link_collision_max" pos="0 0 -0.4">
+              <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+              <geom class="collision" type="capsule" size="0.025" fromto="0.02 0 -0.4 0.02 0 0"/>
+              <geom class="collision" type="sphere" size="0.05" pos="0 0 -0.115"/>
+              <body name="right_ankle_link_collision_max" pos="0 0 -0.4">
+                <inertial pos="0 0 0" quat="1 0 0 0" mass="1e-15"/>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

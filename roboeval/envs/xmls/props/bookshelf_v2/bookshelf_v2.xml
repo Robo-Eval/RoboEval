@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="bookshelf_v2">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true" /><asset>
+    <texture type="2d" name="wood" file="texture_0.png"/>
+    <material name="default" shininess="0.1" texture="wood"/>
+    <mesh name="original-26" file="original-26.obj"  />
+    <mesh name="original-24" file="original-24.obj"  />
+    <mesh name="original-22" file="original-22.obj"  />
+    <mesh name="original-23" file="original-23.obj"  />
+    <mesh name="original-25" file="original-25.obj"  />
+    <mesh name="original-27" file="original-27.obj"  />
+    <mesh name="original-98" file="original-98.obj"  />
+    <mesh name="original-97" file="original-97.obj"  />
+    <mesh name="original-96" file="original-96.obj"  />
+    <mesh name="original-49" file="original-49.obj"  />
+    <mesh name="original-47" file="original-47.obj"  />
+    <mesh name="original-45" file="original-45.obj"  />
+    <mesh name="original-46" file="original-46.obj"  />
+    <mesh name="original-48" file="original-48.obj"  />
+    <mesh name="original-50" file="original-50.obj"  />
+    <mesh name="original-83" file="original-83.obj"  />
+    <mesh name="original-75" file="original-75.obj"  />
+    <mesh name="original-39" file="original-39.obj"  />
+    <mesh name="original-37" file="original-37.obj"  />
+    <mesh name="original-35" file="original-35.obj"  />
+    <mesh name="original-36" file="original-36.obj"  />
+    <mesh name="original-38" file="original-38.obj"  />
+    <mesh name="original-40" file="original-40.obj"  />
+    <mesh name="original-92" file="original-92.obj"  />
+    <mesh name="original-93" file="original-93.obj"  />
+    <mesh name="original-94" file="original-94.obj"  />
+    <mesh name="original-73" file="original-73.obj"  />
+    <mesh name="original-68" file="original-68.obj"  />
+    <mesh name="original-56" file="original-56.obj"  />
+    <mesh name="original-57" file="original-57.obj"  />
+    <mesh name="original-51" file="original-51.obj"  />
+    <mesh name="original-29" file="original-29.obj"  />
+    <mesh name="original-88" file="original-88.obj"  />
+    <mesh name="original-87" file="original-87.obj"  />
+    <mesh name="original-80" file="original-80.obj"  />
+    <mesh name="original-79" file="original-79.obj"  />
+    <mesh name="new-0" file="new-0.obj"  />
+    <mesh name="new-1" file="new-1.obj"  />
+    <mesh name="original-61" file="original-61.obj"  />
+    <mesh name="original-70" file="original-70.obj"  />
+    <mesh name="original-77" file="original-77.obj"  />
+    <mesh name="original-85" file="original-85.obj"  />
+    <mesh name="original-18" file="original-18.obj"  />
+    <mesh name="original-54" file="original-54.obj"  />
+    <mesh name="original-32" file="original-32.obj"  />
+    <mesh name="original-42" file="original-42.obj"  />
+    <mesh name="original-71" file="original-71.obj"  />
+    <mesh name="original-16" file="original-16.obj"  />
+    <mesh name="original-19" file="original-19.obj"  />
+    <mesh name="original-28" file="original-28.obj"  />
+    <mesh name="original-52" file="original-52.obj"  />
+    <mesh name="original-58" file="original-58.obj"  />
+    <mesh name="original-63" file="original-63.obj"  />
+    <mesh name="original-86" file="original-86.obj"  />
+    <mesh name="original-78" file="original-78.obj"  />
+    <mesh name="original-65" file="original-65.obj"  />
+    <mesh name="original-53" file="original-53.obj"  />
+    <mesh name="original-31" file="original-31.obj"  />
+    <mesh name="original-41" file="original-41.obj"  />
+    <mesh name="original-72" file="original-72.obj"  />
+    <mesh name="original-30" file="original-30.obj"  />
+    <mesh name="original-69" file="original-69.obj"  />
+    <mesh name="original-17" file="original-17.obj"  />
+    <mesh name="original-67" file="original-67.obj"  />
+    <mesh name="original-60" file="original-60.obj"  />
+    <mesh name="original-64" file="original-64.obj"  />
+    <mesh name="original-62" file="original-62.obj"  />
+    <mesh name="original-55" file="original-55.obj"  />
+    <mesh name="original-59" file="original-59.obj"  />
+    <mesh name="original-8" file="original-8.obj"  />
+    <mesh name="original-4" file="original-4.obj"  />
+    <mesh name="original-9" file="original-9.obj"  />
+    <mesh name="original-2" file="original-2.obj"  />
+    <mesh name="original-3" file="original-3.obj"  />
+    <mesh name="original-10" file="original-10.obj"  />
+    <mesh name="original-7" file="original-7.obj"  />
+    <mesh name="original-5" file="original-5.obj"  />
+    <mesh name="original-14" file="original-14.obj"  />
+    <mesh name="original-11" file="original-11.obj"  />
+    <mesh name="original-6" file="original-6.obj"  />
+    <mesh name="original-12" file="original-12.obj"  />
+    <mesh name="original-13" file="original-13.obj"  />
+  </asset>
+  <worldbody>
+    <site name="lower_shelf_site" type="box" size=".1 .5 .12" pos="0 -.06 0.35" rgba="1 0 0 0" />
+    <site name="upper_shelf_site" type="box"  size=".1 .5 .12" pos="0 -0.06 0.6" rgba="1 0 0 0"/>
+    <body name="counter">
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-73" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    </body>
+
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-68" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-56" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-57" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-51" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-29" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-88" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-87" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-80" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-79" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="new-0" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="new-1" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-61" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-70" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-77" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-85" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-18" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-54" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-32" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-42" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-71" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-16" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-19" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-28" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-52" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-58" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-63" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-86" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-78" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-65" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-53" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-31" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-41" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-72" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-30" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-69" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-17" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-67" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-60" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-64" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-62" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-55" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-59" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+
+    <body name="upper_shelf" >
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-8" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    </body>
+
+    <body name="lower_shelf" >
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-4" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    </body>
+
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-9" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-2" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-3" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-10" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-7" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-5" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-14" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-11" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-6" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-12" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <geom quat="0.5 0.5 0.5 0.5" type="mesh" material="default" mesh="original-13" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    <body name="link_0" quat="0.5 0.5 0.5 0.5">
+      <joint name="joint_0" pos="0 0 0" axis="0 0 1" type="slide" range="0 0.296" />
+      <geom type="mesh" material="default" mesh="original-26" contype="0" conaffinity="0" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-24" contype="0" conaffinity="0" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-22" contype="0" conaffinity="0" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-23" contype="0" conaffinity="0" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-25" contype="0" conaffinity="0" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-27" contype="0" conaffinity="0" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-98" contype="0" conaffinity="0" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-97" contype="0" conaffinity="0" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-96" contype="0" conaffinity="0" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    </body>
+    <body name="link_1" quat="0.5 0.5 0.5 0.5">
+      <joint name="joint_1" pos="0 0 0" axis="0 0 1" type="slide" range="0 0.299" />
+      <geom type="mesh" material="default" mesh="original-49" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-47" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-45" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-46" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-48" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-50" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-83" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-75" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    </body>
+    <body name="link_2" quat="0.5 0.5 0.5 0.5">
+      <joint name="joint_2" pos="0 0 0" axis="0 0 1" type="slide" range="0 0.299" />
+      <geom type="mesh" material="default" mesh="original-39" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-37" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-35" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-36" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-38" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-40" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-92" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-93" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+      <geom type="mesh" material="default" mesh="original-94" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    </body>
+  </worldbody>
+</mujoco>

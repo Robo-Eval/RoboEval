@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<mujoco model="kitchen-wall">
+  <compiler autolimits="true" angle="radian"/>
+  <default>
+    <default class="default">
+      <default class="visual">
+        <geom contype="0" conaffinity="0" group="0"/>
+      </default>
+      <default class="structural">
+        <geom contype="8" conaffinity="7" group="4" friction="0.90000000000000002 0.90000000000000002 0.001" solref="0.025000000000000001 1" solimp="0.998 0.998 0.001"/>
+      </default>
+    </default>
+  </default>
+  <asset>
+    <texture name="tex_light_wood_counters" type="2d" file="assets/kitchen_floor.png"/>
+    <material name="mat_white_plastic" class="default" rgba="1 1 1 1"/>
+    <material name="mat_glass_white" class="default" rgba="1 1 1 0.5"/>
+    <material name="mat_light_wood_cabinets" class="default" texture="tex_light_wood_counters" rgba="0.74528300000000003 0.46580189999999999 0.18632080000000001 1"/>
+    <material name="mat_pure_white" class="default" texture="tex_white_fabric" rgba="1 1 1 1"/>
+    <texture name="tex_white_fabric" type="2d" file="assets/kitchen_wall_1.png"/>
+    <mesh name="mesh_wall" class="default" file="assets/kitchen_wall_1.obj" scale="-1 1 1"/>
+    <mesh name="mesh_window_slider_0" class="default" file="assets/window_slider_0.obj"/>
+    <mesh name="mesh_window_slider_1" class="default" file="assets/window_slider_1.obj"/>
+    <mesh name="mesh_window_slider_2" class="default" file="assets/window_slider_2.obj"/>
+  </asset>
+  <worldbody>
+    <body name="wall" quat="0 0 0.70710678118654746 0.70710678118654768">
+      <geom name="wall_visual" class="visual" type="mesh" material="mat_pure_white" mesh="mesh_wall"/>
+      <geom name="wall_structural" class="structural" type="mesh" mesh="mesh_wall"/>
+    </body>
+    <body name="window" pos="3.1820963211331281 4.964999999999999 1.4973600432276724" quat="0.70710678118654746 0.70710678118654768 4.3297802811774658e-17 4.3297802811774677e-17">
+      <geom name="window_visual_0" class="visual" type="mesh" material="mat_white_plastic" mesh="mesh_window_slider_0"/>
+      <geom name="window_visual_1" class="visual" type="mesh" material="mat_glass_white" mesh="mesh_window_slider_1"/>
+      <geom name="window_visual_2" class="visual" type="mesh" material="mat_light_wood_cabinets" mesh="mesh_window_slider_2"/>
+    </body>
+  </worldbody>
+</mujoco>

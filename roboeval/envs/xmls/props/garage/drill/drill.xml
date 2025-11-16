@@ -1,0 +1,33 @@
+<mujoco model="drill">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh" density="500" mass="2" solimp="0.95 0.98 0.001" solref="0.004 1"/>
+    </default>
+  </default>
+  <asset>
+    <texture type="2d" name="Albedo" file="Albedo.png"/>
+    <material name="Material" texture="Albedo" specular="0.5" shininess="0.5"/>
+    <mesh file="Drill.obj" scale="0.003 0.003 0.003"/>
+    <mesh file="Drill_collision_0.obj" scale="0.003 0.003 0.003"/>
+    <mesh file="Drill_collision_1.obj" scale="0.003 0.003 0.003"/>
+    <mesh file="Drill_collision_2.obj" scale="0.003 0.003 0.003"/>
+    <mesh file="Drill_collision_3.obj" scale="0.003 0.003 0.003"/>
+    <mesh file="Drill_collision_4.obj" scale="0.003 0.003 0.003"/>
+    <mesh file="Drill_collision_5.obj" scale="0.003 0.003 0.003"/>
+  </asset>
+  <worldbody>
+    <body name="Drill">
+      <geom material="Material" mesh="Drill" class="visual"/>
+      <geom mesh="Drill_collision_0" rgba="0.46984089952748265 0.8213890710319409 0.5833526716937155 1" class="collision"/>
+      <geom mesh="Drill_collision_1" rgba="0.16048689371393987 0.8900088583594358 0.03882547415012061 1" class="collision"/>
+      <geom mesh="Drill_collision_2" rgba="0.41744496151095534 0.40133641133453746 0.45712940165014404 1" class="collision"/>
+      <geom mesh="Drill_collision_3" rgba="0.4696152194178135 0.18331778296857315 0.6267542206517079 1" class="collision"/>
+      <geom mesh="Drill_collision_4" rgba="0.6172853952200725 0.6176141032437912 0.23814753183650872 1" class="collision"/>
+      <geom mesh="Drill_collision_5" rgba="0.20257687743231068 0.5873389947447153 0.7881307865448969 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

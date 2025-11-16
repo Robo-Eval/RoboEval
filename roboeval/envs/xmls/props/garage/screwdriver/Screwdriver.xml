@@ -1,0 +1,27 @@
+<mujoco model="Screwdriver">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh" density="500" mass="2" solimp="0.95 0.99 0.001" solref="0.004 1" friction="1.0 0.005 0.0001"/>
+    </default>
+  </default>
+  <asset>
+    <texture type="2d" name="ScrewdriverAlbedo" file="ScrewdriverAlbedo.png"/>
+    <material name="Material__3" texture="ScrewdriverAlbedo" specular="0.0" shininess="0.02"/>
+    <mesh file="Screwdriver.obj" scale="0.02 0.02 0.02"/>
+    <mesh file="Screwdriver_collision_0.obj" scale="0.02 0.02 0.02"/>
+    <mesh file="Screwdriver_collision_1.obj" scale="0.02 0.02 0.02"/>
+    <mesh file="Screwdriver_collision_2.obj" scale="0.02 0.02 0.02"/>
+  </asset>
+  <worldbody>
+    <body name="Screwdriver">
+      <geom material="Material__3" mesh="Screwdriver" class="visual"/>
+      <geom mesh="Screwdriver_collision_0" rgba="0.7906275948740719 0.8116706093813627 0.8251413874002452 1" class="collision"/>
+      <geom mesh="Screwdriver_collision_1" rgba="0.8761779916356105 0.2523546750454314 0.5838753761747055 1" class="collision"/>
+      <geom mesh="Screwdriver_collision_2" rgba="0.10748632019043103 0.9145433556958664 0.6411310852665876 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

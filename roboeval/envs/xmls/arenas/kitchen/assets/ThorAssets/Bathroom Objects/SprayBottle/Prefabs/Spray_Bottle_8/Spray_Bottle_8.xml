@@ -1,0 +1,31 @@
+<mujoco model="Spray_Bottle_8">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="SprayBottle1_varH" specular="0.5" shininess="0.5" rgba="1 1 1 1.0"/>
+    <mesh file="Spray_Bottle_8.obj"/>
+    <mesh file="Spray_Bottle_8_collision_0.obj"/>
+    <mesh file="Spray_Bottle_8_collision_1.obj"/>
+    <mesh file="Spray_Bottle_8_collision_2.obj"/>
+    <mesh file="Spray_Bottle_8_collision_3.obj"/>
+    <mesh file="Spray_Bottle_8_collision_4.obj"/>
+    <mesh file="Spray_Bottle_8_collision_5.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Spray_Bottle_8">
+      <geom material="SprayBottle1_varH" mesh="Spray_Bottle_8" class="visual"/>
+      <geom mesh="Spray_Bottle_8_collision_0" rgba="0.4985374840275216 0.5232375814164991 0.23573116770261193 1" class="collision"/>
+      <geom mesh="Spray_Bottle_8_collision_1" rgba="0.1653819397990406 0.38363749842245065 0.21557355268118894 1" class="collision"/>
+      <geom mesh="Spray_Bottle_8_collision_2" rgba="0.1843636453967008 0.6793845456199158 0.5703201588335042 1" class="collision"/>
+      <geom mesh="Spray_Bottle_8_collision_3" rgba="0.5910388935494607 0.6095890635980229 0.14297792585178715 1" class="collision"/>
+      <geom mesh="Spray_Bottle_8_collision_4" rgba="0.7375152994779751 0.4850390904022406 0.5300917190401842 1" class="collision"/>
+      <geom mesh="Spray_Bottle_8_collision_5" rgba="0.13025478445520078 0.8160304116182752 0.36005691091016623 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

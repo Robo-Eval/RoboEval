@@ -1,0 +1,46 @@
+<mujoco model="circle">
+  <compiler angle="radian" meshdir="assets" texturedir="assets" autolimits="true"/>
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0" mass="0.4"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh" density="500" mass="0" solimp="0.95 0.99 0.001" solref="0.004 1"/>
+    </default>
+  </default>
+  <asset>
+    <material name="Color_Red" specular="0.5" shininess="0.25" rgba="0.941257 0.021256 0.009260 1.000000"/>
+    <mesh file="circle.obj"/>
+    <mesh file="circle_collision_0.obj"/>
+    <mesh file="circle_collision_1.obj"/>
+    <mesh file="circle_collision_2.obj"/>
+    <mesh file="circle_collision_3.obj"/>
+    <mesh file="circle_collision_4.obj"/>
+    <mesh file="circle_collision_5.obj"/>
+    <mesh file="circle_collision_6.obj"/>
+    <mesh file="circle_collision_7.obj"/>
+  </asset>
+  <worldbody>
+    <body name="circle">
+      <geom material="Color_Red" mesh="circle" class="visual"/>
+
+      <body name="hole_site">
+      <geom name="hole_site" type="cylinder" size=".006 .002 .04" pos="-.105 0.004 0.11" euler="1.5708 0 0" rgba="1 1 0 0" contype="0"
+      conaffinity="0"
+      friction="0 0 0"
+      solimp="0.99 0.99 0.000001"
+      solref="0.000001 1"
+      density="0"
+      />
+      </body>
+      <geom mesh="circle_collision_0" rgba="0.9498307676056398 0.8502444243097724 0.28513925190068734 1" class="collision"/>
+      <geom mesh="circle_collision_1" rgba="0.49191048805914217 0.9766924192863768 0.632216020819066 1" class="collision"/>
+      <geom mesh="circle_collision_2" rgba="0.283177996115369 0.5970082944939628 0.5125334253900818 1" class="collision"/>
+      <geom mesh="circle_collision_3" rgba="0.7248798245297251 0.0915824584250522 0.2851652877558126 1" class="collision"/>
+      <geom mesh="circle_collision_4" rgba="0.9140863988218713 0.4610989729373687 0.5410591518301704 1" class="collision"/>
+      <geom mesh="circle_collision_5" rgba="0.6691176290272534 0.8522178860453514 0.49987197693424845 1" class="collision"/>
+      <geom mesh="circle_collision_6" rgba="0.9245084966495208 0.06723861005291298 0.6044714649096327 1" class="collision"/>
+      <geom mesh="circle_collision_7" rgba="0.7247452162405406 0.33713668813704567 0.7024046017163321 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

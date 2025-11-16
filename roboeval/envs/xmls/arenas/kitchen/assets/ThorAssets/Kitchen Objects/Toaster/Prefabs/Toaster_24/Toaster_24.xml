@@ -1,0 +1,91 @@
+<mujoco model="Toaster_24">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="Toaster_Primary2_Mat" specular="0.5" shininess="0.5" rgba="0.5352508 0.6690729 0.7352941 1.0"/>
+    <material name="Toaster_Metal_Mat" specular="0.5" shininess="0.5" rgba="0.3382353 0.3208261 0.3208261 1.0"/>
+    <material name="Toaster_Interior_Mat" specular="0.5" shininess="0.5" rgba="0 0 0 1.0"/>
+    <material name="Toaster_Decal_Mat" specular="0.5" shininess="0.5" rgba="1 1 1 1.0"/>
+    <material name="Toaster_Coils_Off_Mat" specular="0.5" shininess="0.5" rgba="0.1603774 0.1603774 0.1603774 1.0"/>
+    <mesh file="Toaster_24_0.obj"/>
+    <mesh file="Toaster_24_1.obj"/>
+    <mesh file="Toaster_24_2.obj"/>
+    <mesh file="Toaster_24_3.obj"/>
+    <mesh file="Toaster_24_4.obj"/>
+    <mesh file="Toaster_24_collision_0.obj"/>
+    <mesh file="Toaster_24_collision_1.obj"/>
+    <mesh file="Toaster_24_collision_2.obj"/>
+    <mesh file="Toaster_24_collision_3.obj"/>
+    <mesh file="Toaster_24_collision_4.obj"/>
+    <mesh file="Toaster_24_collision_5.obj"/>
+    <mesh file="Toaster_24_collision_6.obj"/>
+    <mesh file="Toaster_24_collision_7.obj"/>
+    <mesh file="Toaster_24_collision_8.obj"/>
+    <mesh file="Toaster_24_collision_9.obj"/>
+    <mesh file="Toaster_24_collision_10.obj"/>
+    <mesh file="Toaster_24_collision_11.obj"/>
+    <mesh file="Toaster_24_collision_12.obj"/>
+    <mesh file="Toaster_24_collision_13.obj"/>
+    <mesh file="Toaster_24_collision_14.obj"/>
+    <mesh file="Toaster_24_collision_15.obj"/>
+    <mesh file="Toaster_24_collision_16.obj"/>
+    <mesh file="Toaster_24_collision_17.obj"/>
+    <mesh file="Toaster_24_collision_18.obj"/>
+    <mesh file="Toaster_24_collision_19.obj"/>
+    <mesh file="Toaster_24_collision_20.obj"/>
+    <mesh file="Toaster_24_collision_21.obj"/>
+    <mesh file="Toaster_24_collision_22.obj"/>
+    <mesh file="Toaster_24_collision_23.obj"/>
+    <mesh file="Toaster_24_collision_24.obj"/>
+    <mesh file="Toaster_24_collision_25.obj"/>
+    <mesh file="Toaster_24_collision_26.obj"/>
+    <mesh file="Toaster_24_collision_27.obj"/>
+    <mesh file="Toaster_24_collision_28.obj"/>
+    <mesh file="Toaster_24_collision_29.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Toaster_24">
+      <geom mesh="Toaster_24_0" material="Toaster_Coils_Off_Mat" class="visual"/>
+      <geom mesh="Toaster_24_1" material="Toaster_Decal_Mat" class="visual"/>
+      <geom mesh="Toaster_24_2" material="Toaster_Interior_Mat" class="visual"/>
+      <geom mesh="Toaster_24_3" material="Toaster_Metal_Mat" class="visual"/>
+      <geom mesh="Toaster_24_4" material="Toaster_Primary2_Mat" class="visual"/>
+      <geom mesh="Toaster_24_collision_0" rgba="0.027709459879449283 0.7945590094710502 0.7588305576420117 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_1" rgba="0.25376551542414316 0.21653747657588263 0.9880875341591624 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_2" rgba="0.06855793105984043 0.37766632768071273 0.3909555507177995 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_3" rgba="0.19008823920584084 0.037483593177119134 0.27072436387753274 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_4" rgba="0.7615042229943189 0.2061887402218493 0.031826351855318014 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_5" rgba="0.22261182665714152 0.4381065134210519 0.7013042984517919 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_6" rgba="0.894321908927424 0.4536319604838205 0.8097291416831373 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_7" rgba="0.8108274715137885 0.9973991682954073 0.7213550643347628 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_8" rgba="0.8520948595463593 0.06110335022027391 0.19016214314666668 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_9" rgba="0.060616646293474075 0.5464959600815451 0.566878853276555 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_10" rgba="0.5592866068207136 0.38510842215702223 0.4969778251781257 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_11" rgba="0.5901251774557835 0.3588068408551418 0.3999231222812454 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_12" rgba="0.00025034903103937634 0.5370535859234932 0.5537510949778082 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_13" rgba="0.8065951678245049 0.7917194530736306 0.20216814864681387 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_14" rgba="0.12873685533429846 0.7195746874443834 0.3899044982052563 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_15" rgba="0.022158678836316503 0.6848086294855512 0.2261782820816629 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_16" rgba="0.5450797264435197 0.41275113183949896 0.17620719194377177 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_17" rgba="0.5852345463774056 0.8119048573074281 0.6829220141968575 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_18" rgba="0.6771239839565132 0.4291692434112794 0.019193567980156145 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_19" rgba="0.9168331309082705 0.9155144004534489 0.6760663957006516 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_20" rgba="0.5179455882863438 0.34464940423894763 0.3526158072027138 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_21" rgba="0.061856369580212345 0.13521124512245786 0.08346884237768049 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_22" rgba="0.6723837341365039 0.898384584631882 0.5510956375998455 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_23" rgba="0.9198267931603293 0.9033287312605824 0.05381160169098387 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_24" rgba="0.1493464809714009 0.39489500423901314 0.35720994298756004 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_25" rgba="0.28511460933377264 0.4641024778049724 0.7257258260023406 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_26" rgba="0.9318758745735148 0.7979621254279993 0.6228986498095588 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_27" rgba="0.1597451236312657 0.29110452232408524 0.1376118873708595 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_28" rgba="0.30660343232094756 0.8821899539689968 0.04454557512508983 1" class="collision"/>
+      <geom mesh="Toaster_24_collision_29" rgba="0.6686493331986342 0.32478246304779956 0.7121646774153806 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

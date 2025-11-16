@@ -1,0 +1,59 @@
+<mujoco model="Window_Slider_48x36">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="LightWoodCabinets" specular="0.5" shininess="0.5" rgba="0.745283 0.4658019 0.1863208 1.0"/>
+    <material name="Glass_White_Mat" specular="0.5" shininess="0.5" rgba="1 1 1 0.122"/>
+    <material name="WhitePlastic" specular="0.5" shininess="0.5" rgba="1 1 1 1.0"/>
+    <mesh file="Window_Slider_48x36_0.obj"/>
+    <mesh file="Window_Slider_48x36_1.obj"/>
+    <mesh file="Window_Slider_48x36_2.obj"/>
+    <mesh file="Window_Slider_48x36_collision_0.obj"/>
+    <mesh file="Window_Slider_48x36_collision_1.obj"/>
+    <mesh file="Window_Slider_48x36_collision_2.obj"/>
+    <mesh file="Window_Slider_48x36_collision_3.obj"/>
+    <mesh file="Window_Slider_48x36_collision_4.obj"/>
+    <mesh file="Window_Slider_48x36_collision_5.obj"/>
+    <mesh file="Window_Slider_48x36_collision_6.obj"/>
+    <mesh file="Window_Slider_48x36_collision_7.obj"/>
+    <mesh file="Window_Slider_48x36_collision_8.obj"/>
+    <mesh file="Window_Slider_48x36_collision_9.obj"/>
+    <mesh file="Window_Slider_48x36_collision_10.obj"/>
+    <mesh file="Window_Slider_48x36_collision_11.obj"/>
+    <mesh file="Window_Slider_48x36_collision_12.obj"/>
+    <mesh file="Window_Slider_48x36_collision_13.obj"/>
+    <mesh file="Window_Slider_48x36_collision_14.obj"/>
+    <mesh file="Window_Slider_48x36_collision_15.obj"/>
+    <mesh file="Window_Slider_48x36_collision_16.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Window_Slider_48x36">
+      <geom mesh="Window_Slider_48x36_0" material="WhitePlastic" class="visual"/>
+      <geom mesh="Window_Slider_48x36_1" material="Glass_White_Mat" class="visual"/>
+      <geom mesh="Window_Slider_48x36_2" material="LightWoodCabinets" class="visual"/>
+      <geom mesh="Window_Slider_48x36_collision_0" rgba="0.9445835009790077 0.9952352015249398 0.2611887484673655 1" class="collision"/>
+      <geom mesh="Window_Slider_48x36_collision_1" rgba="0.89655840759926 0.06388635734628378 0.9685893034793626 1" class="collision"/>
+      <geom mesh="Window_Slider_48x36_collision_2" rgba="0.13319258218492758 0.1357072069115366 0.3319974812466703 1" class="collision"/>
+      <geom mesh="Window_Slider_48x36_collision_3" rgba="0.5100053476137107 0.8343154211192773 0.11175214253621735 1" class="collision"/>
+      <geom mesh="Window_Slider_48x36_collision_4" rgba="0.8198747258000524 0.984394404454558 0.03100076917342376 1" class="collision"/>
+      <geom mesh="Window_Slider_48x36_collision_5" rgba="0.6987018361923129 0.8987609003165559 0.025221027776411442 1" class="collision"/>
+      <geom mesh="Window_Slider_48x36_collision_6" rgba="0.5964631137482114 0.9298775979720465 0.7769185239855643 1" class="collision"/>
+      <geom mesh="Window_Slider_48x36_collision_7" rgba="0.018744487694706602 0.07929780895619154 0.3430442485035845 1" class="collision"/>
+      <geom mesh="Window_Slider_48x36_collision_8" rgba="0.7896976038741235 0.6022868916756379 0.8895655950766937 1" class="collision"/>
+      <geom mesh="Window_Slider_48x36_collision_9" rgba="0.8329883945949685 0.44754546353830393 0.8497526260675764 1" class="collision"/>
+      <geom mesh="Window_Slider_48x36_collision_10" rgba="0.25304889471312597 0.5587431832742585 0.2873921708239713 1" class="collision"/>
+      <geom mesh="Window_Slider_48x36_collision_11" rgba="0.0979904166533202 0.10726087901840975 0.8309095908430653 1" class="collision"/>
+      <geom mesh="Window_Slider_48x36_collision_12" rgba="0.07250460729103225 0.9641104370984591 0.5185101872537877 1" class="collision"/>
+      <geom mesh="Window_Slider_48x36_collision_13" rgba="0.3141141787065139 0.26845023253168643 0.22620113597352942 1" class="collision"/>
+      <geom mesh="Window_Slider_48x36_collision_14" rgba="0.6283739043005214 0.5659503007718524 0.16781723820518313 1" class="collision"/>
+      <geom mesh="Window_Slider_48x36_collision_15" rgba="0.4202137196160002 0.6992920354602485 0.08510637759171191 1" class="collision"/>
+      <geom mesh="Window_Slider_48x36_collision_16" rgba="0.8316642620783237 0.09948998409197407 0.8368438763270738 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,13 @@
+# place books on bookshelf
+props:
+  - type: BookShelf
+    position: [0.6, 0, 0.78]
+    euler: [0, 0, 180]
+    asset_path: "props/bookshelf_v2/bookshelf_v2.xml"
+robot:
+  - name: Bimanual Panda
+    position: [-0.15, 0, -0.1]
+  - name: h1
+    position: [0, 0, 0]
+
+    

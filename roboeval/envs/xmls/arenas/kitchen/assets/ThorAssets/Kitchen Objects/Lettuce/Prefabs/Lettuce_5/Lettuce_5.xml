@@ -1,0 +1,21 @@
+<mujoco model="Lettuce_5">
+  <default>
+    <default class="visual">
+      <geom group="2" type="mesh" contype="0" conaffinity="0"/>
+    </default>
+    <default class="collision">
+      <geom group="3" type="mesh"/>
+    </default>
+  </default>
+  <asset>
+    <material name="Lettuce1_Mat" specular="0.5" shininess="0.5" rgba="0.9945233 1 0.6029412 1.0"/>
+    <mesh file="Lettuce_5.obj"/>
+    <mesh file="Lettuce_5_collision_0.obj"/>
+  </asset>
+  <worldbody>
+    <body name="Lettuce_5">
+      <geom material="Lettuce1_Mat" mesh="Lettuce_5" class="visual"/>
+      <geom mesh="Lettuce_5_collision_0" rgba="0.07631605007373288 0.3454814013791012 0.5540321935826265 1" class="collision"/>
+    </body>
+  </worldbody>
+</mujoco>
