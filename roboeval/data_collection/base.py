@@ -6,7 +6,7 @@ import traceback
 from roboeval.action_modes import ActionMode
 from roboeval.robots.robot import Robot
 from roboeval.roboeval_env import RoboEvalEnv
-from tools.shared.utils import DATA_COLLECTION_MODES
+from roboeval.tools.shared.utils import DATA_COLLECTION_MODES
 
 
 class InputMode(ABC):

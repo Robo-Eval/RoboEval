@@ -170,13 +170,15 @@ class GenericUpperBodyIK(UpperBodyIK):
             if shoulder is None:
                 raise ValueError(f"No shoulder found for site {site.name}")
 
+            joint_names = [j.name for j in mjcf_utils.safe_find_all(shoulder, "joint")]
+
             # Solve IK for the current arm
             ik_result = qpos_from_site_pose(
                 physics=self._physics,
                 site_name=site.name,
                 target_pos=target_pose.position,
                 target_quat=target_pose.orientation.elements,
-                joint_names=[j.name for j in mjcf_utils.safe_find_all(shoulder, "joint")],
+                joint_names=joint_names,
                 tol=0.000001,
                 max_steps=self._config.solver_max_steps,
                 inplace=True,
@@ -184,9 +186,12 @@ class GenericUpperBodyIK(UpperBodyIK):
 
             if not ik_result.success:
                 print(f"[WARN] IK did not converge for arm at site {site.name}")
+            
+            # Update qpos for next iteration
+            qpos = self._physics.data.qpos[:len(qpos)].copy()
 
         # Return the updated joint positions
-        solution = self._physics.data.qpos[:len(qpos)].copy()
+        solution = arm_joints.qpos.copy()
         return solution
 
     def solve_arms_only(

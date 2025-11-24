@@ -383,6 +383,15 @@ class OculusFixedBase:
 
         # Reset origin on release
         if context.reset_origin:
+            # Ensure physics is fully settled before capturing positions
+            # This is especially important when robot is at non-zero Z position
+            for _ in range(20):
+                self._env.mojo.physics.step()
+            self._env.mojo.physics.forward()
+            
+            # Update pelvis pose after physics settling (it may have changed)
+            pelvis_pose = Pose(pelvis.get_position(), Quaternion(pelvis.get_quaternion()))
+            
             context.robot_origin_base = {"pos": pelvis_pose.position, "quat": pelvis_pose.orientation}
             context.robot_origin_l = {"pos": gripper_l.wrist_position, "quat": gripper_l.wrist_orientation}
             context.robot_origin_r = {"pos": gripper_r.wrist_position, "quat": gripper_r.wrist_orientation}
@@ -513,6 +522,10 @@ class OculusTeleop:
         self._env = vr_env_cls(action_mode=action_mode, render_mode="human", robot_cls=robot_cls)
 
         self._env.reset()
+        # Step physics more times to ensure robot has fully settled after reset
+        # This is especially important when robot is at non-zero Z position
+        for _ in range(50):
+            self._env.mojo.physics.step()
 
         self._stats = OculusTeleopStats()
 
@@ -632,6 +645,10 @@ class OculusTeleop:
         self._stop_recording()
         self._stop_countdown = None
         self._env.reset()
+        # Step physics more times to ensure robot has fully settled after reset
+        # This is especially important when robot is at non-zero Z position
+        for _ in range(50):
+            self._env.mojo.physics.step()
         self._control_profile.reset()
         self._oculus_reader.reset_state()
         self._demo_recorder.record(self._env, lightweight_demo=True)

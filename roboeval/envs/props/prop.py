@@ -19,6 +19,7 @@ class Prop(ABC):
     _KINEMATIC = False
     _CACHE_COLLIDERS = False
     _CACHE_SITES = False
+    _HANDLE_FREEJOINTS = False
 
     __HIDDEN_POSITION = np.array([0, 0, -100])
 
@@ -42,6 +43,7 @@ class Prop(ABC):
             str(self._model_path),
             on_loaded=self._on_loaded,
             parent=parent,
+            handle_freejoints=self._HANDLE_FREEJOINTS,
         )
         self.aabb: Optional[Site] = self.get_boundary_aabb(self.body, self._mojo)
         self.bbox: IBoundingBox = self.get_bounding_box(self.body, self._mojo)

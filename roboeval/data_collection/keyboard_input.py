@@ -181,6 +181,14 @@ class KeyboardTeleop:
 
     def _init_arm_state(self):
         """Initialize arm positions and orientations."""
+        # Ensure physics is settled before capturing positions
+        self._env.mojo.physics.forward()
+        
+        # Get pelvis position for reference
+        pelvis = self._env.robot.pelvis
+        pelvis_pos = pelvis.get_position()
+        
+        # Capture current wrist positions in world coordinates
         self.left_arm_target = np.array(self.gripper_l.wrist_position) if self.gripper_l else np.zeros(3)
         self.right_arm_target = np.array(self.gripper_r.wrist_position) if self.gripper_r else np.zeros(3)
 
@@ -343,9 +351,11 @@ class KeyboardTeleop:
 
     def _calculate_control(self, grip_left, grip_right):
         """Calculate control vector for the robot."""
-        # Get pelvis pose
+        # Get current pelvis pose - must use current position for IK to work correctly
+        # The targets are in world coordinates, so they should work with any pelvis position
         pelvis = self._env.robot.pelvis
-        pelvis_pose = Pose(pelvis.get_position(), Quaternion(pelvis.get_quaternion()))
+        pelvis_pos = pelvis.get_position()
+        pelvis_pose = Pose(pelvis_pos, Quaternion(pelvis.get_quaternion()))
         
         # Initialize control vector
         control = np.zeros_like(self._env.action_space.low)
@@ -360,13 +370,15 @@ class KeyboardTeleop:
         num_arms = len(self._env.robot._arms)
         qpos_arms = np.split(arms_qpos, num_arms)
         
-        # Create target poses
+        # Create target poses in world coordinates
+        # Note: qpos_from_site_pose expects world coordinates, and the IK solver
+        # sets the root pose first, so targets should be in world frame
         target_poses = []
         if self.gripper_l is not None:
-            target_pose_left = Pose(pelvis_pose.position + self.left_arm_target, self.left_arm_orientation)
+            target_pose_left = Pose(self.left_arm_target, self.left_arm_orientation)
             target_poses.append(target_pose_left)
         if self.gripper_r is not None:
-            target_pose_right = Pose(pelvis_pose.position + self.right_arm_target, self.right_arm_orientation)
+            target_pose_right = Pose(self.right_arm_target, self.right_arm_orientation) 
             target_poses.append(target_pose_right)
         
         # Solve IK

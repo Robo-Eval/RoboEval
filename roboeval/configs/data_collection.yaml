@@ -9,7 +9,7 @@ target_dir: ./recordings
 input_mode: Oculus
 action_mode: joint_position
 robot: Bimanual Panda
-env: Cube Handover
+env: Lift Pot
 control_profile: H1 Upper Body Floating
 absolute_mode: true
 enable_all_floating_dof: false

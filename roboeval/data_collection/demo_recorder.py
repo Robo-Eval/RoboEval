@@ -12,7 +12,7 @@ from omegaconf import DictConfig
 
 from base import InputMode
 from roboeval.action_modes import JointPositionActionMode, PelvisDof
-from tools.shared.utils import ENVIRONMENTS, ROBOTS
+from roboeval.tools.shared.utils import ENVIRONMENTS, ROBOTS
 
 
 class DemoRecorder:
