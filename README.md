@@ -61,7 +61,7 @@ For more information, please visit our [full documentation site](https://robo-ev
 
 1. **Clone the repository with submodules:**
 ```bash
-git clone --recurse-submodules git@github.com:helen9975/RoboEval.git
+git clone --recurse-submodules git@github.com:Robo-Eval/RoboEval.git
 cd RoboEval
 ```
 
