@@ -5,7 +5,6 @@ import warnings
 import zipfile
 from typing import Optional
 
-from importlib_metadata import metadata
 import numpy as np
 import tempfile
 from pathlib import Path
