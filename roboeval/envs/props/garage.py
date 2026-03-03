@@ -114,7 +114,6 @@ class Valve(KinematicProp):
             for joint_name, value in target_state.items():
                 # Fetch the joint reference
                 joint = (Joint.get(self._mojo, joint_name, self.body))
-                print(f'{joint_name} is being loaded')
                 if joint and hasattr(joint.mjcf, 'range'):
                     set_joint_position(joint, value, True)
                 else:
@@ -125,13 +124,10 @@ class Valve(KinematicProp):
                     continue
 
                 parent = joint.root.model
-                print(joint.root.model)
                 joint_name = f'{parent}/{joint.name}'
 
                 joint_obj = (Joint.get(self._mojo, joint_name, self.body))
                 if joint_obj and hasattr(joint_obj.mjcf, 'range') and len(joint.range) > 0:
-                    print(joint.range)
-                    print(f'{joint_name} is being loaded')
                     set_joint_position(joint_obj, state, True)
         else:
             print("[WARNING] set_state called with neither 'state' nor 'target_state'. Nothing to do.")
@@ -192,7 +188,6 @@ class Lever(KinematicProp):
             for joint_name, value in target_state.items():
                 # Fetch the joint reference
                 joint = (Joint.get(self._mojo, joint_name, self.body))
-                print(f'{joint_name} is being loaded')
                 if joint and hasattr(joint.mjcf, 'range'):
                     set_joint_position(joint, value, True)
                 else:
@@ -203,13 +198,10 @@ class Lever(KinematicProp):
                     continue
 
                 parent = joint.root.model
-                print(joint.root.model)
                 joint_name = f'{parent}/{joint.name}'
 
                 joint_obj = (Joint.get(self._mojo, joint_name, self.body))
                 if joint_obj and hasattr(joint_obj.mjcf, 'range') and len(joint.range) > 0:
-                    print(joint.range)
-                    print(f'{joint_name} is being loaded')
                     set_joint_position(joint_obj, state, True)
         else:
             print("[WARNING] set_state called with neither 'state' nor 'target_state'. Nothing to do.")
