@@ -1,0 +1,16 @@
+{
+    "task_family": "cube_handover",
+    "object": "rod",
+    "instructions": [
+        "Hand the object from one gripper to the other.",
+        "Pass the rod from one hand to the other hand.",
+        "Transfer the object between your two grippers.",
+        "Pick up the rod with one gripper and hand it off to the other.",
+        "Grab the rod and pass it across to the opposite gripper.",
+        "Perform a handover of the rod from one end-effector to the other.",
+        "Use one hand to grasp the rod, then transfer it to the other hand.",
+        "Move the object from the initial gripper to the opposite one.",
+        "Pick up the rod and hand it over to the other arm.",
+        "Complete a gripper-to-gripper transfer of the rod."
+    ]
+}

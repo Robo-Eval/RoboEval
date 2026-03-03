@@ -1,0 +1,16 @@
+{
+    "task_family": "pick_single_book_from_table",
+    "object": "book",
+    "instructions": [
+        "Pick up the book from the table.",
+        "Grab the book off the counter and lift it.",
+        "Use your gripper to pick the book up from the surface.",
+        "Lift the book from the table and hold it.",
+        "Reach for the book on the table and pick it up.",
+        "Grasp the book and raise it off the table.",
+        "Take the book from the counter and hold it above the surface.",
+        "Pick the book up from the workspace.",
+        "Grab the book off the table and lift it clear of the surface.",
+        "Reach down, grasp the book, and raise it from the table."
+    ]
+}

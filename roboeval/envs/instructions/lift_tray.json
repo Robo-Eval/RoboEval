@@ -1,0 +1,16 @@
+{
+    "task_family": "lift_tray",
+    "object": "breakfast tray",
+    "instructions": [
+        "Lift the tray off the table using both hands.",
+        "Use both grippers to pick up the breakfast tray and raise it.",
+        "Grasp the tray with both hands and lift it above the table.",
+        "Bimanually lift the tray from the cabinet surface.",
+        "Pick up the tray with both arms, keeping it steady.",
+        "Grab the tray on both sides and raise it off the table.",
+        "Using both end-effectors, lift the breakfast tray upward.",
+        "Carefully lift the tray with two hands so it clears the surface.",
+        "Hold the tray with both grippers and elevate it from the table.",
+        "Raise the breakfast tray off the counter using a two-handed grasp."
+    ]
+}

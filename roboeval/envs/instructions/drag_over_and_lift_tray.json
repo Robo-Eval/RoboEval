@@ -1,0 +1,16 @@
+{
+    "task_family": "drag_over_and_lift_tray",
+    "object": "breakfast tray",
+    "instructions": [
+        "Drag the tray from the adjacent table over to this side and lift it.",
+        "Pull the breakfast tray across to the target table, then raise it up.",
+        "Move the tray from the far table to the near table and lift it.",
+        "Slide the tray over to the other table and then pick it up with both hands.",
+        "Transfer the breakfast tray from the side table by dragging it over, then lift.",
+        "Grab the tray on the adjacent surface, drag it to the target area, and raise it.",
+        "Use both hands to pull the tray across to the target table and lift it above the surface.",
+        "Reach over, drag the breakfast tray to this side, and lift it clear of the table.",
+        "Bring the tray from the neighboring table over here and raise it up.",
+        "Slide the breakfast tray across from the other table and lift it with both grippers."
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "task_family": "vertical_cube_handover",
+    "object": "rod (vertical)",
+    "instructions": [
+        "Hand the vertical rod from one gripper to the other.",
+        "Pass the upright rod from your left hand to your right hand.",
+        "Transfer the vertically oriented rod between your two grippers.",
+        "Grasp the vertical rod and hand it over to the other gripper.",
+        "Pick up the upright rod and pass it to the opposite end-effector.",
+        "Perform a vertical handover of the rod from one arm to the other.",
+        "Move the standing rod from the initial gripper to the other one.",
+        "With the rod held vertically, transfer it from one hand to the other.",
+        "Complete a handover of the vertically held rod between grippers.",
+        "Grab the vertical rod with one gripper and deliver it to the other."
+    ]
+}
