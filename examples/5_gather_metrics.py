@@ -10,10 +10,10 @@ This script provides comprehensive functionality for:
 
 Usage Examples:
     # Load demos from a directory and compute metrics
-    python 5_gather_metrics.py --demos_dir /path/to/demos --env_name LiftPot
+    python 5_gather_metrics.py --demos_dir /path/to/demos --env_name 'Lift Pot'
 
     # Load demos from DemoStore and analyze metrics
-    python 5_gather_metrics.py --use_demo_store --env_name LiftPot --amount 50
+    python 5_gather_metrics.py --use_demo_store --env_name 'Lift Pot' --amount 50
 
     # Compute metrics from specific demo files
     python 5_gather_metrics.py --demo_files demo1.safetensors demo2.safetensors
@@ -663,14 +663,17 @@ Examples:
     # Load demos from directory with frequency conversion
     python 5_gather_metrics.py --demos_dir /path/to/demos --frequency 20 --amount 5
     
-    # Load demos from DemoStore with replay metrics
-    python 5_gather_metrics.py --use_demo_store --env_name LiftPot --amount 20 --replay
+    # Load demos from DemoStore (replay is on by default)
+    python 5_gather_metrics.py --use_demo_store --env_name LiftPot --amount 20
     
     # Analyze specific demo files with custom robot/action mode
-    python 5_gather_metrics.py --demo_files demo1.safetensors demo2.safetensors --robot_name BimanualPanda --action_mode JointPositionActionMode --replay
+    python 5_gather_metrics.py --demo_files demo1.safetensors demo2.safetensors --robot_name BimanualPanda --action_mode JointPositionActionMode
     
     # Generate comprehensive report with all options
-    python 5_gather_metrics.py --demos_dir /path/to/demos --amount 50 --frequency 10 --output_report results.json --replay
+    python 5_gather_metrics.py --demos_dir /path/to/demos --amount 50 --frequency 10 --output_report results.json
+    
+    # Skip replay for quick basic statistics only
+    python 5_gather_metrics.py --use_demo_store --env_name LiftPot --amount 20 --no_replay
         """
     )
     
@@ -684,8 +687,8 @@ Examples:
                            help='Load demonstrations from DemoStore')
     
     # DemoStore options
-    parser.add_argument('--env_name', type=str, default='LiftPot',
-                       help='Environment name for DemoStore loading (default: LiftPot)')
+    parser.add_argument('--env_name', type=str, default='Lift Pot',
+                       help='Environment name for DemoStore loading (default: Lift Pot)')
     parser.add_argument('--robot_name', type=str, default='BimanualPanda',
                        help='Robot name for demo loading (default: BimanualPanda)')
     parser.add_argument('--action_mode', type=str, default='JointPositionActionMode',
@@ -694,8 +697,8 @@ Examples:
                        help='Number of demos to load (default: 10, -1 for all)')
     
     # Processing options
-    parser.add_argument('--replay', action='store_true',
-                       help='Replay demonstrations in environment for detailed metrics')
+    parser.add_argument('--no_replay', action='store_true',
+                       help='Skip environment replay (only compute basic demo statistics)')
     parser.add_argument('--frequency', type=int, default=CONTROL_FREQUENCY_MAX,
                        help=f'Control frequency for demo processing (default: {CONTROL_FREQUENCY_MAX})')
     
@@ -751,10 +754,11 @@ Examples:
             print(f"  ... and {len(demos) - 3} more")
         
         # Compute metrics
-        print(f"\nComputing metrics (replay mode: {args.replay})...")
+        replay = not args.no_replay
+        print(f"\nComputing metrics (replay mode: {replay})...")
         metrics_list = computer.compute_metrics_for_demos(
             demos, 
-            replay_in_env=args.replay,
+            replay_in_env=replay,
             env_name=args.env_name if args.use_demo_store else None
         )
         
@@ -783,6 +787,17 @@ Examples:
         print(f"Processing failures: {summary.get('processing_failures', 0)}")
         print(f"Success rate: {summary.get('processing_success_rate', 0):.2%}")
         
+        # Basic numeric statistics (always available)
+        if 'numeric_statistics' in analysis and not replay:
+            basic_keys = ['duration_steps', 'total_timesteps', 'action_smoothness',
+                          'total_reward', 'mean_reward', 'final_reward']
+            available = {k: v for k, v in analysis['numeric_statistics'].items() if k in basic_keys}
+            if available:
+                print(f"\nBasic Demo Statistics:")
+                for metric, stats in available.items():
+                    print(f"  {metric}: {stats['mean']:.3f} ± {stats['std']:.3f}  "
+                          f"[min: {stats['min']:.3f}, max: {stats['max']:.3f}]")
+
         # Task performance
         if 'task_performance' in analysis:
             perf = analysis['task_performance']
@@ -805,6 +820,12 @@ Examples:
                 print(f"  {metric}: {stats['mean']:.3f} ± {stats['std']:.3f}")
             if len(analysis['rollout_metrics']) > 5:
                 print(f"  ... and {len(analysis['rollout_metrics']) - 5} more metrics")
+        
+        # Hint if trajectory metrics are missing
+        if 'trajectory_quality' not in analysis and not replay:
+            print(f"\nNote: Trajectory quality metrics (jerk, path length, collisions, etc.)")
+            print(f"  require replaying demos in the environment. Re-run with --replay:"  )
+            print(f"  python examples/5_gather_metrics.py {' '.join(sys.argv[1:])} --replay")
         
         # Environment distribution
         if 'environment_distribution' in analysis:

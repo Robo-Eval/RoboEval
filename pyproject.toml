@@ -11,6 +11,7 @@ authors = [
 ]
 requires-python = ">=3.10"
 dependencies = [
+  "roboeval-metrics @ git+https://github.com/Robo-Eval/roboeval-metrics.git",
   "gymnasium @ git+https://git@github.com/stepjam/Gymnasium.git@0.29.2",
   "numpy==1.26.*",
   "safetensors==0.4.3",

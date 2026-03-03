@@ -21,6 +21,7 @@ def get_version(rel_path):
 
 
 core_requirements = [
+    "roboeval-metrics @ git+https://github.com/Robo-Eval/roboeval-metrics.git",
     # includes bugfix in mujoco_rendering
     "gymnasium @ git+https://git@github.com/stepjam/Gymnasium.git@0.29.2",
     # pyquaternion doesn't support 2.x yet
