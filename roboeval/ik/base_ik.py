@@ -224,7 +224,8 @@ class GenericUpperBodyIK(UpperBodyIK):
         # Convert array targets to Pose objects if needed
         if not isinstance(target_pose_left, Pose):
             if target_pose_left.shape[0] == 6:
-                quaternion_left = R.from_euler("xyz", target_pose_left[3:]).as_quat(scalar_first=True)
+                # 6D array: [pos(3) + rotvec(3)]
+                quaternion_left = R.from_rotvec(target_pose_left[3:]).as_quat(scalar_first=True)
                 target_pose_left = Pose(position=target_pose_left[:3], orientation=Quaternion(quaternion_left))
             elif target_pose_left.shape[0] == 7:
                 quaternion_left = Quaternion(target_pose_left[3:])
@@ -232,7 +233,8 @@ class GenericUpperBodyIK(UpperBodyIK):
         
         if not is_single_arm and not isinstance(target_pose_right, Pose):
             if target_pose_right.shape[0] == 6:
-                quaternion_right = R.from_euler("xyz", target_pose_right[3:]).as_quat(scalar_first=True)
+                # 6D array: [pos(3) + rotvec(3)]
+                quaternion_right = R.from_rotvec(target_pose_right[3:]).as_quat(scalar_first=True)
                 target_pose_right = Pose(position=target_pose_right[:3], orientation=Quaternion(quaternion_right))
             elif target_pose_right.shape[0] == 7:
                 quaternion_right = Quaternion(target_pose_right[3:])

@@ -44,13 +44,14 @@ def compose_pose_delta_stable(current_pose: np.ndarray, delta: np.ndarray) -> np
     """Compose delta pose with current EE pose using stable rotation math.
     
     Supports both single-arm (6D) and bimanual (12D) poses.
+    Uses rotation vectors (axis-angle) for singularity-free orientation handling.
     
     Args:
-        current_pose: (6,) or (12,) array of [pos + euler] for 1 or 2 arms
-        delta: (6,) or (12,) array of [pos_delta + euler_delta] for 1 or 2 arms
+        current_pose: (6,) or (12,) array of [pos + rotvec] for 1 or 2 arms
+        delta: (6,) or (12,) array of [pos_delta + rotvec_delta] for 1 or 2 arms
 
     Returns:
-        composed_pose: (6,) or (12,) array of [new_pos + new_euler] for 1 or 2 arms
+        composed_pose: (6,) or (12,) array of [new_pos + new_rotvec] for 1 or 2 arms
     """
     assert current_pose.shape == delta.shape, "current_pose and delta must have the same shape"
     assert current_pose.shape[0] in [6, 12], "Pose must be 6D (single-arm) or 12D (bimanual)"
@@ -61,26 +62,26 @@ def compose_pose_delta_stable(current_pose: np.ndarray, delta: np.ndarray) -> np
     for i in range(num_arms):
         pos = current_pose[i*6:i*6+3] + delta[i*6:i*6+3]
 
-        r_current = R.from_euler("xyz", current_pose[i*6+3:i*6+6])
-        r_delta = R.from_euler("xyz", delta[i*6+3:i*6+6])
+        r_current = R.from_rotvec(current_pose[i*6+3:i*6+6])
+        r_delta = R.from_rotvec(delta[i*6+3:i*6+6])
         r_composed = r_delta * r_current
 
         composed[i*6:i*6+3] = pos
-        composed[i*6+3:i*6+6] = r_composed.as_euler("xyz")
+        composed[i*6+3:i*6+6] = r_composed.as_rotvec()
 
     return composed
 
-def euler_to_normalized_quaternion(euler_xyz: np.ndarray) -> Quaternion:
-    """Convert Euler angles to a normalized quaternion."""
-    quat = R.from_euler("xyz", euler_xyz).as_quat()  # xyzw
+def rotvec_to_normalized_quaternion(rotvec: np.ndarray) -> Quaternion:
+    """Convert a rotation vector (axis-angle) to a normalized quaternion."""
+    quat = R.from_rotvec(rotvec).as_quat()  # xyzw
     norm = np.linalg.norm(quat)
     if norm == 0 or np.any(np.isnan(quat)):
-        raise ValueError("Invalid quaternion generated from Euler angles")
+        raise ValueError("Invalid quaternion generated from rotation vector")
     quat /= norm
     return Quaternion(quat[3], quat[0], quat[1], quat[2])  # Convert to wxyz (scalar first)
 
 def compose_pose_delta(current_pose: np.ndarray, delta_pose: np.ndarray) -> np.ndarray:
-    """Composes a delta pose with a current pose using proper orientation math (Euler angles)."""
+    """Composes a delta pose with a current pose using rotation vectors (axis-angle)."""
     result = np.zeros_like(current_pose)
 
     for i in [0, 6]:  # Left arm: 0-5, Right arm: 6-11
@@ -89,19 +90,17 @@ def compose_pose_delta(current_pose: np.ndarray, delta_pose: np.ndarray) -> np.n
         delta_pos = delta_pose[i:i+3]
         result[i:i+3] = curr_pos + delta_pos
 
-        # Orientation composition
-        curr_euler = current_pose[i+3:i+6]
-        delta_euler = delta_pose[i+3:i+6]
+        # Orientation composition using rotation vectors
+        curr_rotvec = current_pose[i+3:i+6]
+        delta_rotvec = delta_pose[i+3:i+6]
 
-        # Create Rotation objects
-        r_current = R.from_euler('xyz', curr_euler)
-        r_delta = R.from_euler('xyz', delta_euler)
+        r_current = R.from_rotvec(curr_rotvec)
+        r_delta = R.from_rotvec(delta_rotvec)
 
         # Compose the rotations (delta applied first)
         r_new = r_delta * r_current
 
-        # Convert back to euler angles (in same convention)
-        result[i+3:i+6] = r_new.as_euler('xyz')
+        result[i+3:i+6] = r_new.as_rotvec()
 
     return result
 
@@ -216,14 +215,14 @@ class JointPositionActionMode(ActionMode):
             
             bounds.extend(pos_bounds)
             
-            # Orientation bounds (represented as euler angles)
+            # Orientation bounds (represented as rotation vectors)
             rot_bounds = [[-action_scale, action_scale]] * 3
             if self.absolute:
-                # For absolute mode, use 360 degrees
-                rot_bounds = [[-np.pi, np.pi]] * 3 #TODO: check if this is correct
+                # For absolute mode, rotvec magnitude can be up to pi
+                rot_bounds = [[-np.pi, np.pi]] * 3
             else:
                 # For delta mode, use the action scale
-                rot_bounds = [[-np.pi, np.pi]] * 3 #TODO: check if this is correct
+                rot_bounds = [[-np.pi, np.pi]] * 3
             bounds.extend(rot_bounds)
 
         # Return as spaces.Box
