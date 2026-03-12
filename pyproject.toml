@@ -42,6 +42,7 @@ examples = [
   "pygame",
   "opencv-python",
   "matplotlib",
+  "lerobot",
 ]
 vr = [
   "pyopenxr",
