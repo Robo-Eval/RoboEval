@@ -67,6 +67,7 @@ setuptools.setup(
             "opencv-python",
             "matplotlib",
             "pandas",
+            "lerobot",
         ],
     },
 )

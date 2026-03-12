@@ -108,6 +108,7 @@ The `examples/` directory contains several scripts demonstrating different aspec
 | `5_gather_metrics.py` | Collect and analyze task metrics | Metrics aggregation and analysis |
 | `6_collect_data.py` | Data collection pipeline (keyboard) | Keyboard teleoperation demonstration collection |
 | `7_collect_data_oculus.py` | Data collection pipeline (Oculus VR) | VR teleoperation demonstration collection |
+| `8_replay_to_lerobot.py` | Replay demos with configurable action mode, convert to LeRobot | LeRobot dataset creation from successful demos |
 
 </details>
 
@@ -172,7 +173,35 @@ python examples/4_eval_openvla.py --ckpt_path /path/to/model/checkpoint \
                                   --num_episodes 10 --max_steps 300
 ```
 
-### 5. Data Collection via Teleoperation
+### 5. LeRobot Dataset Conversion
+
+Convert successful demonstrations to [LeRobot](https://github.com/huggingface/lerobot) format with configurable action mode and frequency:
+
+```bash
+# EE delta at 20 Hz (default) — repo auto-named roboeval_ee_delta_20hz/
+python examples/8_replay_to_lerobot.py
+
+# Joint delta at 10 Hz — repo auto-named roboeval_joint_delta_10hz/
+python examples/8_replay_to_lerobot.py --joint --delta --freq 10
+
+# EE absolute at 20 Hz
+python examples/8_replay_to_lerobot.py --ee --absolute
+
+# Joint absolute at 20 Hz
+python examples/8_replay_to_lerobot.py --joint --absolute
+
+# Limit demos or select tasks
+python examples/8_replay_to_lerobot.py --amount 10 --tasks LiftPot CubeHandover
+```
+
+This script:
+- Supports all four action modes: `ee delta`, `ee absolute`, `joint delta`, `joint absolute`
+- Auto-assembles the repo name from action mode and frequency (e.g. `roboeval_ee_delta_20hz/LiftPot`)
+- Replays each demo in the target action mode to verify success (reward > 0)
+- Converts successful demos to per-task LeRobot datasets with camera observations
+- Outputs a summary of used trajectory names and counts
+
+### 6. Data Collection via Teleoperation
 
 RoboEval supports two modes of teleoperation for collecting demonstrations:
 
