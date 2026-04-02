@@ -122,17 +122,28 @@ class StackSingleBookShelf(_StackBooksEnv):
         book_lift_dist = self.books[0].body.get_position()[2] - self.book_init_height
         upper_shelf_dist = distance(self.books[0].body, self.book_shelf.upper_shelf_body)
         lower_shelf_dist = distance(self.books[0].body, self.book_shelf.lower_shelf_body)
-        
+        left_gripper_dist = distance(self.books[0].body, self.robot.grippers[HandSide.LEFT].body)
+        right_gripper_dist = distance(self.books[0].body, self.robot.grippers[HandSide.RIGHT].body)
 
         self._final_metrics = self._metric_finalize(
             success_flag=self._success_check,
             target_distance={
                 "book lift distance": book_lift_dist,
                 "book-upper shelf": upper_shelf_dist,
-                "book-lower shelf": lower_shelf_dist
+                "book-lower shelf": lower_shelf_dist,
+                "left gripper-book distance": left_gripper_dist,
+                "right gripper-book distance": right_gripper_dist
             }
             )
         return self._success_check
+
+    def _fail(self) -> bool:
+        if super()._fail():
+            return True
+        for book in self.books:
+            if book.is_colliding(self._floor):
+                return True
+        return False
     
 class StackSingleBookShelfPosition(StackSingleBookShelf):
     """
@@ -308,6 +319,14 @@ class PickSingleBookFromTable(_PickBooksEnv):
             }
             )
         return self._success_check
+
+    def _fail(self) -> bool:
+        if super()._fail():
+            return True
+        for book in self.books:
+            if book.is_colliding(self._floor):
+                return True
+        return False
 
 # Pick Single Book with position randomization
 class PickSingleBookFromTablePosition(PickSingleBookFromTable):

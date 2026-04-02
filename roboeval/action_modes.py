@@ -177,6 +177,7 @@ class JointPositionActionMode(ActionMode):
     """
 
     MAX_STEPS = 200
+    MAX_JOINT_VEL = 2.175
 
     def __init__(
         self,
@@ -199,33 +200,22 @@ class JointPositionActionMode(ActionMode):
         self.ee = ee
         self.absolute = absolute
         self.block_until_reached = block_until_reached
+        self._sub_steps_count: Optional[int] = None
 
     def _action_space_ee(self, action_scale: float, seed: Optional[int] = None) -> spaces.Box:
         """Get the action space for end-effector control."""
         bounds = []
         for wrist_site in self._robot._wrist_sites:
-            # Position bounds (x, y, z)
-            pos_bounds = [[-action_scale, action_scale]] * 3
             if self.absolute:
-                # For absolute mode, use inf 
-                pos_bounds = [[-np.inf, np.inf]] * 3 #TODO: check if this is correct
+                pos_bounds = [[-action_scale, action_scale]] * 3
+                rot_bounds = [[-np.pi, np.pi]] * 3
             else:
-                # For delta mode, use the action scale
-                pos_bounds = [[-np.inf, np.inf]] * 3 #TODO: check if this is correct
+                pos_bounds = [[-action_scale, action_scale]] * 3
+                rot_bounds = [[-np.pi, np.pi]] * 3
             
             bounds.extend(pos_bounds)
-            
-            # Orientation bounds (represented as rotation vectors)
-            rot_bounds = [[-action_scale, action_scale]] * 3
-            if self.absolute:
-                # For absolute mode, rotvec magnitude can be up to pi
-                rot_bounds = [[-np.pi, np.pi]] * 3
-            else:
-                # For delta mode, use the action scale
-                rot_bounds = [[-np.pi, np.pi]] * 3
             bounds.extend(rot_bounds)
 
-        # Return as spaces.Box
         bounds = np.array(bounds).copy().astype(np.float32)
         return bounds
 
@@ -233,6 +223,7 @@ class JointPositionActionMode(ActionMode):
         self, action_scale: float, seed: Optional[int] = None
     ) -> spaces.Box:
         """See base."""
+        self._sub_steps_count = int(action_scale)
         bounds = []
         if self.floating_base:
             action_bounds = self._robot.floating_base.get_action_bounds()
@@ -351,9 +342,19 @@ class JointPositionActionMode(ActionMode):
 
                 action = copy.deepcopy(joint_positions_new)
 
+        physics_dt = self._mojo.physics.model.opt.timestep
+        sub_steps = self._sub_steps_count or 1
+        control_dt = sub_steps * physics_dt
+        max_joint_delta = self.MAX_JOINT_VEL * control_dt
+
         for i, actuator in enumerate(self._robot.limb_actuators):
             actuator = self._mojo.physics.bind(actuator)
-            actuator.ctrl = action[i] if (self.absolute or self.ee) else actuator.ctrl + action[i]
+            if self.absolute or self.ee:
+                delta = action[i] - actuator.ctrl
+                clamped_delta = np.clip(delta, -max_joint_delta, max_joint_delta)
+                actuator.ctrl = actuator.ctrl + clamped_delta
+            else:
+                actuator.ctrl = actuator.ctrl + action[i]
         if self.block_until_reached:
             self._step_until_reached()
         else:

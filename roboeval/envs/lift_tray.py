@@ -72,7 +72,7 @@ class LiftTray(_TrayEnv):
         )
         
         self.init_z_pos = self.breakfast_tray.body.get_position()[2] - 0.02694
-        for idx in range(1, 4): self._metric_stage(idx, False) # set all stages to false
+        for idx in range(1, 5): self._metric_stage(idx, False) # set all stages to false
         
     def _on_step(self):
         self._metric_step()
@@ -90,6 +90,9 @@ class LiftTray(_TrayEnv):
         # –––––––––––––– Distance Checking –––––––––––––––––
         tray_table_distance = distance(self.breakfast_tray.body, self.table.body)
         tray_lift_distance = self.breakfast_tray.body.get_position()[2] - self.init_z_pos
+
+        if tray_lift_distance < 0.05:
+            self._success_check = False
         right_gripper_tray_dist = distance(self.breakfast_tray.body, self.robot.grippers[HandSide.RIGHT].body)
         left_gripper_tray_dist = distance(self.breakfast_tray.body, self.robot.grippers[HandSide.LEFT].body)
 
@@ -103,6 +106,7 @@ class LiftTray(_TrayEnv):
         if grasping_left: self._metric_stage(1) # split into left and right grasp check
         if grasping_right: self._metric_stage(2)
         if holding_obj and not colliding and not floor_collision: self._metric_stage(3) # Check if tray is not colliding with the table or floor
+        if tray_lift_distance >= 0.05: self._metric_stage(4) # tray lifted at least 0.05 above the table
 
         
         self._final_metrics = self._metric_finalize(

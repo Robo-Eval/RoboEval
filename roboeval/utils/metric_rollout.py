@@ -265,7 +265,7 @@ class MetricRolloutEval:
 
     # ─────────────────────── utility ─────────────────────────────
     def _get_timestep(self) -> float:
-        """Get environment control timestep"""
+        """Get environment control timestep."""
         if hasattr(self, "control_frequency"):
             return 1.0 / float(self.control_frequency)
         elif hasattr(self, "_control_frequency"):

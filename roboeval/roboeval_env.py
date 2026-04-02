@@ -669,12 +669,8 @@ class RoboEvalEnv(gym.Env):
         if np.any(action < self.action_space.low) or np.any(
             action > self.action_space.high
         ):
-            clipped_action = np.clip(
+            action = np.clip(
                 action, self.action_space.low, self.action_space.high
-            )
-            print(
-                f"Action {action} is out of the action space bounds. "
-                f"Overhead: {action - clipped_action}"
             )
 
         with self._env_health.track():

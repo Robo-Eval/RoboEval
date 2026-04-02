@@ -285,16 +285,21 @@ class GenericUpperBodyIK(UpperBodyIK):
                     inplace=inplace,
                 )
 
-        # Check convergence
-        if is_single_arm:
-            if not ik_left.success and enable_warning:
-                print("[WARN] IK did not converge for left arm")
-        else:
-            if not (ik_left.success and ik_right.success) and enable_warning:
-                print("[WARN] IK did not converge for both arms")
-
-        # Return the updated joint positions
+        # Check convergence and fall back to pre-solve positions on failure
         solution = self._physics.data.qpos[:len(qpos)].copy()
+
+        if is_single_arm:
+            if not ik_left.success:
+                print("[WARN] IK did not converge for left arm, reverting to previous joint positions")
+                solution = qpos_backup.copy()
+        else:
+            num_joints_per_arm = len(qpos) // 2
+            if not ik_left.success:
+                print("[WARN] IK did not converge for left arm, reverting to previous joint positions")
+                solution[:num_joints_per_arm] = qpos_backup[:num_joints_per_arm]
+            if not ik_right.success:
+                print("[WARN] IK did not converge for right arm, reverting to previous joint positions")
+                solution[num_joints_per_arm:] = qpos_backup[num_joints_per_arm:]
 
         # Revert the changes made to the arm joints if requested
         if forward:
