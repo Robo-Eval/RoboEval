@@ -19,6 +19,9 @@
     <body name="floor">
       <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
     </body>
-    <camera name="external" mode="fixed" pos="0 -2 3" xyaxes="1.000 0.000 0.000 0.000 0.707 0.707"/>
+    <!-- Close operator-eye-level camera ported from RoboEval@telearms world.xml.
+         Keeps frames framed on the workspace rather than the wide overhead
+         view the original playground used. -->
+    <camera name="external" mode="fixed" pos="-0.146 -0.630 1.347" xyaxes="0.610 -0.793 0.000 0.289 0.222 0.931"/>
   </worldbody>
 </mujoco>
