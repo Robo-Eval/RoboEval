@@ -295,6 +295,16 @@ class TelearmsTeleop(KeyboardTeleop):
                 self._demo_recorder.add_timestep(timestep, action)
                 return timestep
 
+            def render(self):
+                # Force the "external" fixed camera (defined in envs/xmls/world.xml).
+                # Without it the renderer uses the free camera (-1) which can
+                # land pointing at the skybox and ship pure-color frames.
+                try:
+                    return self.mujoco_renderer.render(self.render_mode, camera_name="external")
+                except TypeError:
+                    # Older gym MuJoCoRenderer takes camera_id only — fall back to id 0.
+                    return self.mujoco_renderer.render(self.render_mode, camera_id=0)
+
             @property
             def task_name(self) -> str:
                 return self.__class__.__base__.__name__
