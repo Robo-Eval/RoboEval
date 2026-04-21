@@ -74,6 +74,7 @@ DATA_COLLECTION_MODES: Dict[str, Callable[[], Type[Teleop]]] = {
     "Oculus": lambda: __import__("roboeval.data_collection.oculus_input").data_collection.oculus_input.OculusTeleop,
     "Keyboard": lambda: __import__("roboeval.data_collection.keyboard_input").data_collection.keyboard_input.KeyboardTeleop,
     "MotionPlanning": lambda: __import__("roboeval.data_collection.mp_input").data_collection.mp_input.MotionPlanningTeleop,
+    "Telearms": lambda: __import__("roboeval.data_collection.telearms_input").data_collection.telearms_input.TelearmsTeleop,
 }
 
 REPLAY_MODES: dict[str, ReplayMode] = {
