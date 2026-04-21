@@ -23,9 +23,9 @@
          Keeps frames framed on the workspace rather than the wide overhead
          view the original playground used. -->
     <!-- Egocentric "behind the bot" operator camera: sits centered behind
-         the robot (negative X, Y=0), roughly at head height, tilted down
-         ~18° so the workspace sits comfortably in frame.
-         xyaxes: cam-right = world -Y ; cam-up = (+X, 0, +Z) for downtilt. -->
-    <camera name="external" mode="fixed" pos="-0.800 0.000 1.500" xyaxes="0.000 -1.000 0.000 0.316 0.000 0.949" fovy="60"/>
+         the robot (-X, Y=0), raised up and tilted ~56° down so you're
+         looking over the robot's shoulders onto the workspace.
+         xyaxes: cam-right = world -Y ; cam-up tilted forward for downtilt. -->
+    <camera name="external" mode="fixed" pos="-0.800 0.000 1.800" xyaxes="0.000 -1.000 0.000 0.832 0.000 0.555" fovy="60"/>
   </worldbody>
 </mujoco>
