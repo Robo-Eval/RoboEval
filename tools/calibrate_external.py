@@ -27,15 +27,15 @@ from roboeval.envs.rotate_utility_objects import RotateValve
 OUT = Path("/tmp/playground_calibrate")
 OUT.mkdir(exist_ok=True)
 
-# Target point the camera aims at — roughly workspace center (table surface).
-TARGET = np.array([0.0, 0.0, 0.6])
+# Target point the camera aims at — out in front of the robot pedestal
+# so the workspace (valve / table) doesn't sit behind the white box base.
+TARGET = np.array([0.30, 0.0, 0.80])
 
 # (distance_behind, height) pairs — distance is |X| from origin, height is Z.
-# 5 distances × 4 heights = 20 candidates.
-CANDIDATES = [
-    (d, h)
-    for d, h in product([0.4, 0.6, 0.8, 1.0, 1.2], [1.2, 1.5, 1.8, 2.1])
-]
+# 10 distances × 10 heights = 100 candidates.
+_DISTS = [0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85]
+_HEIGHTS = [1.20, 1.35, 1.50, 1.65, 1.80, 1.95, 2.10, 2.25, 2.40, 2.55]
+CANDIDATES = [(d, h) for d, h in product(_DISTS, _HEIGHTS)]
 
 FOVY = 60.0
 
