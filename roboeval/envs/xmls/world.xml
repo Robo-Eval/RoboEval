@@ -22,6 +22,10 @@
     <!-- Close operator-eye-level camera ported from RoboEval@telearms world.xml.
          Keeps frames framed on the workspace rather than the wide overhead
          view the original playground used. -->
-    <camera name="external" mode="fixed" pos="-0.300 -1.300 1.750" xyaxes="0.610 -0.793 0.000 0.289 0.222 0.931" fovy="55"/>
+    <!-- Egocentric "behind the bot" operator camera: sits centered behind
+         the robot (negative X, Y=0), roughly at head height, tilted down
+         ~18° so the workspace sits comfortably in frame.
+         xyaxes: cam-right = world -Y ; cam-up = (+X, 0, +Z) for downtilt. -->
+    <camera name="external" mode="fixed" pos="-0.800 0.000 1.500" xyaxes="0.000 -1.000 0.000 0.316 0.000 0.949" fovy="60"/>
   </worldbody>
 </mujoco>
