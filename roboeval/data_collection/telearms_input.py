@@ -373,6 +373,11 @@ class TelearmsTeleop(KeyboardTeleop):
         if mission_name != self._current_task.name:
             env_cls = ENVIRONMENTS.get(mission_name)
             if env_cls is None:
+                available = ", ".join(sorted(ENVIRONMENTS.keys()))
+                print(
+                    f"[telearms] start rejected: unknown mission '{mission_name}'. "
+                    f"Available missions in this playground build:\n  {available}"
+                )
                 return {"accepted": False, "error": f"Unknown mission_name: {mission_name}"}
             task_config = get_task_by_name(mission_name) or TaskConfig(
                 name=mission_name, description=f"{mission_name} task", enabled=True
@@ -382,6 +387,7 @@ class TelearmsTeleop(KeyboardTeleop):
         try:
             self._setup_environment()
         except Exception as e:
+            print(f"[telearms] start rejected: setup_environment failed: {e}")
             traceback.print_exc()
             return {"accepted": False, "error": f"setup_environment failed: {e}"}
 
