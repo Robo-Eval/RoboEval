@@ -324,11 +324,27 @@ class TelearmsTeleop(KeyboardTeleop):
     def _handle_start_command(self, params: dict) -> dict:
         task_id = params.get("task_id")
         config = params.get("config", {})
-        mission_name = config.get("mission_name")
+        # Accept the mission name under any of the historical key names the
+        # backend has used; the canonical one in RoboEval is config.mission_name
+        # but we've seen config.mission / config.env / config.env_name in logs.
+        mission_name = (
+            config.get("mission_name")
+            or config.get("mission")
+            or config.get("env")
+            or config.get("env_name")
+            or params.get("mission_name")
+            or params.get("mission")
+        )
+        print(
+            f"[telearms] start command: task_id={task_id} mission_name={mission_name} "
+            f"param_keys={list(params.keys())} config_keys={list(config.keys())}"
+        )
 
         if not task_id:
+            print("[telearms] start rejected: missing task_id")
             return {"accepted": False, "error": "task_id is required"}
         if not mission_name:
+            print(f"[telearms] start rejected: no mission in params/config → params={params}")
             return {"accepted": False, "error": "mission_name is required"}
 
         # Guard against double-start drift
