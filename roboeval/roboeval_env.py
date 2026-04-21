@@ -602,24 +602,37 @@ class RoboEvalEnv(gym.Env):
         pass
 
     def render(self):
-        """Render the main head view with the two wrist-camera overlays.
+        """Render the external view with the two wrist-camera overlays.
 
-        Mirrors RoboEval@telearms so the Agora stream looks the same in the
-        playground: main = camera_id 1 (head), overlays = camera_id 2/3
-        (left/right wrist), composited into the bottom-left / bottom-right
-        corners and refreshed every 5 frames to cap the extra render cost.
+        Mirrors RoboEval@telearms's composite shape, but uses the names the
+        playground scene actually exposes: main = "external" (the world-fixed
+        operator camera from world.xml, equivalent to RoboEval's head frame),
+        overlays = the left/right wrist cameras from the Panda robot. The
+        overlays are refreshed every 5 frames to cap the extra render cost.
         """
         self._frame_count += 1
         update_overlays = (
             self._frame_count % 5 == 0 or self._cached_overlay1 is None
         )
 
-        try:
-            main_frame = self.mujoco_renderer.render(self.render_mode, camera_id=1)
+        main_id = self._cameras_map.get("external", (0, None))[0]
+        # Pick any camera whose registered name ends with "left_wrist" /
+        # "right_wrist" — the Panda robot registers them namespaced
+        # (e.g. "panda nohand_left/left_wrist").
+        def _find(suffix):
+            for name, (cid, _) in self._cameras_map.items():
+                if name.endswith(suffix):
+                    return cid
+            return None
+        overlay1_id = _find("left_wrist")
+        overlay2_id = _find("right_wrist")
 
-            if update_overlays:
-                overlay1 = self.mujoco_renderer.render(self.render_mode, camera_id=2)
-                overlay2 = self.mujoco_renderer.render(self.render_mode, camera_id=3)
+        try:
+            main_frame = self.mujoco_renderer.render(self.render_mode, camera_id=main_id)
+
+            if update_overlays and overlay1_id is not None and overlay2_id is not None:
+                overlay1 = self.mujoco_renderer.render(self.render_mode, camera_id=overlay1_id)
+                overlay2 = self.mujoco_renderer.render(self.render_mode, camera_id=overlay2_id)
                 self._cached_overlay1 = np.asarray(
                     Image.fromarray(overlay1).resize((320, 180), Image.BILINEAR)
                 )
@@ -627,16 +640,18 @@ class RoboEvalEnv(gym.Env):
                     Image.fromarray(overlay2).resize((320, 180), Image.BILINEAR)
                 )
 
+            if self._cached_overlay1 is None or self._cached_overlay2 is None:
+                return main_frame
+
             main_h, main_w, _ = main_frame.shape
             composite = main_frame.copy()
-
             y1, y2 = main_h - 180 - 10, main_h - 10
             composite[y1:y2, 10:10 + 320] = self._cached_overlay1
             composite[y1:y2, main_w - 320 - 10:main_w - 10] = self._cached_overlay2
             return composite
         except Exception as e:
             logging.warning("Composite render failed, falling back to main cam: %s", e)
-            return self.mujoco_renderer.render(self.render_mode, camera_id=1)
+            return self.mujoco_renderer.render(self.render_mode, camera_id=main_id)
 
     def step(
         self, action: Optional[np.ndarray] = None, fast: bool = False
