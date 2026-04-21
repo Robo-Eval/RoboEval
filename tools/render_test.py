@@ -46,33 +46,26 @@ def main():
     env.reset()
 
     renderer = env.mujoco_renderer
+    model = env._mojo.model
 
-    # 1. No kwargs — whatever mujoco's default camera is.
-    save("default", renderer.render("rgb_array"))
+    # Enumerate every camera registered in the compiled MuJoCo model and render
+    # one frame per ID. Names come from mj_id2name so we can see exactly which
+    # index maps to head/left_wrist/right_wrist/external/etc.
+    import mujoco
+    print(f"ncam = {model.ncam}")
+    for i in range(model.ncam):
+        name = mujoco.mj_id2name(model, mujoco.mjtObj.mjOBJ_CAMERA, i) or f"unnamed_{i}"
+        safe = name.replace("/", "_").replace(" ", "_")
+        try:
+            save(f"cam_{i:02d}_{safe}", renderer.render("rgb_array", camera_id=i))
+        except Exception as e:
+            print(f"[cam_{i:02d}_{safe}] failed: {e}")
 
-    # 2. Free camera explicit.
+    # Composite env.render() — what actually hits the Agora pipeline.
     try:
-        save("camera_id_-1", renderer.render("rgb_array", camera_id=-1))
+        save("env_render_composite", env.render())
     except Exception as e:
-        print(f"[camera_id_-1] failed: {e}")
-
-    # 3. First fixed camera.
-    try:
-        save("camera_id_0", renderer.render("rgb_array", camera_id=0))
-    except Exception as e:
-        print(f"[camera_id_0] failed: {e}")
-
-    # 4. By name — what our TelearmsTeleop asks for.
-    try:
-        save("camera_name_external", renderer.render("rgb_array", camera_name="external"))
-    except Exception as e:
-        print(f"[camera_name_external] failed: {e}")
-
-    # 5. env.render() — whatever the Telearms env wrapper returns.
-    try:
-        save("env_render", env.render())
-    except Exception as e:
-        print(f"[env_render] failed: {e}")
+        print(f"[env_render_composite] failed: {e}")
 
 
 if __name__ == "__main__":
