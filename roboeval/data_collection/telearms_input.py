@@ -198,6 +198,11 @@ class TelearmsTeleop(KeyboardTeleop):
         # GStreamer pipeline
         self.pipeline = Gst.parse_launch(PIPELINE)
         self.appsrc = self.pipeline.get_by_name("source")
+        # Let GStreamer stamp PTS on every pushed buffer from the pipeline's
+        # running clock. Without this, x264enc sees buffers with pts=NONE/0
+        # and can emit NAL units the decoder rejects as "no reference frame",
+        # which most decoders render as a solid green field.
+        self.appsrc.set_property("do-timestamp", True)
         self.appsink = self.pipeline.get_by_name("appsink")
         self.appsink.connect("new-sample", self._on_new_sample)
 
