@@ -636,10 +636,33 @@ class TelearmsTeleop(KeyboardTeleop):
         return Gst.FlowReturn.OK
 
     def _on_render(self, frame):
-        # Keep an internal counter so we can verify the render → appsrc path
-        # is actually running (separate from the appsink counter below).
         if not hasattr(self, "_render_push_count"):
             self._render_push_count = 0
+
+        # The pipeline's appsrc was created with caps saying 1280x720 RGB.
+        # If the MuJoCo renderer produces a different size (gym's renderer
+        # caches width/height at construction time and ignores later
+        # model.vis.global_ tweaks) the x264enc reads the raw bytes with the
+        # wrong stride and the browser decodes only green. Resize the frame
+        # to match the pipeline caps before pushing.
+        import numpy as _np
+        expected_h, expected_w = HEIGHT, WIDTH
+        if frame.shape[:2] != (expected_h, expected_w):
+            if self._render_push_count < 3:
+                print(f"[telearms] frame shape {frame.shape} != "
+                      f"pipeline {expected_h}x{expected_w}, resizing")
+            try:
+                from PIL import Image as _Image
+                pil = _Image.fromarray(frame)
+                pil = pil.resize((expected_w, expected_h), _Image.BILINEAR)
+                frame = _np.asarray(pil)
+            except Exception as e:
+                print(f"[telearms] resize failed: {e}; skipping frame")
+                return
+
+        if not frame.flags["C_CONTIGUOUS"]:
+            frame = _np.ascontiguousarray(frame)
+
         data = frame.tobytes()
         buf = Gst.Buffer.new_allocate(None, len(data), None)
         buf.fill(0, data)
@@ -647,7 +670,7 @@ class TelearmsTeleop(KeyboardTeleop):
         self._render_push_count += 1
         if self._render_push_count <= 3 or self._render_push_count % 150 == 0:
             print(f"[telearms] pushed render #{self._render_push_count} "
-                  f"({len(data)} bytes) → appsrc returned {ret}")
+                  f"shape={frame.shape} bytes={len(data)} appsrc={ret}")
 
     def _on_event_cb(self, event, payload):
         print(f"[telearms] teleop_sdk event: {event} {payload}")
