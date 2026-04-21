@@ -618,19 +618,36 @@ class TelearmsTeleop(KeyboardTeleop):
         ok, mapinfo = buf.map(Gst.MapFlags.READ)
         if ok:
             try:
+                data = mapinfo.data
+                # First few frames: log the raw NAL prefix to verify the
+                # start-code layout we're stripping is actually 6 bytes.
+                if self._frames_recorded < 3:
+                    head = data[:12].hex() if len(data) >= 12 else data.hex()
+                    print(f"[telearms] x264 out #{self._frames_recorded}: "
+                          f"len={len(data)} prefix={head}")
                 # Skip the 6-byte Annex-B start code header that GStreamer
                 # prepends; teleop_sdk.send_video expects raw NAL units.
-                teleop_sdk.send_video(mapinfo.data[6:])
+                teleop_sdk.send_video(data[6:])
                 self._frames_recorded += 1
+                if self._frames_recorded % 150 == 0:
+                    print(f"[telearms] pushed {self._frames_recorded} frames to Agora")
             finally:
                 buf.unmap(mapinfo)
         return Gst.FlowReturn.OK
 
     def _on_render(self, frame):
+        # Keep an internal counter so we can verify the render → appsrc path
+        # is actually running (separate from the appsink counter below).
+        if not hasattr(self, "_render_push_count"):
+            self._render_push_count = 0
         data = frame.tobytes()
         buf = Gst.Buffer.new_allocate(None, len(data), None)
         buf.fill(0, data)
-        self.appsrc.emit("push-buffer", buf)
+        ret = self.appsrc.emit("push-buffer", buf)
+        self._render_push_count += 1
+        if self._render_push_count <= 3 or self._render_push_count % 150 == 0:
+            print(f"[telearms] pushed render #{self._render_push_count} "
+                  f"({len(data)} bytes) → appsrc returned {ret}")
 
     def _on_event_cb(self, event, payload):
         print(f"[telearms] teleop_sdk event: {event} {payload}")
