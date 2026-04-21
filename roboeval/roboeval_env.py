@@ -7,10 +7,10 @@ from pathlib import Path
 from typing import Any, Dict, Optional, Type
 from yaml import safe_load
 
-import cv2
 import mujoco
 import numpy as np
 import gymnasium as gym
+from PIL import Image
 from gymnasium import spaces
 from mojo import Mojo
 from mojo.elements import Geom, Camera, Site
@@ -620,11 +620,11 @@ class RoboEvalEnv(gym.Env):
             if update_overlays:
                 overlay1 = self.mujoco_renderer.render(self.render_mode, camera_id=2)
                 overlay2 = self.mujoco_renderer.render(self.render_mode, camera_id=3)
-                self._cached_overlay1 = cv2.resize(
-                    overlay1, (320, 180), interpolation=cv2.INTER_AREA
+                self._cached_overlay1 = np.asarray(
+                    Image.fromarray(overlay1).resize((320, 180), Image.BILINEAR)
                 )
-                self._cached_overlay2 = cv2.resize(
-                    overlay2, (320, 180), interpolation=cv2.INTER_AREA
+                self._cached_overlay2 = np.asarray(
+                    Image.fromarray(overlay2).resize((320, 180), Image.BILINEAR)
                 )
 
             main_h, main_w, _ = main_frame.shape
