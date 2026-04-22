@@ -28,10 +28,10 @@ OVERRIDE = REPO / "telearms" / "cam_override.yaml"
 # Matches the pose baked into world.xml. Used when no override file
 # exists and as the target of the reset key.
 DEFAULTS = {
-    "target": [0.30, -0.05, 1.10],
+    "target": [0.50, 0.00, 1.35],
     "azimuth": 180.0,    # degrees; 180 = camera on -X side of target
-    "elevation": 67.0,   # degrees above the horizontal plane
-    "distance": 0.37,    # meters
+    "elevation": 64.0,   # degrees above the horizontal plane
+    "distance": 0.30,    # meters
     "fovy": 90.0,
 }
 
