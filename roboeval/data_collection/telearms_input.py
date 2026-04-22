@@ -26,8 +26,10 @@ from pathlib import Path
 from typing import Any, Optional, Type, Union
 
 # Third-party
+import mujoco
 import numpy as np
 import requests
+import yaml
 from dotenv import load_dotenv
 from gymnasium.core import ActType
 from pyquaternion import Quaternion
@@ -82,6 +84,17 @@ PIPELINE = (
 # owned by backend start/stop commands, not keys, so no frontend keys need
 # to be filtered out here.
 _IGNORED_FRONTEND_KEYS: set = set()
+
+# Live-editable camera override. Edit this YAML while the sim is running
+# and TelearmsTeleop picks up the change on the next frame (see
+# _maybe_apply_cam_override). Schema (all fields optional):
+#   pos:    [x, y, z]            world-space camera position
+#   target: [x, y, z]            point the camera should look at
+#                                (derives quat from pos + target)
+#   quat:   [w, x, y, z]         direct quaternion override (alt to target)
+#   fovy:   <degrees>            vertical FOV
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+CAM_OVERRIDE_PATH = _REPO_ROOT / "telearms" / "cam_override.yaml"
 
 # Module-level ref so atexit/signal handlers can tear the instance down.
 _active_teleop_instance: Optional["TelearmsTeleop"] = None
@@ -219,6 +232,9 @@ class TelearmsTeleop(KeyboardTeleop):
         self._frames_recorded = 0
         self._shutdown_done = False
         self._video_paused = False
+
+        # Live camera override (file watched; 0 means "never applied yet")
+        self._cam_override_mtime: float = 0.0
 
         # Agora init — callback pair is registered now; tokens are set later
         # in _handle_start_command when the backend tells us which channel.
@@ -794,6 +810,76 @@ class TelearmsTeleop(KeyboardTeleop):
                 break
 
         self._process_reset_keys()
+        self._maybe_apply_cam_override()
+
+    def _maybe_apply_cam_override(self):
+        """Hot-reload the external camera pose from CAM_OVERRIDE_PATH.
+
+        Polls the file's mtime; applies only when it changes. Safe to call
+        every tick — when the file is absent or unchanged this is a single
+        stat() call. Malformed YAML is logged and ignored so a typo doesn't
+        kill the stream.
+        """
+        try:
+            mtime = CAM_OVERRIDE_PATH.stat().st_mtime
+        except FileNotFoundError:
+            return
+        if mtime == self._cam_override_mtime:
+            return
+        self._cam_override_mtime = mtime
+
+        try:
+            data = yaml.safe_load(CAM_OVERRIDE_PATH.read_text())
+        except Exception as e:
+            print(f"[telearms] cam_override YAML parse error: {e}")
+            return
+        if not isinstance(data, dict):
+            return
+
+        env = self._env
+        if env is None:
+            return
+        try:
+            ext_id = env._cameras_map["external"][0]
+        except (KeyError, IndexError, AttributeError):
+            return
+        m = env._mojo.model
+        d = env._mojo.data
+
+        if "pos" in data:
+            m.cam_pos[ext_id] = np.asarray(data["pos"], dtype=float)
+        if "target" in data:
+            m.cam_quat[ext_id] = self._look_at_quat(
+                np.asarray(m.cam_pos[ext_id], dtype=float),
+                np.asarray(data["target"], dtype=float),
+            )
+        elif "quat" in data:
+            m.cam_quat[ext_id] = np.asarray(data["quat"], dtype=float)
+        if "fovy" in data:
+            m.cam_fovy[ext_id] = float(data["fovy"])
+
+        mujoco.mj_forward(m, d)
+        print(f"[telearms] cam_override applied: {data}")
+
+    @staticmethod
+    def _look_at_quat(pos: np.ndarray, target: np.ndarray) -> np.ndarray:
+        """Camera quat looking from pos to target; cam +X locked to world -Y.
+
+        Matches tools/calibrate_external.py so Agora frames preserve the
+        "left arm stays on the left" convention.
+        """
+        look = target - pos
+        look /= np.linalg.norm(look)
+        z_axis = -look
+        x_axis = np.array([0.0, -1.0, 0.0])
+        y_axis = np.cross(z_axis, x_axis)
+        y_axis /= np.linalg.norm(y_axis)
+        x_axis = np.cross(y_axis, z_axis)
+        x_axis /= np.linalg.norm(x_axis)
+        rot = np.column_stack([x_axis, y_axis, z_axis]).flatten()
+        quat = np.zeros(4)
+        mujoco.mju_mat2Quat(quat, rot)
+        return quat
 
     # ------------------------------------------------------------------
     # Action generation — overrides KeyboardTeleop's mode-toggle pipeline

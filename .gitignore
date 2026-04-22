@@ -82,5 +82,8 @@ Thumbs.db
 # MuJoCo
 *.mjb
 
+# Live-editable camera override (read at runtime by TelearmsTeleop)
+telearms/cam_override.yaml
+
 # Logs
 *.log
