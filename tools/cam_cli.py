@@ -25,14 +25,14 @@ except ImportError:
 REPO = Path(__file__).resolve().parents[1]
 OVERRIDE = REPO / "telearms" / "cam_override.yaml"
 
-# Matches the eagle view baked into world.xml. Used when no override
-# file exists and as the target of the reset key.
+# Matches the pose baked into world.xml. Used when no override file
+# exists and as the target of the reset key.
 DEFAULTS = {
-    "target": [0.40, 0.00, 0.80],
+    "target": [0.25, -0.05, 1.40],
     "azimuth": 180.0,    # degrees; 180 = camera on -X side of target
-    "elevation": 45.0,   # degrees above the horizontal plane
-    "distance": 2.0,     # meters
-    "fovy": 60.0,
+    "elevation": 43.0,   # degrees above the horizontal plane
+    "distance": 0.37,    # meters
+    "fovy": 90.0,
 }
 
 # Per-keystroke step sizes. Tuned so a few taps makes a visible difference
