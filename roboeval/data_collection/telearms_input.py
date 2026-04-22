@@ -77,10 +77,11 @@ PIPELINE = (
     f'appsink name=appsink emit-signals=true sync=false max-buffers=100 drop=true'
 )
 
-# Frontend RTM messages sometimes include the same keys used for local
-# record/save shortcuts — ignore those so only backend commands can trigger
-# recording lifecycle transitions.
-_IGNORED_FRONTEND_KEYS = {KeyboardTeleop.RECORD_KEY, KeyboardTeleop.SAVE_KEY}
+# The frontend advertises a different key scheme than KeyboardTeleop's
+# (z/x/n/m for grippers, escape/delete for reset). Recording lifecycle is
+# owned by backend start/stop commands, not keys, so no frontend keys need
+# to be filtered out here.
+_IGNORED_FRONTEND_KEYS: set = set()
 
 # Module-level ref so atexit/signal handlers can tear the instance down.
 _active_teleop_instance: Optional["TelearmsTeleop"] = None
@@ -106,6 +107,31 @@ class TelearmsTeleop(KeyboardTeleop):
     GAMEPAD_MOVEMENT_SCALE = 0.008
     GAMEPAD_ROTATION_SCALE = 0.008
     GAMEPAD_DEADZONE = 0.15
+
+    # Keyboard layout the frontend UI advertises (Keyboard Controls panel).
+    # Overrides KeyboardTeleop's older WASD/z-c + v/b + mode-toggle scheme.
+    LEFT_ARM_POSITION_KEYS = {
+        'forward': 'w', 'back': 's',
+        'left': 'a', 'right': 'd',
+        'up': 'q', 'down': 'e',
+    }
+    RIGHT_ARM_POSITION_KEYS = {
+        'forward': 'i', 'back': 'k',
+        'left': 'j', 'right': 'l',
+        'up': 'u', 'down': 'o',
+    }
+    # Only yaw is mapped (1/4 and 7/0) — matches the UI's Rotate Arm row.
+    LEFT_ARM_ORIENTATION_KEYS = {'yaw_left': '4', 'yaw_right': '1'}
+    RIGHT_ARM_ORIENTATION_KEYS = {'yaw_left': '0', 'yaw_right': '7'}
+    # Split open/close so the UI's Z/X and N/M buttons both map cleanly.
+    GRIPPER_KEYS = {
+        'left_open': 'z', 'left_close': 'x',
+        'right_open': 'n', 'right_close': 'm',
+    }
+    # pynput sends 'esc'; browsers send 'escape'. Accept both (same for
+    # delete/backspace) so the UI's Reset Arm buttons work either way.
+    LEFT_RESET_KEYS = {'escape', 'esc'}
+    RIGHT_RESET_KEYS = {'delete', 'backspace'}
 
     def __init__(
         self,
@@ -169,10 +195,16 @@ class TelearmsTeleop(KeyboardTeleop):
         self._save_initial_positions()
 
         self._gripper_toggle_state = {"left": 0.0, "right": 0.0}
+        # Edge-detect state for every key whose handler uses "triggered once
+        # per press" semantics (grippers + reset keys).
         self._prev_key_state = {
-            self.GRIPPER_KEYS["left"]: False,
-            self.GRIPPER_KEYS["right"]: False,
+            self.GRIPPER_KEYS["left_open"]: False,
+            self.GRIPPER_KEYS["left_close"]: False,
+            self.GRIPPER_KEYS["right_open"]: False,
+            self.GRIPPER_KEYS["right_close"]: False,
         }
+        for key in self.LEFT_RESET_KEYS | self.RIGHT_RESET_KEYS:
+            self._prev_key_state[key] = False
 
         # Scene-control channel (reset_scene / change_task) coming from RTM
         self.scene_control_queue: pyqueue.Queue = pyqueue.Queue()
@@ -555,9 +587,13 @@ class TelearmsTeleop(KeyboardTeleop):
         self._save_initial_positions()
         self._gripper_toggle_state = {"left": 0.0, "right": 0.0}
         self._prev_key_state = {
-            self.GRIPPER_KEYS["left"]: False,
-            self.GRIPPER_KEYS["right"]: False,
+            self.GRIPPER_KEYS["left_open"]: False,
+            self.GRIPPER_KEYS["left_close"]: False,
+            self.GRIPPER_KEYS["right_open"]: False,
+            self.GRIPPER_KEYS["right_close"]: False,
         }
+        for key in self.LEFT_RESET_KEYS | self.RIGHT_RESET_KEYS:
+            self._prev_key_state[key] = False
 
     # ------------------------------------------------------------------
     # Scene-control RTM handlers
@@ -739,7 +775,7 @@ class TelearmsTeleop(KeyboardTeleop):
             self.shutdown()
 
     def _handle_input(self):
-        """Drain scene-control queue and honor recording start signal."""
+        """Drain scene-control queue, honor recording start, process resets."""
         if self._env_start_recording_event.is_set():
             self._start_recording_for_task()
             self._env_start_recording_event.clear()
@@ -757,6 +793,108 @@ class TelearmsTeleop(KeyboardTeleop):
             except pyqueue.Empty:
                 break
 
+        self._process_reset_keys()
+
+    # ------------------------------------------------------------------
+    # Action generation — overrides KeyboardTeleop's mode-toggle pipeline
+    # with independent position + orientation control (matches the UI).
+    # ------------------------------------------------------------------
+    def get_next_action(self) -> ActType:
+        grip_left, grip_right = self._process_gripper_input()
+        self._handle_position_control()
+        self._handle_orientation_control()
+        return self._calculate_control(grip_left, grip_right)
+
+    def _process_gripper_input(self):
+        """Edge-triggered toggle: z/n open, x/m close (UI Grip Hand row)."""
+        left_open = self.GRIPPER_KEYS["left_open"]
+        left_close = self.GRIPPER_KEYS["left_close"]
+        right_open = self.GRIPPER_KEYS["right_open"]
+        right_close = self.GRIPPER_KEYS["right_close"]
+
+        if left_open in self.pressed_keys and not self._prev_key_state[left_open]:
+            self._gripper_toggle_state["left"] = 1.0
+        if left_close in self.pressed_keys and not self._prev_key_state[left_close]:
+            self._gripper_toggle_state["left"] = 0.0
+        self._prev_key_state[left_open] = left_open in self.pressed_keys
+        self._prev_key_state[left_close] = left_close in self.pressed_keys
+
+        if right_open in self.pressed_keys and not self._prev_key_state[right_open]:
+            self._gripper_toggle_state["right"] = 1.0
+        if right_close in self.pressed_keys and not self._prev_key_state[right_close]:
+            self._gripper_toggle_state["right"] = 0.0
+        self._prev_key_state[right_open] = right_open in self.pressed_keys
+        self._prev_key_state[right_close] = right_close in self.pressed_keys
+
+        return self._gripper_toggle_state["left"], self._gripper_toggle_state["right"]
+
+    def _handle_position_control(self):
+        """WASD/IJKL move in XY, Q/E and U/O in Z (UI Move + Raise/Lower)."""
+        step = self.ARM_MOVEMENT_STEP
+
+        if self.gripper_l:
+            keys = self.LEFT_ARM_POSITION_KEYS
+            if keys['forward'] in self.pressed_keys: self.left_arm_target[0] += step
+            if keys['back'] in self.pressed_keys:    self.left_arm_target[0] -= step
+            if keys['left'] in self.pressed_keys:    self.left_arm_target[1] += step
+            if keys['right'] in self.pressed_keys:   self.left_arm_target[1] -= step
+            if keys['up'] in self.pressed_keys:      self.left_arm_target[2] += step
+            if keys['down'] in self.pressed_keys:    self.left_arm_target[2] -= step
+
+        if self.gripper_r:
+            keys = self.RIGHT_ARM_POSITION_KEYS
+            if keys['forward'] in self.pressed_keys: self.right_arm_target[0] += step
+            if keys['back'] in self.pressed_keys:    self.right_arm_target[0] -= step
+            if keys['left'] in self.pressed_keys:    self.right_arm_target[1] += step
+            if keys['right'] in self.pressed_keys:   self.right_arm_target[1] -= step
+            if keys['up'] in self.pressed_keys:      self.right_arm_target[2] += step
+            if keys['down'] in self.pressed_keys:    self.right_arm_target[2] -= step
+
+    def _handle_orientation_control(self):
+        """Yaw only — 1/4 left arm, 7/0 right arm (UI Rotate Arm row)."""
+        step = self.ARM_ROTATION_STEP
+
+        if self.gripper_l:
+            keys = self.LEFT_ARM_ORIENTATION_KEYS
+            if keys['yaw_left'] in self.pressed_keys:
+                self.left_arm_orientation *= Quaternion(axis=[0, 0, 1], angle=step)
+            if keys['yaw_right'] in self.pressed_keys:
+                self.left_arm_orientation *= Quaternion(axis=[0, 0, 1], angle=-step)
+            self.left_arm_orientation = self.left_arm_orientation.normalised
+
+        if self.gripper_r:
+            keys = self.RIGHT_ARM_ORIENTATION_KEYS
+            if keys['yaw_left'] in self.pressed_keys:
+                self.right_arm_orientation *= Quaternion(axis=[0, 0, 1], angle=step)
+            if keys['yaw_right'] in self.pressed_keys:
+                self.right_arm_orientation *= Quaternion(axis=[0, 0, 1], angle=-step)
+            self.right_arm_orientation = self.right_arm_orientation.normalised
+
+    def _process_reset_keys(self):
+        """Edge-triggered: ESC resets left arm, DEL resets right (UI Reset Arm)."""
+        left_pressed = any(k in self.pressed_keys for k in self.LEFT_RESET_KEYS)
+        left_prev = any(self._prev_key_state.get(k, False) for k in self.LEFT_RESET_KEYS)
+        if left_pressed and not left_prev:
+            self._reset_left_arm()
+
+        right_pressed = any(k in self.pressed_keys for k in self.RIGHT_RESET_KEYS)
+        right_prev = any(self._prev_key_state.get(k, False) for k in self.RIGHT_RESET_KEYS)
+        if right_pressed and not right_prev:
+            self._reset_right_arm()
+
+        for k in self.LEFT_RESET_KEYS | self.RIGHT_RESET_KEYS:
+            self._prev_key_state[k] = k in self.pressed_keys
+
+    def _reset_left_arm(self):
+        if self.gripper_l:
+            self.left_arm_target = self.left_arm_initial_position.copy()
+            self.left_arm_orientation = Quaternion(self.left_arm_initial_orientation)
+
+    def _reset_right_arm(self):
+        if self.gripper_r:
+            self.right_arm_target = self.right_arm_initial_position.copy()
+            self.right_arm_orientation = Quaternion(self.right_arm_initial_orientation)
+
     def _render_frame(self):
         """Render to offscreen buffer and push through the GStreamer pipeline."""
         self._update_stats()
@@ -772,46 +910,53 @@ class TelearmsTeleop(KeyboardTeleop):
         if not self._gamepad_active:
             return
 
-        # Map axes → virtual keys. Left stick drives left arm XY, right stick
-        # drives right arm XY. Triggers (6/7) are Z up/down.
+        # Map axes → virtual keys using the same layout the UI advertises:
+        # left stick → left arm forward/back + left/right, LT/LB → z up/down,
+        # same mirrored for right. Triggers (6/7) are shared vertical controls.
         dz = self.GAMEPAD_DEADZONE
         virtual = set()
 
         lx, ly = self.gamepad_axes[0], self.gamepad_axes[1]
         rx, ry = self.gamepad_axes[2], self.gamepad_axes[3]
 
+        # Left stick → left arm XY (forward/back on Y, left/right on X)
+        if ly < -dz:
+            virtual.add(self.LEFT_ARM_POSITION_KEYS["forward"])
+        elif ly > dz:
+            virtual.add(self.LEFT_ARM_POSITION_KEYS["back"])
         if lx < -dz:
-            virtual.add(self.LEFT_ARM_KEYS["x_minus"])
+            virtual.add(self.LEFT_ARM_POSITION_KEYS["left"])
         elif lx > dz:
-            virtual.add(self.LEFT_ARM_KEYS["x_plus"])
-        if ly > dz:
-            virtual.add(self.LEFT_ARM_KEYS["y_minus"])
-        elif ly < -dz:
-            virtual.add(self.LEFT_ARM_KEYS["y_plus"])
+            virtual.add(self.LEFT_ARM_POSITION_KEYS["right"])
 
+        # Right stick → right arm XY
+        if ry < -dz:
+            virtual.add(self.RIGHT_ARM_POSITION_KEYS["forward"])
+        elif ry > dz:
+            virtual.add(self.RIGHT_ARM_POSITION_KEYS["back"])
         if rx < -dz:
-            virtual.add(self.RIGHT_ARM_KEYS["x_minus"])
+            virtual.add(self.RIGHT_ARM_POSITION_KEYS["left"])
         elif rx > dz:
-            virtual.add(self.RIGHT_ARM_KEYS["x_plus"])
-        if ry > dz:
-            virtual.add(self.RIGHT_ARM_KEYS["y_minus"])
-        elif ry < -dz:
-            virtual.add(self.RIGHT_ARM_KEYS["y_plus"])
+            virtual.add(self.RIGHT_ARM_POSITION_KEYS["right"])
 
-        # L/R triggers (buttons 6/7) → Z movement
+        # L/R triggers (buttons 6/7) drive both arms up/down together so
+        # the trigger pair works as a shared elevator.
         if self.gamepad_buttons[6] > 0.5:
-            virtual.add(self.LEFT_ARM_KEYS["z_minus"])
-            virtual.add(self.RIGHT_ARM_KEYS["z_minus"])
+            virtual.add(self.LEFT_ARM_POSITION_KEYS["down"])
+            virtual.add(self.RIGHT_ARM_POSITION_KEYS["down"])
         if self.gamepad_buttons[7] > 0.5:
-            virtual.add(self.LEFT_ARM_KEYS["z_plus"])
-            virtual.add(self.RIGHT_ARM_KEYS["z_plus"])
+            virtual.add(self.LEFT_ARM_POSITION_KEYS["up"])
+            virtual.add(self.RIGHT_ARM_POSITION_KEYS["up"])
 
-        # Shoulder buttons LB/RB (4/5) → gripper toggle edge-trigger
-        for idx, side in ((4, "left"), (5, "right")):
+        # Shoulder buttons LB/RB (4/5) → close the gripper (edge trigger).
+        # Split open/close means we only simulate the close press here; open
+        # stays as a keyboard affordance.
+        for idx, close_key in ((4, self.GRIPPER_KEYS["left_close"]),
+                                (5, self.GRIPPER_KEYS["right_close"])):
             was_down = self._prev_gamepad_buttons[idx] > 0.5
             is_down = self.gamepad_buttons[idx] > 0.5
             if is_down and not was_down:
-                virtual.add(self.GRIPPER_KEYS[side])
+                virtual.add(close_key)
 
         self._prev_gamepad_buttons = list(self.gamepad_buttons)
         self.pressed_keys |= virtual
@@ -826,9 +971,13 @@ class TelearmsTeleop(KeyboardTeleop):
         self._stop_countdown = None
         self._gripper_toggle_state = {"left": 0.0, "right": 0.0}
         self._prev_key_state = {
-            self.GRIPPER_KEYS["left"]: False,
-            self.GRIPPER_KEYS["right"]: False,
+            self.GRIPPER_KEYS["left_open"]: False,
+            self.GRIPPER_KEYS["left_close"]: False,
+            self.GRIPPER_KEYS["right_open"]: False,
+            self.GRIPPER_KEYS["right_close"]: False,
         }
+        for key in self.LEFT_RESET_KEYS | self.RIGHT_RESET_KEYS:
+            self._prev_key_state[key] = False
         self._demo_recorder.record(self._env, lightweight_demo=True)
 
     def _save_recording(self, task_id: Optional[str] = None):

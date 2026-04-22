@@ -39,7 +39,7 @@ class InputMode(ABC):
         self._teleop = self._teleop_cls(
             env_cls=self._env_cls,
             action_mode=action_mode_instance,
-            resolution=(900, 1000),
+            resolution=(1280, 720),
             demo_directory=self._target_dir,
             robot_cls=self._robot_cls,
             config=self.config
