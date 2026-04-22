@@ -19,13 +19,10 @@
     <body name="floor">
       <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
     </body>
-    <!-- Close operator-eye-level camera ported from RoboEval@telearms world.xml.
-         Keeps frames framed on the workspace rather than the wide overhead
-         view the original playground used. -->
-    <!-- Egocentric "behind the bot" operator camera: sits centered behind
-         the robot (-X, Y=0), raised up and tilted ~56° down so you're
-         looking over the robot's shoulders onto the workspace.
-         xyaxes: cam-right = world -Y ; cam-up tilted forward for downtilt. -->
-    <camera name="external" mode="fixed" pos="-0.800 0.000 1.800" xyaxes="0.000 -1.000 0.000 0.832 0.000 0.555" fovy="60"/>
+    <!-- Eagle view: raised 2.5 m above the robot, 0.3 m behind, tilted
+         ~68° down. Aimed at the workspace target (0.4, 0, 0.8) so both
+         arms and the task area are framed from above.
+         xyaxes: cam-right = world -Y ; cam-up = (sin, 0, cos) of downtilt. -->
+    <camera name="external" mode="fixed" pos="-0.300 0.000 2.500" xyaxes="0.000 -1.000 0.000 0.925 0.000 0.381" fovy="60"/>
   </worldbody>
 </mujoco>
