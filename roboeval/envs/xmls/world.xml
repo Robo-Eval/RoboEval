@@ -19,10 +19,10 @@
     <body name="floor">
       <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
     </body>
-    <!-- Close over-the-shoulder pose tuned via tools/cam_cli.py:
-         cam at (-0.02, -0.05, 1.65) aimed at target (0.25, -0.05, 1.40),
-         which is distance 0.37 m, azimuth 180°, elevation 43°, fovy 90°.
+    <!-- Close top-down-ish pose tuned via tools/cam_cli.py:
+         cam at (0.15, -0.05, 1.44) aimed at target (0.30, -0.05, 1.10),
+         which is distance 0.37 m, azimuth 180°, elevation 67°, fovy 90°.
          xyaxes: cam-right = world -Y ; cam-up = (cos, 0, sin) of elevation. -->
-    <camera name="external" mode="fixed" pos="-0.020 -0.050 1.650" xyaxes="0.000 -1.000 0.000 0.679 0.000 0.734" fovy="90"/>
+    <camera name="external" mode="fixed" pos="0.150 -0.050 1.440" xyaxes="0.000 -1.000 0.000 0.915 0.000 0.404" fovy="90"/>
   </worldbody>
 </mujoco>
