@@ -180,9 +180,26 @@ class KeyboardTeleop:
             raise ValueError("No valid grippers found in the robot configuration.")
 
     def _init_arm_state(self):
-        """Initialize arm positions and orientations."""
-        self.left_arm_target = np.array(self.gripper_l.wrist_position) if self.gripper_l else np.zeros(3)
-        self.right_arm_target = np.array(self.gripper_r.wrist_position) if self.gripper_r else np.zeros(3)
+        """Initialize arm positions and orientations.
+
+        ``left_arm_target`` / ``right_arm_target`` are stored as pelvis-relative
+        offsets because ``_calculate_control`` later builds the IK target as
+        ``pelvis_pose.position + arm_target``. Storing the raw world wrist xpos
+        here would double-count the pelvis world position and cause the robot
+        to drift at episode start on presets whose robot base is not the
+        world origin (e.g. ``lift_tray`` with pelvis at ``[0.1, -0.3, 0]``).
+        """
+        pelvis_pos = self._env.robot.pelvis.get_position()
+        self.left_arm_target = (
+            np.array(self.gripper_l.wrist_position) - pelvis_pos
+            if self.gripper_l
+            else np.zeros(3)
+        )
+        self.right_arm_target = (
+            np.array(self.gripper_r.wrist_position) - pelvis_pos
+            if self.gripper_r
+            else np.zeros(3)
+        )
 
         self.left_arm_orientation = Quaternion(self.gripper_l.wrist_orientation) if self.gripper_l else Quaternion()
         self.right_arm_orientation = Quaternion(self.gripper_r.wrist_orientation) if self.gripper_r else Quaternion()
