@@ -30,11 +30,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # .gitmodules uses SSH; CI needs HTTPS for public submodule fetch.
+      # .gitmodules uses SSH; rewrite to HTTPS so the public submodule (and any
+      # nested ones) clone without a key. Must precede the submodule update —
+      # `git submodule sync` would otherwise restore the SSH URL from .gitmodules.
       - name: Init mujoco_menagerie submodule
         run: |
-          git config submodule.thirdparty/mujoco_menagerie.url https://github.com/helen9975/mujoco_menagerie.git
-          git submodule sync --recursive
+          git config --global url."https://github.com/".insteadOf "git@github.com:"
           git submodule update --init --recursive
 
       - uses: actions/setup-python@v5
