@@ -186,12 +186,18 @@ class JointPositionActionMode(ActionMode):
         floating_base: bool = True,
         ee: bool = False,
         floating_dofs: list[PelvisDof] = None,
+        enforce_joint_velocity_limits: bool = True,
     ):
         """See base.
 
         :param absolute: Use absolute or delta joint positions.
         :param block_until_reached: Continue stepping until the target
             position is reached or the step threshold is exceeded.
+        :param enforce_joint_velocity_limits: If True (default), clamp each
+            per-step limb target delta to ``MAX_JOINT_VEL * control_dt`` so the
+            robot cannot slew faster than the joint velocity limit. Set False to
+            apply raw absolute/EE targets open-loop (e.g. replaying demos that
+            were collected without velocity limits).
         """
         super().__init__(
             floating_base=floating_base,
@@ -200,6 +206,7 @@ class JointPositionActionMode(ActionMode):
         self.ee = ee
         self.absolute = absolute
         self.block_until_reached = block_until_reached
+        self.enforce_joint_velocity_limits = enforce_joint_velocity_limits
         self._sub_steps_count: Optional[int] = None
 
     def _action_space_ee(self, action_scale: float, seed: Optional[int] = None) -> spaces.Box:
@@ -351,8 +358,9 @@ class JointPositionActionMode(ActionMode):
             actuator = self._mojo.physics.bind(actuator)
             if self.absolute or self.ee:
                 delta = action[i] - actuator.ctrl
-                clamped_delta = np.clip(delta, -max_joint_delta, max_joint_delta)
-                actuator.ctrl = actuator.ctrl + clamped_delta
+                if self.enforce_joint_velocity_limits:
+                    delta = np.clip(delta, -max_joint_delta, max_joint_delta)
+                actuator.ctrl = actuator.ctrl + delta
             else:
                 actuator.ctrl = actuator.ctrl + action[i]
         if self.block_until_reached:
