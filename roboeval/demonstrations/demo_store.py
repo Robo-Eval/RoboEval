@@ -64,6 +64,11 @@ class DemoStore:
         self._cache_path: Path = self._cache_root / self._DEMOS / DEMO_VERSION
         self._cache_path.mkdir(parents=True, exist_ok=True)
 
+    @property
+    def cache_path(self) -> Path:
+        """Versioned root of the local demo cache (``…/<DEMOS>/<version>``)."""
+        return self._cache_path
+
     def cache_demo(self, demo: Demo, frequency: Optional[int] = None):
         """Add a demo to the local cache.
 
