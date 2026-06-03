@@ -24,14 +24,15 @@ CORE_MODULES = [
     "roboeval.robots.configs.panda",
 ]
 
-# One representative env per task family.
+# One representative env per task family (all 8).
 ENV_SPECS = [
     ("roboeval.envs.lift_pot", "LiftPot"),
+    ("roboeval.envs.lift_tray", "LiftTray"),
     ("roboeval.envs.manipulation", "CubeHandover"),
     ("roboeval.envs.manipulation", "StackTwoBlocks"),
+    ("roboeval.envs.stack_books", "StackSingleBookShelf"),
     ("roboeval.envs.stack_books", "PickSingleBookFromTable"),
     ("roboeval.envs.pack_objects", "PackBox"),
-    ("roboeval.envs.lift_tray", "LiftTray"),
     ("roboeval.envs.rotate_utility_objects", "RotateValve"),
 ]
 
