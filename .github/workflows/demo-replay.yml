@@ -1,10 +1,14 @@
-# Replay sample demos per task on every push / PR (two presets: joint absolute @ 500 Hz
-# and EE delta @ 20 Hz; full trajectory then env.success). Tune --amount via dispatch.
+# Nightly demo-replay regression: replay sample demos per task (two presets:
+# joint absolute @ 500 Hz and EE delta @ 20 Hz; full trajectory then env.success).
+# Heavy (~30 min), so it runs nightly + on demand rather than per push — the fast
+# pytest gate (ci.yml) covers every push/PR. Tune --amount via dispatch.
+# NOTE: scheduled runs fire from the DEFAULT branch's copy of this file, so the
+# nightly cron only takes effect once this lands on the default branch.
 name: Demo replay regression
 
 on:
-  push:
-  pull_request:
+  schedule:
+    - cron: "0 8 * * *"  # ~00:00 America/Los_Angeles
   workflow_dispatch:
     inputs:
       amount:
