@@ -50,6 +50,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip setuptools wheel
           pip install -e ".[dev]"
+          # pyproject pins mujoco 3.3.3, but demos were recorded on 3.1.5 and
+          # open-loop replay drifts across versions. Match the demos so this
+          # regression measures real failures, not version skew.
+          pip install "mujoco==3.1.5"
+          python -c "import mujoco; print('mujoco', mujoco.__version__)"
 
       - name: Cache demonstration files
         uses: actions/cache@v4
