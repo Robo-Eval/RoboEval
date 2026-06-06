@@ -345,7 +345,21 @@ def main() -> int:
             "at the preset Hz, then replay with enforce_joint_velocity_limits=True"
         ),
     )
+    parser.add_argument(
+        "--min-pass-rate",
+        type=float,
+        default=None,
+        help=(
+            "Pass if the overall demo pass rate is >= this fraction (0..1), instead "
+            "of requiring every demo to succeed. Useful in CI where demos recorded "
+            "on MuJoCo 3.1.5 drift under the supported 3.3.x runtime. Unset = strict "
+            "(fail on any failing demo)."
+        ),
+    )
     args = parser.parse_args()
+    if args.min_pass_rate is not None and not (0.0 <= args.min_pass_rate <= 1.0):
+        print("--min-pass-rate must be in [0, 1]")
+        return 1
     # Demos record MuJoCo 3.1.5; many dev installs use 3.3.x. Skip per-demo warnings
     # unless the user set ROBOEVAL_SKIP_DEMO_VERSION_CHECK explicitly (e.g. to "0").
     os.environ.setdefault("ROBOEVAL_SKIP_DEMO_VERSION_CHECK", "1")
@@ -393,10 +407,19 @@ def main() -> int:
     if grand_ran == 0:
         print("No demos replayed (cache empty or all tasks skipped).")
         return 1
+    pass_rate = grand_ok / grand_ran
     print(
         f"Overall (all presets): {grand_ok}/{grand_ran} demos passed "
-        f"({100.0 * grand_ok / grand_ran:.1f}%)"
+        f"({100.0 * pass_rate:.1f}%)"
     )
+    if args.min_pass_rate is not None:
+        ok = pass_rate >= args.min_pass_rate
+        print(
+            f"Threshold: {100.0 * pass_rate:.1f}% "
+            f"{'>=' if ok else '<'} {100.0 * args.min_pass_rate:.1f}% required "
+            f"-> {'PASS' if ok else 'FAIL'}"
+        )
+        return 0 if ok else 1
     return 1 if any_fail else 0
 
 
