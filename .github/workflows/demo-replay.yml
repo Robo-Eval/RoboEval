@@ -1,0 +1,78 @@
+# Nightly demo-replay regression: replay sample demos per task (two presets:
+# joint absolute @ 500 Hz and EE delta @ 20 Hz; full trajectory then env.success).
+# Heavy (~30 min), so it runs nightly + on demand rather than per push — the fast
+# pytest gate (ci.yml) covers every push/PR. Tune --amount via dispatch.
+# NOTE: scheduled runs fire from the DEFAULT branch's copy of this file, so the
+# nightly cron only takes effect once this lands on the default branch.
+name: Demo replay regression
+
+on:
+  schedule:
+    - cron: "0 8 * * *"  # ~00:00 America/Los_Angeles
+  workflow_dispatch:
+    inputs:
+      amount:
+        description: Max demos per task per preset (default 2 for CI speed)
+        type: string
+        default: "2"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  replay-sample:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      # Demos record mujoco 3.1.5; pyproject may differ — skip noisy mismatch warnings in CI.
+      ROBOEVAL_SKIP_DEMO_VERSION_CHECK: "1"
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # .gitmodules uses SSH; rewrite to HTTPS so the public submodule (and any
+      # nested ones) clone without a key. Must precede the submodule update —
+      # `git submodule sync` would otherwise restore the SSH URL from .gitmodules.
+      - name: Init mujoco_menagerie submodule
+        run: |
+          git config --global url."https://github.com/".insteadOf "git@github.com:"
+          git submodule update --init --recursive
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+          cache-dependency-path: |
+            pyproject.toml
+            setup.py
+
+      - name: Install RoboEval
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          pip install -e ".[dev]"
+
+      - name: Cache demonstration files
+        uses: actions/cache@v4
+        with:
+          path: ~/.roboeval
+          key: roboeval-demos-${{ runner.os }}-${{ hashFiles('roboeval/const.py') }}
+
+      - name: Replay demos (joint_abs_500 + ee_delta_20)
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            AMT="${{ github.event.inputs.amount }}"
+          else
+            AMT=2
+          fi
+          # Demos were recorded on MuJoCo 3.1.5 but the supported runtime is 3.3.x
+          # (dm_control 1.0.31 needs >=3.2), so open-loop replay drifts and not all
+          # demos reach success. Gate on a pass-rate floor to catch real regressions
+          # (e.g. a change that breaks stepping) without red-walling on the known
+          # version drift. Baseline observed ~67%; floor set below it with margin.
+          # Tighten once CI numbers prove stable.
+          python examples/replay_sample_check_success.py \
+            --amount "$AMT" --seed 0 --min-pass-rate 0.50
