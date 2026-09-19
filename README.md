@@ -201,6 +201,13 @@ This script:
 - Converts successful demos to per-task LeRobot datasets with camera observations
 - Outputs a summary of used trajectory names and counts
 
+**Which demonstrations survive filtering.** Not every demonstration replays successfully once
+it has been downsampled from the recorded 500 Hz, and retention varies widely by task — from
+~15% on the LiftPot variations to 100% on LiftTray Orientation/PositionAndOrientation.
+[`successful_demos_ee_delta_20hz.txt`](successful_demos_ee_delta_20hz.txt) lists the exact demo
+UUIDs that were kept for `ee_delta @ 20 Hz`: the 2930 episodes used to train the released
+baselines. Use it to reconstruct that exact training set without re-running the conversion.
+
 ### 6. Data Collection via Teleoperation
 
 RoboEval supports two modes of teleoperation for collecting demonstrations:
@@ -360,8 +367,13 @@ for demo in demos:
 1. **MuJoCo Installation Problems**
    ```bash
    # Make sure you have the correct MuJoCo version
-   pip install mujoco==3.1.5
+   pip install mujoco==3.3.3
    ```
+
+   The released demonstrations were *recorded* under MuJoCo 3.1.5, and their
+   `package_versions` metadata says so. Replay is sensitive to the MuJoCo
+   version, but all released results (including the baseline table) were
+   produced with **3.3.3** — use 3.3.3 to reproduce them.
 
 2. **Display Issues (Headless Servers)**
    ```bash

@@ -27,8 +27,11 @@ core_requirements = [
     # pyquaternion doesn't support 2.x yet
     "numpy==1.26.*",
     "safetensors==0.3.3",
-    # WARNING: recorded demos might break when updating Mujoco
-    "mujoco==3.1.5",
+    # Superseded by [project].dependencies in pyproject.toml, which is what
+    # actually gets installed. Keep the two in sync.
+    # Demos were recorded under 3.1.5; replay is version-sensitive and the
+    # released results were produced with 3.3.3.
+    "mujoco==3.3.3",
     # needed for pyMJCF
     "dm_control==1.0.31",
     "imageio",
