@@ -70,7 +70,43 @@ unchanged.
 
 ## Episode counts
 
-<!--COUNTS-->
+| Task variation | Demonstrations | Episodes | Frames |
+|---|---:|---:|---:|
+| `CubeHandover` | 104 | 95 | 7,770 |
+| `CubeHandoverOrientation` | 107 | 106 | 8,684 |
+| `CubeHandoverPosition` | 109 | 104 | 9,790 |
+| `CubeHandoverPositionAndOrientation` | 105 | 101 | 15,092 |
+| `LiftPot` | 104 | 95 | 7,400 |
+| `LiftPotOrientation` | 115 | 95 | 8,722 |
+| `LiftPotPosition` | 221 | 154 | 13,616 |
+| `LiftPotPositionAndOrientation` | 102 | 77 | 9,445 |
+| `LiftTray` | 100 | 35 | 3,384 |
+| `LiftTrayOrientation` | 104 | 76 | 8,392 |
+| `LiftTrayPosition` | 144 | 135 | 13,713 |
+| `LiftTrayPositionAndOrientation` | 204 | 154 | 21,447 |
+| `PackBox` | 174 | 130 | 28,928 |
+| `PackBoxOrientation` | 184 | 98 | 17,930 |
+| `PackBoxPosition` | 115 | 96 | 14,451 |
+| `PackBoxPositionAndOrientation` | 115 | 99 | 16,422 |
+| `PickSingleBookFromTable` | 118 | 98 | 13,685 |
+| `PickSingleBookFromTableOrientation` | 100 | 85 | 9,729 |
+| `PickSingleBookFromTablePosition` | 116 | 96 | 14,395 |
+| `PickSingleBookFromTablePositionAndOrientation` | 104 | 92 | 10,944 |
+| `RotateValve` | 121 | 112 | 7,960 |
+| `RotateValvePosition` | 113 | 110 | 23,903 |
+| `RotateValvePositionAndOrientation` | 125 | 115 | 20,328 |
+| `StackSingleBookShelf` | 103 | 62 | 19,219 |
+| `StackSingleBookShelfPosition` | 101 | 75 | 12,644 |
+| `StackSingleBookShelfPositionAndOrientation` | 100 | 73 | 13,660 |
+| `StackTwoBlocks` | 203 | 182 | 27,998 |
+| `StackTwoBlocksOrientation` | 100 | 78 | 7,041 |
+| `StackTwoBlocksPosition` | 104 | 91 | 10,383 |
+| `StackTwoBlocksPositionAndOrientation` | 197 | 141 | 14,083 |
+| **Total** | **3812** | **3060** | **411,158** |
+
+3060 of 3812 demonstrations replay successfully at 20 Hz under these settings.
+Retention varies by task, from 35% (`LiftTray`) to 99% (`CubeHandoverOrientation`).
+
 
 ## Regenerating
 
@@ -84,13 +120,16 @@ cd RoboEval
 
 uv venv --python 3.11 .venv
 uv pip install --python .venv/bin/python \
-  "numpy==1.26.*" "mujoco==3.3.3" "dm_control==1.0.31" safetensors \
+  "mujoco==3.3.3" "dm_control==1.0.31" safetensors \
   imageio pyquaternion mujoco_utils wget pyyaml "hydra-core==1.3.*" \
-  psutil lerobot
+  psutil "lerobot==0.3.3"
 uv pip install --python .venv/bin/python \
   "gymnasium @ git+https://github.com/stepjam/Gymnasium.git@0.29.2" \
   "mojo @ git+https://github.com/helen9975/mojo.git" \
   "roboeval-metrics @ git+https://github.com/Robo-Eval/roboeval-metrics.git"
+# Install numpy last: lerobot pulls numpy 2.x, which this pipeline does not
+# support ("only 0-dimensional arrays can be converted to Python scalars").
+uv pip install --python .venv/bin/python "numpy==1.26.*"
 
 export MUJOCO_GL=egl
 export PYTHONPATH=$PWD
@@ -102,11 +141,12 @@ The submodule (`thirdparty/mujoco_menagerie`) supplies the arm meshes; without
 ### Demonstrations
 
 ```bash
-python examples/0_download_data.py
+python -c "from roboeval.demonstrations.demo_store import DemoStore; \
+s = DemoStore(); s.cached or s.pull_demos()"
 ```
 
 Downloads and extracts the 216 MB archive to `~/.roboeval/roboeval_demos/1.0.0/`
-(4155 files across 33 task directories).
+(4155 files across 33 task directories), about 10 seconds.
 
 ### Conversion
 
@@ -127,7 +167,29 @@ Note: `examples/8_replay_to_lerobot.py` calls `add_frame(frame, task=...)`, whic
 newer lerobot releases do not accept. `11_replay_to_lerobot_scaled.py` adapts the
 call when needed.
 
-### Merging
+### Converting and merging
 
-The per-variation datasets can be merged into one with
-`lerobot-edit-dataset --operation.type merge`.
+`lerobot==0.3.3` writes v2.1 datasets and has no conversion or merge tooling;
+`lerobot==0.4.4` provides both but pulls a numpy version the conversion cannot
+use. Keep them in separate environments — the merge environment only needs
+lerobot, never `roboeval`:
+
+```bash
+uv venv --python 3.11 .venv-merge
+uv pip install --python .venv-merge/bin/python "lerobot==0.4.4"
+
+# v2.1 -> v3.0, per dataset
+.venv-merge/bin/python -m lerobot.datasets.v30.convert_dataset_v21_to_v30 \
+  --repo-id <TaskName> --root $HF_HOME/lerobot/<repo_id> \
+  --push-to-hub=false --force-conversion
+
+# optional: combine datasets
+.venv-merge/bin/lerobot-edit-dataset --repo_id <out> \
+  --operation.type merge --operation.repo_ids "['<a>', '<b>']"
+```
+
+Render each variation in a single process. Splitting one variation across
+processes and converting the parts can produce data files numbered from 1 while
+the episode metadata references 0, which makes the merge fail; after any
+conversion, check that `data/chunk-000/file-000.parquet` exists and that
+`meta/info.json` reports the expected episode count.
