@@ -28,6 +28,10 @@ Per-frame features:
 | `reward`, `is_terminal`, `truncate` | 1 | per step |
 | `uuid` | 1 | source demonstration id |
 
+Camera streams are stored as `image` features rather than encoded video, as in
+`roboeval_ee_delta_20hz`, so the dataset is around 95 GB on disk. Five cameras
+are kept; training runs that use a subset select them at load time.
+
 Each episode is a demonstration that was replayed at 20 Hz and reached
 `reward > 0` under the task's success condition. Demonstrations whose replay did
 not succeed are not included. `uuid` maps every episode back to its source file
