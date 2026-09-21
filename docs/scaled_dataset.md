@@ -4,7 +4,37 @@ A LeRobot dataset built from the released RoboEval demonstrations, using
 joint-velocity **scaling** rather than per-joint clipping when limb targets are
 applied.
 
-HuggingFace: `helen9975/roboeval_ee_delta_20hz_scaled` (private)
+HuggingFace: [`helen9975/roboeval_ee_delta_20hz_scaled`](https://huggingface.co/datasets/helen9975/roboeval_ee_delta_20hz_scaled)
+
+## Getting it
+
+Downloading is the normal path; regenerating is only needed to change how the
+dataset is built.
+
+```bash
+pip install "huggingface_hub[hf_transfer]"
+
+# everything (~95 GB)
+hf download helen9975/roboeval_ee_delta_20hz_scaled --repo-type dataset \
+  --local-dir roboeval_ee_delta_20hz_scaled
+
+# or a single task variation
+hf download helen9975/roboeval_ee_delta_20hz_scaled --repo-type dataset \
+  --include "RotateValve/*" --local-dir roboeval_ee_delta_20hz_scaled
+```
+
+Each task variation is its own LeRobot dataset under the repository root, so
+`--include` fetches one without pulling the rest. Load a variation by pointing
+`LeRobotDataset` at its directory:
+
+```python
+from lerobot.datasets.lerobot_dataset import LeRobotDataset
+ds = LeRobotDataset("RotateValve",
+                    root="roboeval_ee_delta_20hz_scaled/RotateValve",
+                    revision="local")
+```
+
+`revision="local"` keeps it from resolving the name against the Hub.
 
 ## What is in it
 
@@ -113,6 +143,8 @@ Retention varies by task, from 35% (`LiftTray`) to 99% (`CubeHandoverOrientation
 
 
 ## Regenerating
+
+Only needed to rebuild the dataset or change how it is produced.
 
 ### Environment
 
