@@ -208,6 +208,12 @@ it has been downsampled from the recorded 500 Hz, and retention varies widely by
 UUIDs that were kept for `ee_delta @ 20 Hz`: the 2930 episodes used to train the released
 baselines. Use it to reconstruct that exact training set without re-running the conversion.
 
+This is a different set from the one in [`docs/scaled_dataset.md`](docs/scaled_dataset.md).
+That dataset applies joint-velocity limits by scaling rather than clipping, and uses the
+current success conditions, so a different set of demonstrations replays successfully. Use
+this manifest to reproduce the released baselines, and that dataset for replay-faithful
+training; the two are not interchangeable.
+
 ### 6. Data Collection via Teleoperation
 
 RoboEval supports two modes of teleoperation for collecting demonstrations:

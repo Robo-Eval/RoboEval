@@ -126,13 +126,14 @@ uv venv --python 3.11 .venv
 uv pip install --python .venv/bin/python \
   "mujoco==3.3.3" "dm_control==1.0.31" safetensors \
   imageio pyquaternion mujoco_utils wget pyyaml "hydra-core==1.3.*" \
-  psutil "lerobot==0.3.3"
+  psutil "lerobot==0.4.4"
 uv pip install --python .venv/bin/python \
   "gymnasium @ git+https://github.com/stepjam/Gymnasium.git@0.29.2" \
   "mojo @ git+https://github.com/helen9975/mojo.git" \
   "roboeval-metrics @ git+https://github.com/Robo-Eval/roboeval-metrics.git"
-# Install numpy last: lerobot pulls numpy 2.x, which this pipeline does not
-# support ("only 0-dimensional arrays can be converted to Python scalars").
+# Install numpy last. Installing lerobot upgrades numpy to 2.x, which this
+# pipeline does not support: conversion then fails with "only 0-dimensional
+# arrays can be converted to Python scalars".
 uv pip install --python .venv/bin/python "numpy==1.26.*"
 
 export MUJOCO_GL=egl
@@ -141,6 +142,11 @@ export PYTHONPATH=$PWD
 
 The submodule (`thirdparty/mujoco_menagerie`) supplies the arm meshes; without
 `--recurse-submodules` every environment fails to construct.
+
+`lerobot==0.4.4` is a ceiling, not a stale pin: it is the newest release that
+works with `numpy==1.26.*`. From 0.5.0 onward lerobot requires Python >= 3.12
+and `numpy>=2.0`, which this pipeline cannot use. 0.4.4 writes the current
+dataset format (v3.0) directly, so no conversion step is needed.
 
 ### Demonstrations
 
@@ -171,29 +177,25 @@ Note: `examples/8_replay_to_lerobot.py` calls `add_frame(frame, task=...)`, whic
 newer lerobot releases do not accept. `11_replay_to_lerobot_scaled.py` adapts the
 call when needed.
 
-### Converting and merging
+### Checking the output
 
-`lerobot==0.3.3` writes v2.1 datasets and has no conversion or merge tooling;
-`lerobot==0.4.4` provides both but pulls a numpy version the conversion cannot
-use. Keep them in separate environments — the merge environment only needs
-lerobot, never `roboeval`:
+Datasets are written as LeRobot v3.0 directly; no conversion or merge step is
+involved. After a run, check each variation against its data rather than its
+metadata alone:
 
-```bash
-uv venv --python 3.11 .venv-merge
-uv pip install --python .venv-merge/bin/python "lerobot==0.4.4"
+```python
+import glob, json
+import pyarrow.parquet as pq
 
-# v2.1 -> v3.0, per dataset
-.venv-merge/bin/python -m lerobot.datasets.v30.convert_dataset_v21_to_v30 \
-  --repo-id <TaskName> --root $HF_HOME/lerobot/<repo_id> \
-  --push-to-hub=false --force-conversion
-
-# optional: combine datasets
-.venv-merge/bin/lerobot-edit-dataset --repo_id <out> \
-  --operation.type merge --operation.repo_ids "['<a>', '<b>']"
+root = "$HF_HOME/lerobot/roboeval_ee_delta_20hz_scaled"
+for path in sorted(glob.glob(f"{root}/*/meta/info.json")):
+    info = json.load(open(path))
+    base = path.rsplit("/meta/", 1)[0]
+    rows = sum(pq.ParquetFile(f).metadata.num_rows
+               for f in glob.glob(f"{base}/data/**/*.parquet", recursive=True))
+    assert rows == info["total_frames"], (base, rows, info["total_frames"])
+    assert info["codebase_version"] == "v3.0"
 ```
 
-Render each variation in a single process. Splitting one variation across
-processes and converting the parts can produce data files numbered from 1 while
-the episode metadata references 0, which makes the merge fail; after any
-conversion, check that `data/chunk-000/file-000.parquet` exists and that
-`meta/info.json` reports the expected episode count.
+Comparing `total_frames` against actual parquet rows is the check that matters:
+metadata alone can agree with the run log while the data behind it is short.
