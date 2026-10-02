@@ -26,6 +26,45 @@ def get_delta_action(
     return delta
 
 
+def _feasible_limb_targets_rowwise(
+    initial: np.ndarray, raw: np.ndarray, max_step: float
+) -> np.ndarray:
+    """Greedy per-step slew limiter on a sequence of absolute targets.
+
+    Starting from ``initial``, each row of ``raw`` is approached by moving each
+    component at most ``max_step`` (L-inf clamp). This mirrors the runtime joint
+    velocity clamp in :class:`JointPositionActionMode` (``delta`` clipped to
+    ``MAX_JOINT_VEL * control_dt``), but computed offline against the previous
+    *commanded* target rather than the achieved state.
+
+    :param initial: Starting target, shape ``(d,)``.
+    :param raw: Desired absolute targets, shape ``(T, d)``.
+    :param max_step: Max per-component change between consecutive rows.
+    :return: Feasible targets, same shape as ``raw``.
+    """
+    initial = np.asarray(initial, dtype=np.float64)
+    raw = np.asarray(raw, dtype=np.float64)
+    out = np.empty_like(raw)
+    prev = initial.copy()
+    for i in range(raw.shape[0]):
+        prev = prev + np.clip(raw[i] - prev, -max_step, max_step)
+        out[i] = prev
+    return out
+
+
+def _limb_layout(robot):
+    """Return ``(base_n, limb_lo, limb_hi, n_grip, dim)`` for an action vector.
+
+    Action layout is ``[floating_base | limb joints | grippers]`` (matching
+    ``robot._initial_qpos``). The limb slice is ``[base_n : dim - n_grip]``.
+    """
+    base_n = robot.floating_base.dof_amount if robot.floating_base else 0
+    n_limb = len(robot.limb_actuators)
+    n_grip = len(robot.grippers)
+    dim = base_n + n_limb + n_grip
+    return base_n, base_n, dim - n_grip, n_grip, dim
+
+
 class DemoConverter:
     """Class to convert demonstrations."""
 
@@ -222,6 +261,173 @@ class DemoConverter:
             overhead = action - clipped_action
             timestep.set_executed_action(clipped_action)
         return Demo(demo.metadata, timesteps)
+
+    @staticmethod
+    def _validate_absolute_joint_demo(demo: Demo, fn_name: str) -> None:
+        """Raise if ``demo`` is not absolute joint-space (required for clamping)."""
+        env_data = demo.metadata.environment_data
+        if env_data.end_effector_mode:
+            raise ValueError(
+                f"{fn_name} requires joint-space actions; demo is end-effector."
+            )
+        if not env_data.action_mode_absolute:
+            raise ValueError(
+                f"{fn_name} requires absolute joint actions; demo is delta."
+            )
+
+    @staticmethod
+    def _resolve_max_step(control_frequency_hz: float, v_max: Optional[float]) -> float:
+        """Max per-step limb change (rad) = v_max / control_frequency."""
+        from roboeval.action_modes import JointPositionActionMode
+
+        if control_frequency_hz <= 0:
+            raise ValueError("control_frequency_hz must be positive.")
+        if v_max is None:
+            v_max = JointPositionActionMode.MAX_JOINT_VEL
+        return v_max / control_frequency_hz
+
+    @staticmethod
+    def clamp_absolute_joint_velocity(
+        demo: Demo,
+        control_frequency_hz: float,
+        max_joint_velocity_rad_s: Optional[float] = None,
+    ) -> Demo:
+        """Slew-limit absolute joint targets to respect the velocity limit.
+
+        Rewrites each timestep's limb-joint targets so consecutive targets differ
+        by at most ``v_max / control_frequency_hz`` per joint (L-inf), starting
+        from the robot's initial qpos. Floating-base and gripper components are
+        left unchanged. The number of timesteps is preserved — this is the
+        offline equivalent of the runtime clamp, *not* a time-stretch (a clamped
+        trajectory may lag and fail to reach its targets; see
+        :meth:`retime_absolute_joint_velocity` to also re-time).
+
+        :param demo: Absolute joint-space demonstration.
+        :param control_frequency_hz: Control frequency the demo will run at.
+        :param max_joint_velocity_rad_s: Velocity cap (default
+            ``JointPositionActionMode.MAX_JOINT_VEL``).
+        :raises ValueError: If the demo is end-effector or delta.
+        :return: A new demo with slew-limited limb targets.
+        """
+        DemoConverter._validate_absolute_joint_demo(
+            demo, "clamp_absolute_joint_velocity"
+        )
+        max_step = DemoConverter._resolve_max_step(
+            control_frequency_hz, max_joint_velocity_rad_s
+        )
+
+        robot = demo.metadata.get_robot()
+        _, limb_lo, limb_hi, _, _ = _limb_layout(robot)
+        q0 = np.asarray(robot._initial_qpos, dtype=np.float64)
+
+        timesteps = deepcopy(demo.timesteps)
+        if not timesteps:
+            return Demo(deepcopy(demo.metadata), timesteps)
+
+        raw_limb = np.array(
+            [
+                np.asarray(ts.executed_action, dtype=np.float64)[limb_lo:limb_hi]
+                for ts in timesteps
+            ]
+        )
+        feasible_limb = _feasible_limb_targets_rowwise(
+            q0[limb_lo:limb_hi], raw_limb, max_step
+        )
+        for ts, limb in zip(timesteps, feasible_limb):
+            full = np.asarray(ts.executed_action, dtype=np.float64).copy()
+            full[limb_lo:limb_hi] = limb
+            ts.set_executed_action(full)
+        return Demo(deepcopy(demo.metadata), timesteps)
+
+    @staticmethod
+    def max_limb_discrepancy_after_velocity_clamp(
+        demo: Demo,
+        control_frequency_hz: float,
+        max_joint_velocity_rad_s: Optional[float] = None,
+    ) -> float:
+        """Max per-joint gap (rad) between raw and slew-clamped limb targets.
+
+        A measure of how infeasible a demo is under the velocity limit: ``0.0``
+        means every target already satisfies the slew rule; larger values mean
+        the clamp had to hold the robot back further behind its commanded target.
+
+        :return: Max absolute limb-target discrepancy across all timesteps.
+        """
+        clamped = DemoConverter.clamp_absolute_joint_velocity(
+            demo, control_frequency_hz, max_joint_velocity_rad_s
+        )
+        robot = demo.metadata.get_robot()
+        _, limb_lo, limb_hi, _, _ = _limb_layout(robot)
+
+        max_d = 0.0
+        for raw_ts, cl_ts in zip(demo.timesteps, clamped.timesteps):
+            raw_limb = np.asarray(raw_ts.executed_action, dtype=np.float64)[
+                limb_lo:limb_hi
+            ]
+            cl_limb = np.asarray(cl_ts.executed_action, dtype=np.float64)[
+                limb_lo:limb_hi
+            ]
+            if raw_limb.size:
+                max_d = max(max_d, float(np.max(np.abs(cl_limb - raw_limb))))
+        return max_d
+
+    @staticmethod
+    def retime_absolute_joint_velocity(
+        demo: Demo,
+        control_frequency_hz: float,
+        max_joint_velocity_rad_s: Optional[float] = None,
+        interpolate_gripper: bool = False,
+    ) -> Demo:
+        """Time-stretch a demo so every waypoint is reachable under the limit.
+
+        Unlike :meth:`clamp_absolute_joint_velocity` (same length, lags), this
+        inserts linearly-interpolated intermediate timesteps between consecutive
+        targets so the limb never moves more than ``v_max / control_frequency_hz``
+        per step *and* still reaches each original waypoint. Both arms share the
+        same substep count per segment, so bimanual motion stays synchronized.
+        Re-simulate the result (e.g. via :meth:`create_demo_in_new_env` with an
+        ``enforce_joint_velocity_limits=True`` env) to capture consistent obs.
+
+        :param demo: Absolute joint-space demonstration.
+        :param control_frequency_hz: Control frequency the retimed demo runs at.
+        :param max_joint_velocity_rad_s: Velocity cap (default
+            ``JointPositionActionMode.MAX_JOINT_VEL``).
+        :param interpolate_gripper: If True, linearly interpolate the gripper
+            command across inserted substeps; if False (default), hold the
+            previous gripper value and switch only on reaching the waypoint, so
+            grasps fire at arrival rather than mid-approach.
+        :raises ValueError: If the demo is end-effector or delta.
+        :return: A new, time-stretched demo (>= original length).
+        """
+        DemoConverter._validate_absolute_joint_demo(
+            demo, "retime_absolute_joint_velocity"
+        )
+        max_step = DemoConverter._resolve_max_step(
+            control_frequency_hz, max_joint_velocity_rad_s
+        )
+
+        robot = demo.metadata.get_robot()
+        _, limb_lo, limb_hi, n_grip, dim = _limb_layout(robot)
+        prev_full = np.asarray(robot._initial_qpos, dtype=np.float64)
+
+        new_steps: list[DemoStep] = []
+        for ts in demo.timesteps:
+            target_full = np.asarray(ts.executed_action, dtype=np.float64)
+            limb_move = np.abs(
+                target_full[limb_lo:limb_hi] - prev_full[limb_lo:limb_hi]
+            )
+            max_move = float(np.max(limb_move)) if limb_move.size else 0.0
+            n_sub = max(1, int(np.ceil(max_move / max_step - 1e-9)))
+            for k in range(1, n_sub + 1):
+                interp = prev_full + (target_full - prev_full) * (k / n_sub)
+                if not interpolate_gripper and n_grip > 0:
+                    src = target_full if k == n_sub else prev_full
+                    interp[dim - n_grip:] = src[dim - n_grip:]
+                sub = deepcopy(ts)
+                sub.set_executed_action(interp)
+                new_steps.append(sub)
+            prev_full = target_full
+        return Demo(deepcopy(demo.metadata), new_steps)
 
     @staticmethod
     def decimate(
