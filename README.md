@@ -10,15 +10,15 @@
 ## About
 
 RoboEval is a benchmark for bimanual manipulation featuring:
-- **8 task families** with **28 total variations**
-- **Bimanual tasks**: LiftPot, StackSingleBookShelf, PickSingleBookFromTable, StackTwoBlocks, CubeHandover (including VerticalCubeHandover), RotateValve, PackBox, LiftTray, DragOverAndLiftTray
+- **8 task families** with **30 total variations**
+- **Bimanual tasks**: LiftPot, StackSingleBookShelf, PickSingleBookFromTable, StackTwoBlocks, CubeHandover, RotateValve, PackBox, LiftTray
 - **Bimanual Franka Panda** robot configuration
 - **Data collection tools**: Oculus Quest VR and keyboard teleoperation
 - **Comprehensive metrics**: Coordination, efficiency, safety, and task progression tracking
 
 ### Tasks
 
-RoboEval includes **8 task families** with **28 total variations**:
+RoboEval includes **8 task families** with **30 total variations**:
 
 1. **Lift Pot** (4 variants) - `lift_pot.py`
    - LiftPot, LiftPotPosition, LiftPotOrientation, LiftPotPositionAndOrientation
@@ -32,8 +32,8 @@ RoboEval includes **8 task families** with **28 total variations**:
 4. **Stack Two Blocks** (4 variants) - `manipulation.py`
    - StackTwoBlocks, StackTwoBlocksPosition, StackTwoBlocksOrientation, StackTwoBlocksPositionAndOrientation
 
-5. **Cube Handover** (5 variants) - `manipulation.py`
-   - CubeHandover, CubeHandoverPosition, CubeHandoverOrientation, CubeHandoverPositionAndOrientation, VerticalCubeHandover
+5. **Cube Handover** (4 variants) - `manipulation.py`
+   - CubeHandover, CubeHandoverPosition, CubeHandoverOrientation, CubeHandoverPositionAndOrientation
 
 6. **Rotate Valve** (3 variants) - `rotate_utility_objects.py`
    - RotateValve, RotateValvePosition, RotateValvePositionAndOrientation
@@ -41,14 +41,19 @@ RoboEval includes **8 task families** with **28 total variations**:
 7. **Pack Box** (4 variants) - `pack_objects.py`
    - PackBox, PackBoxPosition, PackBoxOrientation, PackBoxPositionAndOrientation
 
-8. **Lift Tray** (5 variants) - `lift_tray.py`
-   - LiftTray, LiftTrayPosition, LiftTrayOrientation, LiftTrayPositionAndOrientation, DragOverAndLiftTray
+8. **Lift Tray** (4 variants) - `lift_tray.py`
+   - LiftTray, LiftTrayPosition, LiftTrayOrientation, LiftTrayPositionAndOrientation
 
 ## Overview
 
-RoboEval is a structured benchmark for bimanual manipulation, featuring diverse tasks with varying coordination and complexity. Unlike existing benchmarks that evaluate policies solely based on task success, RoboEval introduces an initial suite of tiered, semantically diverse manipulation tasks with fine-grained diagnostic metrics to probe the capabilities and failure modes of learning-based agents. Our benchmark provides 8 task families with 28 total variations that target specific skills such as coordination, precision, and interaction under variability, and are accompanied with 3,000+ total human-collected demonstrations. It additionally includes a standardized asset library—collision meshes, annotated sites, and manipulable objects—for building and augmenting tasks with spatial perturbations and distractors; a VR-based teleoperation interface enables realistic data collection; and rich evaluation tools that go beyond binary success, measuring task progression, coordination, trajectory efficiency, and spatial proximity.
+RoboEval is a structured benchmark for bimanual manipulation, featuring diverse tasks with varying coordination and complexity. Unlike existing benchmarks that evaluate policies solely based on task success, RoboEval introduces an initial suite of tiered, semantically diverse manipulation tasks with fine-grained diagnostic metrics to probe the capabilities and failure modes of learning-based agents. Our benchmark provides 8 task families with 30 total variations that target specific skills such as coordination, precision, and interaction under variability, and are accompanied with 3,000+ total human-collected demonstrations. It additionally includes a standardized asset library—collision meshes, annotated sites, and manipulable objects—for building and augmenting tasks with spatial perturbations and distractors; a VR-based teleoperation interface enables realistic data collection; and rich evaluation tools that go beyond binary success, measuring task progression, coordination, trajectory efficiency, and spatial proximity.
 
 For more information, please visit our [full documentation site](https://robo-eval.github.io/RoboEval-Documentation/)
+
+**CoRL 2026 challenge:** evaluate, validate, and package a submission with
+`python -m roboeval.challenge.{evaluate,validate,package}`. See
+[docs/challenge.md](docs/challenge.md) and the
+[challenge page](https://robo-eval.github.io/challenge.html).
 
 ## Installation
 
