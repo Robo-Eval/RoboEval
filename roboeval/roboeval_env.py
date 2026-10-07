@@ -210,6 +210,10 @@ class RoboEvalEnv(gym.Env):
 
         self.inverse_kinematics = GenericUpperBodyIK(self, self._robot.ik_config)
 
+        # Restored on every reset; see reset().
+        self._initial_body_pos = self._mojo.physics.model.body_pos.copy()
+        self._initial_body_quat = self._mojo.physics.model.body_quat.copy()
+
     def _parse_kwargs(self, kwargs: dict[str, Any]) -> None:
         """Parse additional keyword arguments.
         
@@ -568,9 +572,20 @@ class RoboEvalEnv(gym.Env):
             Tuple of (observation, info)
         """
         self._env_health.reset()
+        # Otherwise success/info computed on the previous episode's last step
+        # are returned by this reset.
+        self._step_cache.clean()
         self._update_seed(override_seed=seed)
         self._mojo.physics.reset()
         self._action = np.zeros_like(self._action)
+        # physics.reset() leaves two things from the previous episode that
+        # reset_pose()'s physics step would pick up: model poses of props placed
+        # with body.set_position() (e.g. the PackBox box; _on_reset() re-places
+        # them only afterwards) and the constraint solver's warm start. Restore
+        # both so a seed fully determines the episode.
+        self._mojo.physics.model.body_pos[:] = self._initial_body_pos
+        self._mojo.physics.model.body_quat[:] = self._initial_body_quat
+        self._mojo.physics.data.qacc_warmstart[:] = 0
         self._robot.set_pose(self.RESET_ROBOT_POS, self.RESET_ROBOT_QUAT)
         self._robot.reset_pose()
         self._on_reset()
