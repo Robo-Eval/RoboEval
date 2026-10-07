@@ -1,0 +1,34 @@
+team_name: "Your Team"
+method_name: "YourMethod-v2"        # as it should appear on the leaderboard
+contact_email: "you@example.edu"
+affiliation: "Your Institution"
+members:
+  - "First Author"
+  - "Second Author"
+roboeval_release: "corl2026-challenge"
+
+# The evaluator builds every environment from this block, so it must match what
+# your policy was trained on. The defaults match the released dataset
+# (roboeval_ee_delta_20hz): end-effector delta actions at 20 Hz.
+interface:
+  action_mode:
+    absolute: false                 # false = delta actions
+    ee: true                        # true = end-effector pose, false = joint positions
+  control_frequency: 20             # Hz; must divide 500
+  observation:
+    proprioception: true
+    cameras:                        # empty list = state-only submission
+      - {name: head,        resolution: [256, 256], rgb: true, depth: false}
+      - {name: left_wrist,  resolution: [256, 256], rgb: true, depth: false}
+      - {name: right_wrist, resolution: [256, 256], rgb: true, depth: false}
+
+policy_seed: 0
+test_time_compute: "none"           # e.g. "8 samples, reranked by value head"
+training_data:
+  roboeval_demos: true              # trained on the provided demonstrations?
+  additional_demos: 0               # count of self-collected demonstrations
+  external_pretraining: "none"      # e.g. "OXE, DROID"
+training_gpu_hours: 0
+open_source: false
+code_url: ""
+checkpoint_url: ""
