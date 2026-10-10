@@ -7,6 +7,7 @@ organizer. All settings come from environment variables (see README.md).
 """
 from __future__ import annotations
 
+import os
 import threading
 import time
 from typing import Any, Dict, List, Optional
@@ -16,6 +17,10 @@ import pandas as pd
 
 import portal_core as core
 from roboeval.challenge import spec
+
+if os.environ.get("SPACE_ID") and os.environ.get("SYSTEM") != "spaces":
+    # Gradio would mock OAuth and sign every visitor in as the HF_TOKEN owner.
+    raise SystemExit("Refusing to start: set SYSTEM=spaces so Gradio uses real Hugging Face sign-in.")
 
 CFG = core.Config.from_env()
 STORE = core.make_store(CFG)

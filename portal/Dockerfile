@@ -6,13 +6,16 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends git gcc libc6-dev libgl1 libegl1 libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
+# SYSTEM=spaces makes Gradio use real Hugging Face sign-in. Docker Spaces do not
+# set it, and without it Gradio mocks every login as the HF_TOKEN owner.
 # Same pinned numeric environment as roboeval.challenge.determinism, so logged
 # actions replay exactly as they ran on the participant's machine.
 ENV OPENBLAS_CORETYPE=Haswell \
     OPENBLAS_NUM_THREADS=1 \
     MKL_NUM_THREADS=1 \
     MKL_CBWR=COMPATIBLE \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \
+    SYSTEM=spaces
 
 RUN useradd -m -u 1000 user
 USER user
