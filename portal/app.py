@@ -7,6 +7,7 @@ organizer. All settings come from environment variables (see README.md).
 """
 from __future__ import annotations
 
+import datetime as dt
 import os
 import threading
 import time
@@ -145,7 +146,9 @@ def limits_text() -> str:
         parts.append(f"{CFG.limit_per_day} per team per UTC day")
     if CFG.limit_total is not None:
         parts.append(f"{CFG.limit_total} per team in total")
-    deadline = f" Deadline: **{CFG.deadline.strftime('%Y-%m-%d %H:%M UTC')}**." if CFG.deadline else ""
+    aoe = CFG.deadline.astimezone(dt.timezone(dt.timedelta(hours=-12))) if CFG.deadline else None
+    deadline = (f" Deadline: **{aoe.strftime('%B %-d, %Y, %H:%M')} AoE** "
+                f"({CFG.deadline.strftime('%Y-%m-%d %H:%M UTC')})." if CFG.deadline else "")
     return (f"Limits: {', '.join(parts) if parts else 'none'}; only accepted or pending entries count.{deadline}")
 
 
