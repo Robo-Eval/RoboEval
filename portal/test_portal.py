@@ -110,11 +110,11 @@ def test_unsafe_members_rejected(cfg, store, tmp_path, name, kind):
 
 
 def test_team_identity_rules(cfg, store, tmp_path):
-    core.process_submission(cfg, store, "alice", BUNDLE, sha(BUNDLE))
+    team = core.process_submission(cfg, store, "alice", BUNDLE, sha(BUNDLE)).record["team_name"]
     with pytest.raises(core.SubmissionError, match="registered to another account"):
         core.process_submission(cfg, store, "mallory", BUNDLE, sha(BUNDLE))
     other = repack(Path(BUNDLE), tmp_path / "other.tar.gz", rewrite_manifest=True,
-                   edit={"submission/metadata.yaml": lambda b: b.replace(b"Harness Test", b"Second Team")})
+                   edit={"submission/metadata.yaml": lambda b: b.replace(team.encode(), b"Second Team")})
     with pytest.raises(core.SubmissionError, match="already submits for team"):
         core.process_submission(cfg, store, "alice", str(other), sha(other))
 
