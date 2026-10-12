@@ -304,6 +304,18 @@ def owner_of(records: List[Dict[str, Any]], team: str) -> Optional[str]:
     return None
 
 
+def check_duplicate(records: List[Dict[str, Any]], user: str, sha256: str) -> None:
+    """Refuse an archive this account already has accepted or under review.
+
+    Guards against double clicks, reloads, and second tabs. Rejected archives may
+    be resubmitted, e.g. after a validator fix.
+    """
+    for r in records:
+        if r["hf_user"] == user and r["archive_sha256"] == sha256 and r["status"] in (ACCEPTED, REVIEW):
+            raise SubmissionError(f"This archive was already submitted as `{r['id']}` (status: {r['status']}); "
+                                  "see the My submissions tab. It was not submitted again.")
+
+
 def check_window(cfg: Config) -> None:
     if not cfg.submissions_open:
         raise SubmissionError("Submissions are closed.")
@@ -350,6 +362,8 @@ def process_submission(cfg: Config, store: Store, user: str, source: str, expect
     expected = expected_sha256.strip().lower()
     if not re.fullmatch(r"[0-9a-f]{64}", expected):
         raise SubmissionError("Paste the 64-character SHA-256 printed by `package`.")
+    records = store.records()
+    check_duplicate(records, user, expected)
 
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
@@ -371,7 +385,6 @@ def process_submission(cfg: Config, store: Store, user: str, source: str, expect
         if not team or not method:
             raise SubmissionError("metadata.yaml must set team_name and method_name.")
 
-        records = store.records()
         check_identity(records, user, team)
         check_limits(cfg, records, team)
 

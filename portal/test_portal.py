@@ -58,6 +58,12 @@ def repack(src: Path, dst: Path, edit=None, extra=None, rewrite_manifest=False, 
     return dst
 
 
+def variant(tmp_path: Path, name: str) -> Path:
+    """A valid copy of the bundle with a different SHA-256 (new report bytes, rebuilt manifest)."""
+    return repack(Path(BUNDLE), tmp_path / f"{name}.tar.gz", rewrite_manifest=True,
+                  edit={"submission/report.pdf": lambda b: b + name.encode()})
+
+
 def test_valid_bundle_is_accepted_and_ranked(cfg, store):
     out = core.process_submission(cfg, store, "alice", BUNDLE, sha(BUNDLE))
     assert out.record["status"] == core.ACCEPTED, out.report
@@ -134,8 +140,9 @@ def test_daily_limit_counts_only_accepted(cfg, store, tmp_path):
                  edit={"submission/results.json": lambda b: b.replace(b'"seeds"', b'"seeds_x"', 1)})
     assert core.process_submission(cfg, store, "alice", str(bad), sha(bad)).record["status"] == core.REJECTED
     assert core.process_submission(cfg, store, "alice", BUNDLE, sha(BUNDLE)).record["status"] == core.ACCEPTED
+    again = variant(tmp_path, "again")
     with pytest.raises(core.SubmissionError, match="for today"):
-        core.process_submission(cfg, store, "alice", BUNDLE, sha(BUNDLE))
+        core.process_submission(cfg, store, "alice", str(again), sha(again))
 
 
 def test_closed_and_past_deadline(cfg, store):
@@ -167,9 +174,18 @@ def test_download_from_url_and_http_errors(cfg, store, monkeypatch):
         server.shutdown()
 
 
-def test_admin_status_and_latest_accepted_ranked(cfg, store):
+def test_duplicate_archive_is_refused_but_rejected_can_be_retried(cfg, store, tmp_path):
     first = core.process_submission(cfg, store, "alice", BUNDLE, sha(BUNDLE)).record
-    second = core.process_submission(cfg, store, "alice", BUNDLE, sha(BUNDLE)).record
+    with pytest.raises(core.SubmissionError, match="already submitted"):
+        core.process_submission(cfg, store, "alice", BUNDLE, sha(BUNDLE))
+    core.set_status(store, store.records(), first["id"], core.REJECTED, "test")
+    assert core.process_submission(cfg, store, "alice", BUNDLE, sha(BUNDLE)).record["status"] == core.ACCEPTED
+
+
+def test_admin_status_and_latest_accepted_ranked(cfg, store, tmp_path):
+    first = core.process_submission(cfg, store, "alice", BUNDLE, sha(BUNDLE)).record
+    newer = variant(tmp_path, "newer")
+    second = core.process_submission(cfg, store, "alice", str(newer), sha(newer)).record
     assert core.leaderboard(store.records())[0]["id"] == second["id"]
     core.set_status(store, store.records(), second["id"], core.HIDDEN, "test")
     assert core.leaderboard(store.records())[0]["id"] == first["id"]

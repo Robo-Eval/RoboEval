@@ -187,7 +187,11 @@ with gr.Blocks(title="RoboEval Challenge · CoRL 2026") as demo:
     demo.load(on_load, None, admin_tab)
     mode.change(show_leaderboard, mode, board)
     refresh.click(lambda m: (records(fresh=True), show_leaderboard(m))[1], mode, board)
-    go.click(submit, [url, upload, sha, agree], result, concurrency_limit=1, concurrency_id="validate")
+    # Grey the button out while a submission is in flight so it cannot be pressed twice;
+    # .then() runs whether validation passed, failed, or raised.
+    go.click(lambda: gr.update(interactive=False, value="Validating… please wait"), None, go, queue=False) \
+        .then(submit, [url, upload, sha, agree], result, concurrency_limit=1, concurrency_id="validate") \
+        .then(lambda: gr.update(interactive=True, value="Submit"), None, go, queue=False)
     mine_btn.click(my_submissions, None, [mine_table, mine_detail])
     admin_btn.click(admin_list, None, admin_table)
     apply.click(admin_set, [sid, new_status, note], admin_msg)
