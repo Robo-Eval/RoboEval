@@ -40,8 +40,10 @@ Everything is stored in a private dataset repo: per submission, `record.json`,
 it is under `STORE_ARCHIVE_MAX_GB` (for audits and held-out re-runs).
 
 The leaderboard shows each team's most recent accepted submission, ranked by
-suite Success, then Task Progression, then submission time, until the composite
-score is implemented. Organizers' own entries are labelled not prize-eligible.
+the RoboEval Diagnostic Score (`roboeval/challenge/scoring.py`), then Success,
+Task Progression, the safety score, and submission time. It has per-task and
+per-metric-family views and filters by observation and action mode.
+Organizers' own entries are labelled not prize-eligible.
 
 ## Configuration
 
