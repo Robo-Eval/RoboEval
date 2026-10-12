@@ -27,7 +27,10 @@ DEFAULT_CONTROL_FREQUENCY = 20
 # Cameras a submission may request (see roboeval/robots/configs/panda.py).
 AVAILABLE_CAMERAS = ("external", "head", "front", "left_wrist", "right_wrist")
 
-VARIATIONS = ("Static", "Position", "Orientation", "PositionAndOrientation")
+# Only each family's combined position + orientation variant is evaluated, to
+# keep evaluation cost down; it is the hardest spatial setting of every family.
+# Demonstrations from all variants may still be used for training.
+VARIATIONS = ("PositionAndOrientation",)
 
 
 @dataclass(frozen=True)
@@ -51,9 +54,6 @@ TASK_FAMILIES: Tuple[TaskFamily, ...] = (
         instruction_file="lift_pot.json",
         budget_seconds=10.0,
         variations={
-            "Static": "roboeval.envs.lift_pot:LiftPot",
-            "Position": "roboeval.envs.lift_pot:LiftPotPosition",
-            "Orientation": "roboeval.envs.lift_pot:LiftPotOrientation",
             "PositionAndOrientation": "roboeval.envs.lift_pot:LiftPotPositionAndOrientation",
         },
     ),
@@ -63,9 +63,6 @@ TASK_FAMILIES: Tuple[TaskFamily, ...] = (
         instruction_file="lift_tray.json",
         budget_seconds=10.0,
         variations={
-            "Static": "roboeval.envs.lift_tray:LiftTray",
-            "Position": "roboeval.envs.lift_tray:LiftTrayPosition",
-            "Orientation": "roboeval.envs.lift_tray:LiftTrayOrientation",
             "PositionAndOrientation": "roboeval.envs.lift_tray:LiftTrayPositionAndOrientation",
         },
     ),
@@ -75,9 +72,6 @@ TASK_FAMILIES: Tuple[TaskFamily, ...] = (
         instruction_file="stack_two_blocks.json",
         budget_seconds=20.0,
         variations={
-            "Static": "roboeval.envs.manipulation:StackTwoBlocks",
-            "Position": "roboeval.envs.manipulation:StackTwoBlocksPosition",
-            "Orientation": "roboeval.envs.manipulation:StackTwoBlocksOrientation",
             "PositionAndOrientation": "roboeval.envs.manipulation:StackTwoBlocksPositionAndOrientation",
         },
     ),
@@ -87,8 +81,6 @@ TASK_FAMILIES: Tuple[TaskFamily, ...] = (
         instruction_file="stack_single_book_shelf.json",
         budget_seconds=40.0,
         variations={
-            "Static": "roboeval.envs.stack_books:StackSingleBookShelf",
-            "Position": "roboeval.envs.stack_books:StackSingleBookShelfPosition",
             "PositionAndOrientation": "roboeval.envs.stack_books:StackSingleBookShelfPositionAndOrientation",
         },
     ),
@@ -98,9 +90,6 @@ TASK_FAMILIES: Tuple[TaskFamily, ...] = (
         instruction_file="cube_handover.json",
         budget_seconds=20.0,
         variations={
-            "Static": "roboeval.envs.manipulation:CubeHandover",
-            "Position": "roboeval.envs.manipulation:CubeHandoverPosition",
-            "Orientation": "roboeval.envs.manipulation:CubeHandoverOrientation",
             "PositionAndOrientation": "roboeval.envs.manipulation:CubeHandoverPositionAndOrientation",
         },
     ),
@@ -110,9 +99,6 @@ TASK_FAMILIES: Tuple[TaskFamily, ...] = (
         instruction_file="pack_box.json",
         budget_seconds=20.0,
         variations={
-            "Static": "roboeval.envs.pack_objects:PackBox",
-            "Position": "roboeval.envs.pack_objects:PackBoxPosition",
-            "Orientation": "roboeval.envs.pack_objects:PackBoxOrientation",
             "PositionAndOrientation": "roboeval.envs.pack_objects:PackBoxPositionAndOrientation",
         },
     ),
@@ -122,9 +108,6 @@ TASK_FAMILIES: Tuple[TaskFamily, ...] = (
         instruction_file="pick_single_book_from_table.json",
         budget_seconds=15.0,
         variations={
-            "Static": "roboeval.envs.stack_books:PickSingleBookFromTable",
-            "Position": "roboeval.envs.stack_books:PickSingleBookFromTablePosition",
-            "Orientation": "roboeval.envs.stack_books:PickSingleBookFromTableOrientation",
             "PositionAndOrientation": "roboeval.envs.stack_books:PickSingleBookFromTablePositionAndOrientation",
         },
     ),
@@ -134,8 +117,6 @@ TASK_FAMILIES: Tuple[TaskFamily, ...] = (
         instruction_file="rotate_valve.json",
         budget_seconds=20.0,
         variations={
-            "Static": "roboeval.envs.rotate_utility_objects:RotateValve",
-            "Position": "roboeval.envs.rotate_utility_objects:RotateValvePosition",
             "PositionAndOrientation": "roboeval.envs.rotate_utility_objects:RotateValvePositionAndOrientation",
         },
     ),

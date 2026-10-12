@@ -23,9 +23,14 @@ ENV HOME=/home/user PATH=/home/user/.local/bin:$PATH
 WORKDIR /home/user
 
 # The validator must be the challenge release participants evaluate with.
+# ROBOEVAL_SHA is filled in at deploy time with the commit the tag points to:
+# it changes this step's cache key whenever the release changes (Docker would
+# otherwise reuse a stale clone) and fails the build if the tag has moved.
 ARG ROBOEVAL_REPO=https://github.com/Robo-Eval/RoboEval.git
 ARG ROBOEVAL_REF=corl2026-challenge
+ARG ROBOEVAL_SHA=
 RUN git clone --branch "$ROBOEVAL_REF" "$ROBOEVAL_REPO" RoboEval \
+    && if [ -n "$ROBOEVAL_SHA" ]; then test "$(git -C RoboEval rev-parse HEAD)" = "$ROBOEVAL_SHA"; fi \
     && git -C RoboEval submodule update --init \
     && pip install --no-cache-dir --user -e ./RoboEval
 

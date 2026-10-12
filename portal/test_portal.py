@@ -82,7 +82,7 @@ def test_edited_file_breaks_manifest(cfg, store, tmp_path):
 def test_edited_results_with_regenerated_manifest_is_rejected(cfg, store, tmp_path):
     def inflate(b):
         r = json.loads(b)
-        r["results"]["LiftPot"]["Static"]["metrics"]["success"]["mean"] = 0.99
+        r["results"]["LiftPot"]["PositionAndOrientation"]["metrics"]["success"]["mean"] = 0.99
         return json.dumps(r).encode()
 
     bad = repack(Path(BUNDLE), tmp_path / "bad.tar.gz", edit={"submission/results.json": inflate},

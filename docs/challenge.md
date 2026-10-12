@@ -4,6 +4,10 @@ Participant-facing tooling for Track 2 of the CoRL 2026 Embodied AI Benchmark
 and Sim-to-Real Challenge Suite. The rules and timeline live on the website:
 <https://robo-eval.github.io/challenge.html>. This page covers the commands.
 
+The challenge evaluates one variant per task family, the combined position +
+orientation one (8 variations, 50 episodes each). Demonstrations from every
+variant may be used for training.
+
 ## Install
 
 ```bash
@@ -23,7 +27,7 @@ Check the install (no display needed, about a minute):
 
 ```bash
 python -m roboeval.challenge.evaluate --submission examples/challenge_submission \
-    --tasks LiftPot/Static --episodes 2 --output-dir /tmp/roboeval_check --overwrite
+    --tasks LiftPot --episodes 2 --output-dir /tmp/roboeval_check --overwrite
 ```
 
 ## Workflow
@@ -36,9 +40,9 @@ cp -r examples/challenge_submission ~/submission
 
 # smoke test
 python -m roboeval.challenge.evaluate --submission ~/submission \
-    --tasks LiftPot/Static --episodes 2 --output-dir /tmp/smoke --overwrite
+    --tasks LiftPot --episodes 2 --output-dir /tmp/smoke --overwrite
 
-# full run: every variation, official seeds -> logs/ and results.json
+# full run: all 8 evaluated variations, official seeds -> logs/ and results.json
 python -m roboeval.challenge.evaluate --submission ~/submission --workers 16 --gpus 0,1
 
 # 4. add ~/submission/report.pdf, then
@@ -106,7 +110,7 @@ Leaderboard keys map onto the raw values written by `roboeval_metrics`:
 ## Evaluation cost
 
 The step budget is fixed in simulated seconds per family (`roboeval/challenge/spec.py`),
-so a policy that never succeeds runs the whole budget: about 560k control steps at
+so a policy that never succeeds runs the whole budget: about 155k control steps at
 20 Hz over the suite. On an H100 host, one env step costs about 6 ms with
 proprioception only and about 16 ms more per camera, roughly independent of
 resolution. Policy inference adds to both.

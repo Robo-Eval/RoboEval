@@ -163,7 +163,7 @@ def evaluate_variation(job: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def select_variations(filters: Optional[Sequence[str]]) -> List[Tuple[str, str]]:
-    """Resolve ``--tasks LiftPot LiftTray/Position`` against the official list."""
+    """Resolve ``--tasks LiftPot LiftTray/PositionAndOrientation`` against the official list."""
     every = spec.all_variations()
     if not filters:
         return every
@@ -189,7 +189,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument("--output-dir", type=Path, default=None,
                         help="Where to write logs/ and results.json (default: the submission directory).")
     parser.add_argument("--tasks", nargs="+", default=None, metavar="FAMILY[/VARIATION]",
-                        help="Evaluate a subset, e.g. LiftPot or LiftTray/Position. The result is partial "
+                        help="Evaluate a subset, e.g. LiftPot or LiftTray. The result is partial "
                              "and will not pass validation.")
     parser.add_argument("--episodes", type=int, default=None,
                         help=f"Use only the first N official seeds (default: all {len(spec.EVAL_SEEDS)}).")
