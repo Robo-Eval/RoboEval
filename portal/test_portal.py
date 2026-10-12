@@ -35,12 +35,12 @@ def store(cfg):
     return core.make_store(cfg)
 
 
-def repack(src: Path, dst: Path, edit=None, extra=None, rewrite_manifest=False) -> Path:
-    """Copy an archive, optionally editing members (name -> bytes -> bytes)."""
+def repack(src: Path, dst: Path, edit=None, extra=None, rewrite_manifest=False, drop=()) -> Path:
+    """Copy an archive, optionally editing (name -> bytes -> bytes) or dropping members by prefix."""
     files = {}
     with tarfile.open(src, "r:gz") as t:
         for m in t:
-            if m.isfile():
+            if m.isfile() and not any(m.name.startswith(d) for d in drop):
                 files[m.name] = t.extractfile(m).read()
     for name, fn in (edit or {}).items():
         files[name] = fn(files[name])
@@ -64,6 +64,15 @@ def test_valid_bundle_is_accepted_and_ranked(cfg, store):
     rows = core.leaderboard_table(store.records())
     assert rows[0]["Team"] == out.record["team_name"] and rows[0]["Rank"] == 1
     assert (Path(cfg.store[6:]) / "submissions" / out.record["id"] / "bundle.tar.gz").is_file()
+
+
+def test_checkpoint_hosted_elsewhere_is_accepted(cfg, store, tmp_path):
+    """package --exclude-checkpoint leaves checkpoint/ out when checkpoint_url is set."""
+    hosted = repack(Path(BUNDLE), tmp_path / "hosted.tar.gz", rewrite_manifest=True, drop=("submission/checkpoint/",),
+                    edit={"submission/metadata.yaml": lambda b: b.replace(
+                        b'checkpoint_url: ""', b'checkpoint_url: "https://huggingface.co/example/weights"')})
+    out = core.process_submission(cfg, store, "alice", str(hosted), sha(hosted))
+    assert out.record["status"] == core.ACCEPTED, out.report
 
 
 def test_sha_mismatch_rejected_before_recording(cfg, store):

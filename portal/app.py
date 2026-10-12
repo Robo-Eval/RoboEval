@@ -62,22 +62,30 @@ def show_leaderboard(mode: str):
 
 
 def submit(url: str, upload, sha256: str, confirmed: bool, profile: Optional[gr.OAuthProfile]):
+    """Generator: shows progress at once, then the validation report."""
     if profile is None:
-        return "Sign in with Hugging Face first."
+        yield "Sign in with Hugging Face first."
+        return
     if not confirmed:
-        return "Confirm that you have read and followed the rules."
+        yield "Confirm that you have read and followed the rules."
+        return
     source = upload if upload else (url or "").strip()
     if not source:
-        return "Provide a download link to your archive, or upload it."
+        yield "Provide a download link to your archive, or upload it."
+        return
+    yield ("⏳ **Validating your submission.** Downloading the archive, re-deriving the results from the logs, "
+           f"and replaying {CFG.replay_episodes} episodes in the simulator; this usually takes 2-5 minutes. "
+           "Keep this page open. If another submission is being validated, yours waits in line first.")
     try:
         outcome = core.process_submission(CFG, STORE, profile.username, source, sha256)
     except core.SubmissionError as e:
-        return f"❌ **Not submitted:** {e}"
+        yield f"❌ **Not submitted:** {e}"
+        return
     finally:
         records(fresh=True)
     r = outcome.record
-    return (f"{STATUS_TEXT[r['status']]}\n\nSubmission `{r['id']}` · team **{r['team_name']}** · "
-            f"method **{r['method_name']}**\n\n{report_markdown(outcome.report)}")
+    yield (f"{STATUS_TEXT[r['status']]}\n\nSubmission `{r['id']}` · team **{r['team_name']}** · "
+           f"method **{r['method_name']}**\n\n{report_markdown(outcome.report)}")
 
 
 def my_submissions(profile: Optional[gr.OAuthProfile]):

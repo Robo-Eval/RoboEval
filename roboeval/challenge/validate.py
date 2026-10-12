@@ -77,7 +77,15 @@ def _close(a: float, b: float, rtol: float, atol: float = 0.0) -> bool:
 
 
 def check_layout(sub: Path, report: Report) -> None:
-    missing = [p for p in REQUIRED_PATHS if not (sub / p).exists()]
+    try:
+        checkpoint_url = (load_metadata(sub).get("checkpoint_url") or "").strip()
+    except Exception:  # noqa: BLE001 - check_metadata reports unreadable metadata
+        checkpoint_url = ""
+    ckpt = sub / "checkpoint"
+    has_weights = ckpt.is_dir() and any(p.is_file() and p.name != "README.md" for p in ckpt.rglob("*"))
+    # checkpoint/ may be left out of the archive (package --exclude-checkpoint)
+    # when metadata.yaml says where the weights are hosted.
+    missing = [p for p in REQUIRED_PATHS if not (sub / p).exists() and not (p == "checkpoint" and checkpoint_url)]
     if missing:
         report.fail("layout", "missing: " + ", ".join(missing))
     else:
@@ -87,9 +95,12 @@ def check_layout(sub: Path, report: Report) -> None:
         with open(pdf, "rb") as f:
             if f.read(5) != b"%PDF-":
                 report.fail("layout", "report.pdf is not a PDF file")
-    ckpt = sub / "checkpoint"
-    if ckpt.is_dir() and not any(p.is_file() and p.name != "README.md" for p in ckpt.rglob("*")):
-        report.warn("layout", "checkpoint/ holds no weights; checkpoint_url in metadata.yaml must point to them")
+    if not has_weights:
+        if checkpoint_url:
+            report.warn("layout", f"weights are not in the bundle; organizers will fetch them from {checkpoint_url}")
+        elif ckpt.is_dir():
+            report.warn("layout", "checkpoint/ holds no weights and metadata.yaml has no checkpoint_url; "
+                                  "organizers cannot re-run the policy without them")
 
 
 def check_metadata(sub: Path, report: Report) -> Optional[Dict[str, Any]]:
