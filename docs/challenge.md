@@ -115,3 +115,22 @@ so a policy that never succeeds runs the whole budget: about 155k control steps 
 20 Hz over the suite. On an H100 host, one env step costs about 6 ms with
 proprioception only and about 16 ms more per camera, roughly independent of
 resolution. Policy inference adds to both.
+
+## Score
+
+Submissions are ranked by the RoboEval Diagnostic Score (`roboeval/challenge/scoring.py`),
+which `evaluate` prints and writes to `results.json`. Per task:
+
+```
+outcome O    = 0.7 * success + 0.3 * task_progression
+metric score = 1 at or better than the human reference, else (r + c) / (v + c)
+task score   = 0.4 * O + O * (0.3 * safety + 0.2 * efficiency + 0.1 * coordination)
+```
+
+The human reference `r` is the median over the task's episodes in the training
+dataset, `roboeval_ee_delta_20hz_scaled`, that succeed when replayed under the
+challenge rules (`roboeval/challenge/human_reference.json`, regenerated with
+`python -m roboeval.challenge.make_human_reference <dataset_root>`). `c` is 10%
+of the reference, or one event for collision and slip counts. The overall score is
+the mean of the 8 task scores; ties go to Success, then Task Progression, then the
+safety score.

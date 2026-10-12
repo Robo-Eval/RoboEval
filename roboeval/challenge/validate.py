@@ -194,6 +194,18 @@ def check_consistency(sub: Path, results: Dict[str, Any], report: Report) -> Dic
                 if not _close(a, b, AGGREGATE_RTOL, 1e-12):
                     report.fail("consistency", f"{f}/{v} {k}.{stat}: results.json {b!r} != logs {a!r}")
                     problems += 1
+    # The leaderboard reads the summary block, so it must follow from the results too.
+    expected = res.summarize(results.get("results", {}))
+    reported = results.get("summary", {})
+    for scope in ("suite", "per_family"):
+        flat_e = expected[scope] if scope == "suite" else {f"{f}.{k}": v for f, m in expected[scope].items() for k, v in m.items()}
+        flat_r = reported.get(scope, {}) if scope == "suite" else {
+            f"{f}.{k}": v for f, m in reported.get(scope, {}).items() for k, v in m.items()}
+        bad = [k for k, v in flat_e.items() if not isinstance(flat_r.get(k), (int, float))
+               or not _close(v, flat_r[k], AGGREGATE_RTOL, 1e-12)]
+        if bad or set(flat_r) != set(flat_e):
+            report.fail("consistency", f"summary.{scope} does not follow from results ({(bad or ['extra keys'])[0]})")
+            problems += 1
     if not problems:
         n = sum(len(e) for e in episodes.values())
         report.ok("consistency", f"results.json re-derived exactly from {n} episode logs")

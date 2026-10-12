@@ -159,9 +159,11 @@ with gr.Blocks(title="RoboEval Challenge · CoRL 2026") as demo:
         "[Submission guidelines](https://robo-eval.github.io/challenge-submission.html)"
     )
     with gr.Tab("Leaderboard"):
-        gr.Markdown("Each team's most recent accepted submission, ranked by Success, then Task Progression, "
-                    "then submission time, until the composite score is published. ↑ higher is better, "
-                    "↓ lower is better. Every entry runs at 20 Hz; **Action** is the team's declared action mode.")
+        gr.Markdown("Each team's most recent accepted submission, ranked by the RoboEval Diagnostic Score (**SCORE**: "
+                    "40% outcome, 30% safety & stability, 20% efficiency, 10% coordination; "
+                    "[how it is computed](https://robo-eval.github.io/challenge-rules.html#ranking)), then Success, "
+                    "Task Progression, and submission time. ↑ higher is better, ↓ lower is better. Every entry runs "
+                    "at 20 Hz; **Action** is the team's declared action mode.")
         with gr.Row():
             task = gr.Dropdown(TASK_CHOICES, value="overall", label="Task")
             family = gr.Radio(FAMILY_CHOICES, value="All metrics", label="Metrics")

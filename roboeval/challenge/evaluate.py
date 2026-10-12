@@ -286,6 +286,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             m = r["metrics"]
             print(f"{family + '/' + variation:48s} {r['episodes']:4d} {m['success']['mean']:8.3f} "
                   f"{m['tp']['mean']:6.3f}  {r['terminations']['error']}")
+    score = results["score"]
+    print("\nRoboEval Diagnostic Score (task mean): "
+          + (f"{score['overall']['score']:.3f}" if score["overall"] else "n/a"))
+    for fam, t in score["tasks"].items():
+        print(f"  {fam:24s} score {t['score']:.3f}  outcome {t['outcome']:.3f}  safety {t['safety']:.3f}  "
+              f"efficiency {t['efficiency']:.3f}  coordination {t['coordination']:.3f}")
     missing = [f"{f}/{v}" for f, v in spec.all_variations() if len(episodes.get((f, v), [])) < len(seeds)]
     if missing or seeds != list(spec.EVAL_SEEDS):
         print(f"\nThis is a partial run ({len(missing)} variation(s) incomplete or non-official seeds); "

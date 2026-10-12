@@ -23,7 +23,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import requests
 import yaml
 
-from roboeval.challenge import spec
+from roboeval.challenge import scoring, spec
 from roboeval.challenge.package import MANIFEST
 from roboeval.challenge.validate import validate
 
@@ -457,6 +457,16 @@ def action_label(record: Dict[str, Any]) -> str:
     return f"{'EE' if mode.get('ee') else 'Joint'} {'absolute' if mode.get('absolute') else 'delta'}"
 
 
+FAMILY_SCORE_KEYS = {"Outcome": "outcome", "Efficiency": "efficiency", "Coordination": "coordination",
+                     "Safety & Stability": "safety"}
+
+
+def record_scores(record: Dict[str, Any], task: Optional[str]) -> Dict[str, float]:
+    """RDS and family scores for a submission, over the suite or one task."""
+    scores = scoring.suite_scores(record["summary"]["per_family"])
+    return scores["overall"] if task is None else scores["tasks"][task]
+
+
 def task_metrics(record: Dict[str, Any], task: Optional[str]) -> Dict[str, float]:
     """Suite means (task=None) or one task family's means for a submission."""
     summary = record["summary"]
@@ -464,18 +474,18 @@ def task_metrics(record: Dict[str, Any], task: Optional[str]) -> Dict[str, float
 
 
 def leaderboard(records: List[Dict[str, Any]], task: Optional[str] = None) -> List[Dict[str, Any]]:
-    """Most recent accepted submission per team, ranked by the tie-break order.
+    """Most recent accepted submission per team, over the suite or one task.
 
-    Until the normalized RoboEval Diagnostic Score is implemented, rows are
-    ordered by Success, then Task Progression, then earlier submission, over
-    the whole suite or over one task family.
+    Ranked by the RoboEval Diagnostic Score, then Success, Task Progression,
+    and earlier submission, as the rules' tie-break order specifies.
     """
     latest: Dict[str, Dict[str, Any]] = {}
     for r in sorted(records, key=lambda r: r["created_utc"]):
         if r["status"] in RANKED_STATUSES:
             latest[r["team_name"].casefold()] = r
     rows = [r for r in latest.values() if task is None or task in r["summary"].get("per_family", {})]
-    rows.sort(key=lambda r: (-task_metrics(r, task)["success"], -task_metrics(r, task)["tp"], r["created_utc"]))
+    rows.sort(key=lambda r: (-record_scores(r, task)["score"], -task_metrics(r, task)["success"],
+                             -task_metrics(r, task)["tp"], -record_scores(r, task)["safety"], r["created_utc"]))
     return rows
 
 
@@ -490,9 +500,11 @@ def leaderboard_table(records: List[Dict[str, Any]], observation_mode: Optional[
             continue
         if action_mode and action_label(r) != action_mode:
             continue
-        m = task_metrics(r, task)
+        m, sc = task_metrics(r, task), record_scores(r, task)
         row = {"Rank": len(out) + 1, "Team": r["team_name"], "Method": r["method_name"],
-               "Obs.": r["observation_mode"], "Action": action_label(r)}
+               "Obs.": r["observation_mode"], "Action": action_label(r), "SCORE ↑": round(sc["score"], 3)}
+        if family:
+            row[f"{family.upper()} SCORE ↑"] = round(sc[FAMILY_SCORE_KEYS[family]], 3)
         row.update({f"{k.upper()} {'↑' if k in HIGHER_IS_BETTER else '↓'}": round(m[k], 3) for k in keys})
         row["Open source"] = "yes" if r["open_source"] else ""
         row["Note"] = "organizer (not prize-eligible)" if r["organizer"] else ""

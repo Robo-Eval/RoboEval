@@ -95,11 +95,14 @@ def build_results(
     interface: Dict[str, Any],
     provenance: Dict[str, Any],
 ) -> Dict[str, Any]:
+    from roboeval.challenge import scoring
+
     results: Dict[str, Dict[str, Any]] = {}
     for family, variation in spec.all_variations():
         episodes = episodes_by_variation.get((family, variation))
         if episodes:
             results.setdefault(family, {})[variation] = aggregate_variation(episodes)
+    summary = summarize(results)
     return {
         "roboeval_release": spec.CHALLENGE_RELEASE,
         "harness_version": spec.HARNESS_VERSION,
@@ -108,7 +111,8 @@ def build_results(
         "seeds": list(seeds),
         "interface": interface,
         "results": results,
-        "summary": summarize(results),
+        "summary": summary,
+        "score": scoring.suite_scores(summary["per_family"]),
         "provenance": provenance,
     }
 

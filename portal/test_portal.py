@@ -94,6 +94,19 @@ def test_edited_file_breaks_manifest(cfg, store, tmp_path):
         core.process_submission(cfg, store, "alice", str(bad), sha(bad))
 
 
+def test_edited_summary_is_rejected(cfg, store, tmp_path):
+    def inflate(b):
+        r = json.loads(b)
+        r["summary"]["suite"]["success"] = 0.99
+        return json.dumps(r).encode()
+
+    bad = repack(Path(BUNDLE), tmp_path / "bad.tar.gz", edit={"submission/results.json": inflate},
+                 rewrite_manifest=True)
+    out = core.process_submission(cfg, store, "alice", str(bad), sha(bad))
+    assert out.record["status"] == core.REJECTED
+    assert any(i["check"] == "consistency" and "summary" in i["message"] for i in out.report)
+
+
 def test_edited_results_with_regenerated_manifest_is_rejected(cfg, store, tmp_path):
     def inflate(b):
         r = json.loads(b)
@@ -206,5 +219,5 @@ def test_leaderboard_views(cfg, store):
     per_task = core.leaderboard_table(records, task="LiftPot")
     assert per_task[0]["TL ↓"] == round(records[0]["summary"]["per_family"]["LiftPot"]["tl"], 3)
     coordination = core.leaderboard_table(records, family="Coordination")
-    assert {k for k in coordination[0] if "↑" in k or "↓" in k} == {"BAVD ↓", "BGVD ↓"}
+    assert {k for k in coordination[0] if "↑" in k or "↓" in k} == {"SCORE ↑", "COORDINATION SCORE ↑", "BAVD ↓", "BGVD ↓"}
     assert core.leaderboard_table(records, action_mode="Joint delta") == []
