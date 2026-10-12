@@ -11,7 +11,7 @@ from dataclasses import dataclass
 from typing import Dict, List, Tuple, Type
 
 CHALLENGE_RELEASE = "corl2026-challenge"
-HARNESS_VERSION = "1.0.0"
+HARNESS_VERSION = "1.1.0"
 
 # TBC: confirmed at launch. Seeds control initial object poses (``env.reset``
 # seeds NumPy's global RNG before the task samples its spawn poses).
@@ -22,7 +22,11 @@ EVAL_SEEDS: Tuple[int, ...] = tuple(range(1000, 1000 + EPISODES_PER_VARIATION))
 # None until the tag is cut; the validator then only warns on a mismatch.
 OFFICIAL_SOURCE_FINGERPRINT = None
 
-DEFAULT_CONTROL_FREQUENCY = 20
+# Fixed for every submission: collision and slip counts are sampled every 20
+# control steps and jerk is differenced at the control rate, so they are only
+# comparable at a common frequency. 20 Hz matches the released dataset.
+CONTROL_FREQUENCY = 20
+DEFAULT_CONTROL_FREQUENCY = CONTROL_FREQUENCY
 
 # Cameras a submission may request (see roboeval/robots/configs/panda.py).
 AVAILABLE_CAMERAS = ("external", "head", "front", "left_wrist", "right_wrist")

@@ -56,9 +56,20 @@ STATUS_TEXT = {
 
 
 # ─────────────────────────────── handlers ───────────────────────────────
-def show_leaderboard(mode: str):
-    rows = core.leaderboard_table(records(), None if mode == "all" else mode)
-    return pd.DataFrame(rows or [{"Team": "No accepted submissions yet"}])
+TASK_CHOICES = [("Overall (all 8 tasks)", "overall")] + [(f.display_name, f.key) for f in spec.TASK_FAMILIES]
+FAMILY_CHOICES = ["All metrics", *core.METRIC_FAMILIES]
+ACTION_CHOICES = ["All", *core.ACTION_MODES]
+
+
+def show_leaderboard(task: str, family: str, obs: str, action: str):
+    rows = core.leaderboard_table(
+        records(),
+        observation_mode=None if obs == "all" else obs,
+        task=None if task == "overall" else task,
+        family=None if family == "All metrics" else family,
+        action_mode=None if action == "All" else action,
+    )
+    return pd.DataFrame(rows or [{"Team": "No accepted submissions in this view yet"}])
 
 
 def submit(url: str, upload, sha256: str, confirmed: bool, profile: Optional[gr.OAuthProfile]):
@@ -148,9 +159,15 @@ with gr.Blocks(title="RoboEval Challenge · CoRL 2026") as demo:
         "[Submission guidelines](https://robo-eval.github.io/challenge-submission.html)"
     )
     with gr.Tab("Leaderboard"):
-        gr.Markdown("Each team's most recent accepted submission. Ranked by suite Success, then Task "
-                    "Progression, then submission time, until the composite score is published.")
-        mode = gr.Radio(["all", "vision", "state"], value="all", label="Observations")
+        gr.Markdown("Each team's most recent accepted submission, ranked by Success, then Task Progression, "
+                    "then submission time, until the composite score is published. ↑ higher is better, "
+                    "↓ lower is better. Every entry runs at 20 Hz; **Action** is the team's declared action mode.")
+        with gr.Row():
+            task = gr.Dropdown(TASK_CHOICES, value="overall", label="Task")
+            family = gr.Radio(FAMILY_CHOICES, value="All metrics", label="Metrics")
+        with gr.Row():
+            mode = gr.Radio(["all", "vision", "state"], value="all", label="Observations")
+            action = gr.Dropdown(ACTION_CHOICES, value="All", label="Action mode")
         board = gr.Dataframe(interactive=False, wrap=True)
         refresh = gr.Button("Refresh", size="sm")
     with gr.Tab("Submit"):
@@ -183,10 +200,12 @@ with gr.Blocks(title="RoboEval Challenge · CoRL 2026") as demo:
         apply = gr.Button("Apply")
         admin_msg = gr.Markdown()
 
-    demo.load(show_leaderboard, mode, board)
+    views = [task, family, mode, action]
+    demo.load(show_leaderboard, views, board)
     demo.load(on_load, None, admin_tab)
-    mode.change(show_leaderboard, mode, board)
-    refresh.click(lambda m: (records(fresh=True), show_leaderboard(m))[1], mode, board)
+    for control in views:
+        control.change(show_leaderboard, views, board)
+    refresh.click(lambda *v: (records(fresh=True), show_leaderboard(*v))[1], views, board)
     # Grey the button out while a submission is in flight so it cannot be pressed twice;
     # .then() runs whether validation passed, failed, or raised.
     go.click(lambda: gr.update(interactive=False, value="Validating… please wait"), None, go, queue=False) \

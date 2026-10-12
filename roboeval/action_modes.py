@@ -349,12 +349,13 @@ class JointPositionActionMode(ActionMode):
 
         for i, actuator in enumerate(self._robot.limb_actuators):
             actuator = self._mojo.physics.bind(actuator)
+            # Every mode moves a joint target by at most MAX_JOINT_VEL per second,
+            # so no action mode can drive the arms faster than another.
             if self.absolute or self.ee:
                 delta = action[i] - actuator.ctrl
-                clamped_delta = np.clip(delta, -max_joint_delta, max_joint_delta)
-                actuator.ctrl = actuator.ctrl + clamped_delta
             else:
-                actuator.ctrl = actuator.ctrl + action[i]
+                delta = action[i]
+            actuator.ctrl = actuator.ctrl + np.clip(delta, -max_joint_delta, max_joint_delta)
         if self.block_until_reached:
             self._step_until_reached()
         else:

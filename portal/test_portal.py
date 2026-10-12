@@ -196,3 +196,15 @@ def test_https_required_and_hf_blob_links():
         core._normalize_url("http://example.com/x.tar.gz")
     assert core._normalize_url("https://huggingface.co/datasets/a/b/blob/main/x.tar.gz") == \
         "https://huggingface.co/datasets/a/b/resolve/main/x.tar.gz"
+
+
+def test_leaderboard_views(cfg, store):
+    core.process_submission(cfg, store, "alice", BUNDLE, sha(BUNDLE))
+    records = store.records()
+    overall = core.leaderboard_table(records)
+    assert overall[0]["Action"] == "EE delta" and "SUCCESS ↑" in overall[0] and "ECC ↓" in overall[0]
+    per_task = core.leaderboard_table(records, task="LiftPot")
+    assert per_task[0]["TL ↓"] == round(records[0]["summary"]["per_family"]["LiftPot"]["tl"], 3)
+    coordination = core.leaderboard_table(records, family="Coordination")
+    assert {k for k in coordination[0] if "↑" in k or "↓" in k} == {"BAVD ↓", "BGVD ↓"}
+    assert core.leaderboard_table(records, action_mode="Joint delta") == []

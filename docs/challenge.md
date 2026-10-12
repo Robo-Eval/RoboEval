@@ -4,7 +4,8 @@ Participant-facing tooling for Track 2 of the CoRL 2026 Embodied AI Benchmark
 and Sim-to-Real Challenge Suite. The rules and timeline live on the website:
 <https://robo-eval.github.io/challenge.html>. This page covers the commands.
 
-The challenge evaluates one variant per task family, the combined position +
+Actions are applied at a fixed 20 Hz, and every action mode is held to the same
+joint speed limit. The challenge evaluates one variant per task family, the combined position +
 orientation one (8 variations, 50 episodes each). Demonstrations from every
 variant may be used for training.
 

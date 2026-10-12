@@ -14,7 +14,7 @@ interface:
   action_mode:
     absolute: false                 # false = delta actions
     ee: true                        # true = end-effector pose, false = joint positions
-  control_frequency: 20             # Hz; must divide 500
+  control_frequency: 20             # Hz; fixed at 20 for the challenge
   observation:
     proprioception: true
     cameras:                        # empty list = state-only submission

@@ -106,14 +106,9 @@ class Interface:
     def problems(self) -> List[str]:
         """Return human-readable reasons this interface cannot be evaluated."""
         out = []
-        cf = self.control_frequency
-        if not 20 <= cf <= 500:
-            out.append(f"control_frequency {cf} Hz is outside the supported 20-500 Hz range")
-        elif 500 % cf:
-            out.append(
-                f"control_frequency {cf} Hz does not divide the 500 Hz physics rate; "
-                f"the simulator would actually run at {500 / round(500 / cf):.2f} Hz"
-            )
+        if self.control_frequency != spec.CONTROL_FREQUENCY:
+            out.append(f"control_frequency must be {spec.CONTROL_FREQUENCY} Hz for the challenge "
+                       f"(got {self.control_frequency}); some metrics are only comparable at a common rate")
         for c in self.cameras:
             if c.name not in spec.AVAILABLE_CAMERAS:
                 out.append(f"unknown camera '{c.name}' (available: {', '.join(spec.AVAILABLE_CAMERAS)})")

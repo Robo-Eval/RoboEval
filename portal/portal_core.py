@@ -442,30 +442,58 @@ def set_status(store: Store, records: List[Dict[str, Any]], sid: str, status: st
 
 
 # ─────────────────────────────── ranking ───────────────────────────────
-def leaderboard(records: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+METRIC_FAMILIES: Dict[str, Tuple[str, ...]] = {
+    "Outcome": ("success", "tp"),
+    "Efficiency": ("cpl", "jpl", "opl", "ct", "tl"),
+    "Coordination": ("bavd", "bgvd"),
+    "Safety & Stability": ("scc", "ecc", "sc", "mjj", "mcj"),
+}
+HIGHER_IS_BETTER = ("success", "tp")
+ACTION_MODES = ("EE delta", "EE absolute", "Joint delta", "Joint absolute")
+
+
+def action_label(record: Dict[str, Any]) -> str:
+    mode = ((record.get("interface") or {}).get("action_mode") or {})
+    return f"{'EE' if mode.get('ee') else 'Joint'} {'absolute' if mode.get('absolute') else 'delta'}"
+
+
+def task_metrics(record: Dict[str, Any], task: Optional[str]) -> Dict[str, float]:
+    """Suite means (task=None) or one task family's means for a submission."""
+    summary = record["summary"]
+    return summary["suite"] if task is None else summary["per_family"][task]
+
+
+def leaderboard(records: List[Dict[str, Any]], task: Optional[str] = None) -> List[Dict[str, Any]]:
     """Most recent accepted submission per team, ranked by the tie-break order.
 
     Until the normalized RoboEval Diagnostic Score is implemented, rows are
-    ordered by suite Success, then Task Progression, then earlier submission.
+    ordered by Success, then Task Progression, then earlier submission, over
+    the whole suite or over one task family.
     """
     latest: Dict[str, Dict[str, Any]] = {}
     for r in sorted(records, key=lambda r: r["created_utc"]):
         if r["status"] in RANKED_STATUSES:
             latest[r["team_name"].casefold()] = r
-    rows = list(latest.values())
-    rows.sort(key=lambda r: (-r["summary"]["suite"]["success"], -r["summary"]["suite"]["tp"], r["created_utc"]))
+    rows = [r for r in latest.values() if task is None or task in r["summary"].get("per_family", {})]
+    rows.sort(key=lambda r: (-task_metrics(r, task)["success"], -task_metrics(r, task)["tp"], r["created_utc"]))
     return rows
 
 
-def leaderboard_table(records: List[Dict[str, Any]], observation_mode: Optional[str] = None) -> List[Dict[str, Any]]:
+def leaderboard_table(records: List[Dict[str, Any]], observation_mode: Optional[str] = None,
+                      task: Optional[str] = None, family: Optional[str] = None,
+                      action_mode: Optional[str] = None) -> List[Dict[str, Any]]:
+    """Rows for one leaderboard view; ranks are within the filtered view."""
+    keys = METRIC_FAMILIES[family] if family else spec.METRIC_KEYS
     out = []
-    for rank, r in enumerate(leaderboard(records), start=1):
+    for r in leaderboard(records, task):
         if observation_mode and r["observation_mode"] != observation_mode:
             continue
-        suite = r["summary"]["suite"]
-        row = {"Rank": rank, "Team": r["team_name"], "Method": r["method_name"],
-               "Obs.": r["observation_mode"]}
-        row.update({k.upper(): round(suite[k], 3) for k in spec.METRIC_KEYS})
+        if action_mode and action_label(r) != action_mode:
+            continue
+        m = task_metrics(r, task)
+        row = {"Rank": len(out) + 1, "Team": r["team_name"], "Method": r["method_name"],
+               "Obs.": r["observation_mode"], "Action": action_label(r)}
+        row.update({f"{k.upper()} {'↑' if k in HIGHER_IS_BETTER else '↓'}": round(m[k], 3) for k in keys})
         row["Open source"] = "yes" if r["open_source"] else ""
         row["Note"] = "organizer (not prize-eligible)" if r["organizer"] else ""
         row["Submitted (UTC)"] = r["created_utc"][:16].replace("T", " ")
