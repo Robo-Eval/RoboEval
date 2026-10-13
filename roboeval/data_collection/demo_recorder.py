@@ -1,9 +1,15 @@
 """Demo recorder module for collecting robot demonstrations."""
 import multiprocessing
 import os
+import sys
 import traceback
 import warnings
 from pathlib import Path
+
+# `tools/` lives at the repo root and is not installed with the `roboeval` package.
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
 from typing import Callable, Optional, Type
 
 import dearpygui.dearpygui as dpg

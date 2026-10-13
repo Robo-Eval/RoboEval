@@ -44,13 +44,14 @@ def compose_pose_delta_stable(current_pose: np.ndarray, delta: np.ndarray) -> np
     """Compose delta pose with current EE pose using stable rotation math.
     
     Supports both single-arm (6D) and bimanual (12D) poses.
+    Uses rotation vectors (axis-angle) for singularity-free orientation handling.
     
     Args:
-        current_pose: (6,) or (12,) array of [pos + euler] for 1 or 2 arms
-        delta: (6,) or (12,) array of [pos_delta + euler_delta] for 1 or 2 arms
+        current_pose: (6,) or (12,) array of [pos + rotvec] for 1 or 2 arms
+        delta: (6,) or (12,) array of [pos_delta + rotvec_delta] for 1 or 2 arms
 
     Returns:
-        composed_pose: (6,) or (12,) array of [new_pos + new_euler] for 1 or 2 arms
+        composed_pose: (6,) or (12,) array of [new_pos + new_rotvec] for 1 or 2 arms
     """
     assert current_pose.shape == delta.shape, "current_pose and delta must have the same shape"
     assert current_pose.shape[0] in [6, 12], "Pose must be 6D (single-arm) or 12D (bimanual)"
@@ -61,26 +62,26 @@ def compose_pose_delta_stable(current_pose: np.ndarray, delta: np.ndarray) -> np
     for i in range(num_arms):
         pos = current_pose[i*6:i*6+3] + delta[i*6:i*6+3]
 
-        r_current = R.from_euler("xyz", current_pose[i*6+3:i*6+6])
-        r_delta = R.from_euler("xyz", delta[i*6+3:i*6+6])
+        r_current = R.from_rotvec(current_pose[i*6+3:i*6+6])
+        r_delta = R.from_rotvec(delta[i*6+3:i*6+6])
         r_composed = r_delta * r_current
 
         composed[i*6:i*6+3] = pos
-        composed[i*6+3:i*6+6] = r_composed.as_euler("xyz")
+        composed[i*6+3:i*6+6] = r_composed.as_rotvec()
 
     return composed
 
-def euler_to_normalized_quaternion(euler_xyz: np.ndarray) -> Quaternion:
-    """Convert Euler angles to a normalized quaternion."""
-    quat = R.from_euler("xyz", euler_xyz).as_quat()  # xyzw
+def rotvec_to_normalized_quaternion(rotvec: np.ndarray) -> Quaternion:
+    """Convert a rotation vector (axis-angle) to a normalized quaternion."""
+    quat = R.from_rotvec(rotvec).as_quat()  # xyzw
     norm = np.linalg.norm(quat)
     if norm == 0 or np.any(np.isnan(quat)):
-        raise ValueError("Invalid quaternion generated from Euler angles")
+        raise ValueError("Invalid quaternion generated from rotation vector")
     quat /= norm
     return Quaternion(quat[3], quat[0], quat[1], quat[2])  # Convert to wxyz (scalar first)
 
 def compose_pose_delta(current_pose: np.ndarray, delta_pose: np.ndarray) -> np.ndarray:
-    """Composes a delta pose with a current pose using proper orientation math (Euler angles)."""
+    """Composes a delta pose with a current pose using rotation vectors (axis-angle)."""
     result = np.zeros_like(current_pose)
 
     for i in [0, 6]:  # Left arm: 0-5, Right arm: 6-11
@@ -89,19 +90,17 @@ def compose_pose_delta(current_pose: np.ndarray, delta_pose: np.ndarray) -> np.n
         delta_pos = delta_pose[i:i+3]
         result[i:i+3] = curr_pos + delta_pos
 
-        # Orientation composition
-        curr_euler = current_pose[i+3:i+6]
-        delta_euler = delta_pose[i+3:i+6]
+        # Orientation composition using rotation vectors
+        curr_rotvec = current_pose[i+3:i+6]
+        delta_rotvec = delta_pose[i+3:i+6]
 
-        # Create Rotation objects
-        r_current = R.from_euler('xyz', curr_euler)
-        r_delta = R.from_euler('xyz', delta_euler)
+        r_current = R.from_rotvec(curr_rotvec)
+        r_delta = R.from_rotvec(delta_rotvec)
 
         # Compose the rotations (delta applied first)
         r_new = r_delta * r_current
 
-        # Convert back to euler angles (in same convention)
-        result[i+3:i+6] = r_new.as_euler('xyz')
+        result[i+3:i+6] = r_new.as_rotvec()
 
     return result
 
@@ -178,6 +177,7 @@ class JointPositionActionMode(ActionMode):
     """
 
     MAX_STEPS = 200
+    MAX_JOINT_VEL = 2.175
 
     def __init__(
         self,
@@ -200,33 +200,22 @@ class JointPositionActionMode(ActionMode):
         self.ee = ee
         self.absolute = absolute
         self.block_until_reached = block_until_reached
+        self._sub_steps_count: Optional[int] = None
 
     def _action_space_ee(self, action_scale: float, seed: Optional[int] = None) -> spaces.Box:
         """Get the action space for end-effector control."""
         bounds = []
         for wrist_site in self._robot._wrist_sites:
-            # Position bounds (x, y, z)
-            pos_bounds = [[-action_scale, action_scale]] * 3
             if self.absolute:
-                # For absolute mode, use inf 
-                pos_bounds = [[-np.inf, np.inf]] * 3 #TODO: check if this is correct
+                pos_bounds = [[-action_scale, action_scale]] * 3
+                rot_bounds = [[-np.pi, np.pi]] * 3
             else:
-                # For delta mode, use the action scale
-                pos_bounds = [[-np.inf, np.inf]] * 3 #TODO: check if this is correct
+                pos_bounds = [[-action_scale, action_scale]] * 3
+                rot_bounds = [[-np.pi, np.pi]] * 3
             
             bounds.extend(pos_bounds)
-            
-            # Orientation bounds (represented as euler angles)
-            rot_bounds = [[-action_scale, action_scale]] * 3
-            if self.absolute:
-                # For absolute mode, use 360 degrees
-                rot_bounds = [[-np.pi, np.pi]] * 3 #TODO: check if this is correct
-            else:
-                # For delta mode, use the action scale
-                rot_bounds = [[-np.pi, np.pi]] * 3 #TODO: check if this is correct
             bounds.extend(rot_bounds)
 
-        # Return as spaces.Box
         bounds = np.array(bounds).copy().astype(np.float32)
         return bounds
 
@@ -234,6 +223,7 @@ class JointPositionActionMode(ActionMode):
         self, action_scale: float, seed: Optional[int] = None
     ) -> spaces.Box:
         """See base."""
+        self._sub_steps_count = int(action_scale)
         bounds = []
         if self.floating_base:
             action_bounds = self._robot.floating_base.get_action_bounds()
@@ -352,9 +342,20 @@ class JointPositionActionMode(ActionMode):
 
                 action = copy.deepcopy(joint_positions_new)
 
+        physics_dt = self._mojo.physics.model.opt.timestep
+        sub_steps = self._sub_steps_count or 1
+        control_dt = sub_steps * physics_dt
+        max_joint_delta = self.MAX_JOINT_VEL * control_dt
+
         for i, actuator in enumerate(self._robot.limb_actuators):
             actuator = self._mojo.physics.bind(actuator)
-            actuator.ctrl = action[i] if (self.absolute or self.ee) else actuator.ctrl + action[i]
+            # Every mode moves a joint target by at most MAX_JOINT_VEL per second,
+            # so no action mode can drive the arms faster than another.
+            if self.absolute or self.ee:
+                delta = action[i] - actuator.ctrl
+            else:
+                delta = action[i]
+            actuator.ctrl = actuator.ctrl + np.clip(delta, -max_joint_delta, max_joint_delta)
         if self.block_until_reached:
             self._step_until_reached()
         else:

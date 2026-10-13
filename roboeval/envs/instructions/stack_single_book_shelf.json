@@ -1,0 +1,16 @@
+{
+    "task_family": "stack_single_book_shelf",
+    "object": "book",
+    "instructions": [
+        "Place the book on the shelf.",
+        "Pick up the book and put it on the bookshelf.",
+        "Grab the book from the counter and set it on a shelf.",
+        "Move the book from the table to the bookshelf.",
+        "Lift the book and place it onto one of the shelves.",
+        "Take the book and shelve it on the bookshelf.",
+        "Pick up the book from the surface and arrange it on the shelf.",
+        "Transfer the book from the counter to the bookshelf.",
+        "Grasp the book and position it on the shelf.",
+        "Carry the book over to the bookshelf and place it down."
+    ]
+}

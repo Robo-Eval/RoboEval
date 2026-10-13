@@ -1,0 +1,16 @@
+{
+    "task_family": "lift_pot",
+    "object": "kitchen pot",
+    "instructions": [
+        "Lift the pot off the counter using both hands.",
+        "Use both grippers to pick up the kitchen pot and raise it.",
+        "Grasp the pot with your left and right hands, then lift it upward.",
+        "Bimanually lift the pot from the counter without tilting it.",
+        "Pick up the pot using both arms and hold it above the surface.",
+        "Grab the kitchen pot with both end-effectors and lift it clear of the cabinet.",
+        "Raise the pot from the counter using a two-handed grip.",
+        "Carefully lift the pot with both hands, keeping it level.",
+        "Using both grippers, lift the cooking pot up from the workspace.",
+        "Grip the pot on both sides and elevate it above the counter."
+    ]
+}

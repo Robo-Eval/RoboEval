@@ -18,26 +18,30 @@ import mujoco.glfw
 
 def patch_mujoco_renderer_and_context():
     """Patch MuJoCo renderer and GLContext to close safely without shutdown errors."""
-    _original_renderer_close = mujoco.renderer.Renderer.close
-    _original_glcontext_del = mujoco.glfw.GLContext.__del__
+    # Renderer.close only exists in mujoco >= 3.x; skip patching on older versions.
+    if hasattr(mujoco.renderer.Renderer, 'close'):
+        _original_renderer_close = mujoco.renderer.Renderer.close
 
-    def _safe_renderer_close(self):
-        try:
-            if 'mujoco' in sys.modules and getattr(mujoco.glfw, 'free', None) is not None:
-                _original_renderer_close(self)
-        except Exception as e:
-            print(f"[MuJoCo] Warning: Renderer close failed safely: {e}")
+        def _safe_renderer_close(self):
+            try:
+                if 'mujoco' in sys.modules and getattr(mujoco.glfw, 'free', None) is not None:
+                    _original_renderer_close(self)
+            except Exception as e:
+                print(f"[MuJoCo] Warning: Renderer close failed safely: {e}")
 
-    mujoco.renderer.Renderer.close = _safe_renderer_close
+        mujoco.renderer.Renderer.close = _safe_renderer_close
 
-    def _safe_glcontext_del(self):
-        try:
-            if 'mujoco' in sys.modules and getattr(mujoco.glfw, 'free', None) is not None:
-                _original_glcontext_del(self)
-        except Exception as e:
-            print(f"[MuJoCo] Warning: GLContext del failed safely: {e}")
+    if hasattr(mujoco.glfw, 'GLContext') and hasattr(mujoco.glfw.GLContext, '__del__'):
+        _original_glcontext_del = mujoco.glfw.GLContext.__del__
 
-    mujoco.glfw.GLContext.__del__ = _safe_glcontext_del
+        def _safe_glcontext_del(self):
+            try:
+                if 'mujoco' in sys.modules and getattr(mujoco.glfw, 'free', None) is not None:
+                    _original_glcontext_del(self)
+            except Exception as e:
+                print(f"[MuJoCo] Warning: GLContext del failed safely: {e}")
+
+        mujoco.glfw.GLContext.__del__ = _safe_glcontext_del
 
 patch_mujoco_renderer_and_context()
 

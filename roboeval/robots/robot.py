@@ -497,7 +497,7 @@ class Robot(ABC):
         """Compute inverse kinematics to find joint positions for target end-effector poses.
         
         Args:
-            target_poses: Target end-effector poses [pos_x, pos_y, pos_z, rot_x, rot_y, rot_z, ...]
+            target_poses: Target end-effector poses [pos_x, pos_y, pos_z, rvx, rvy, rvz, ...] (rotation vectors)
             initial_joint_positions: Starting joint positions for IK (optional)
             max_iterations: Maximum iterations for IK algorithm
             tolerance: Convergence tolerance
@@ -518,7 +518,7 @@ class Robot(ABC):
         # Ensure target_poses has the right format
         target_poses = np.array(target_poses, dtype=np.float32)
         num_ee = len(self._wrist_sites)
-        expected_length = num_ee * 6  # 6 values per end-effector (pos + euler)
+        expected_length = num_ee * 6  # 6 values per end-effector (pos + rotvec)
         assert len(target_poses) == expected_length, f"Expected {expected_length} values in target_poses"
         
         # Store original joint positions to restore later
@@ -549,20 +549,18 @@ class Robot(ABC):
                 for i in range(num_ee):
                     pos_error[i*3:(i+1)*3] = target_poses[i*6:i*6+3] - current_poses[i*6:i*6+3]
                 
-                # Handle orientation using rotation matrices
+                # Handle orientation using rotation vectors
                 for i in range(num_ee):
-                    target_euler = target_poses[i*6+3:(i+1)*6]
-                    current_euler = current_poses[i*6+3:(i+1)*6]
+                    target_rotvec = target_poses[i*6+3:(i+1)*6]
+                    current_rotvec = current_poses[i*6+3:(i+1)*6]
                     
-                    # Convert to rotation matrices
-                    target_rot = R.from_euler('xyz', target_euler).as_matrix()
-                    current_rot = R.from_euler('xyz', current_euler).as_matrix()
+                    # Compute rotation difference directly from rotvecs
+                    target_rot = R.from_rotvec(target_rotvec)
+                    current_rot = R.from_rotvec(current_rotvec)
+                    diff_rot = target_rot * current_rot.inv()
                     
-                    # Calculate the difference rotation matrix
-                    diff_rot = target_rot @ current_rot.T
-                    
-                    # Convert to axis-angle for the error vector
-                    orientation_error[i*3:(i+1)*3] = R.from_matrix(diff_rot).as_rotvec() * weight_factor
+                    # The rotvec of the difference is the orientation error
+                    orientation_error[i*3:(i+1)*3] = diff_rot.as_rotvec() * weight_factor
                 
                 # Combine position and orientation errors
                 pose_error = np.concatenate([pos_error, orientation_error])
@@ -598,12 +596,12 @@ class Robot(ABC):
                             poses_plus[pos_idx:pos_idx+3] - poses_minus[pos_idx:pos_idx+3]
                         ) / (2 * delta)
                         
-                        # Orientation component using matrices
+                        # Orientation component using rotation vectors
                         ori_idx = i*6 + 3
-                        rot_plus = R.from_euler('xyz', poses_plus[ori_idx:ori_idx+3]).as_matrix()
-                        rot_minus = R.from_euler('xyz', poses_minus[ori_idx:ori_idx+3]).as_matrix()
-                        diff_rot = rot_plus @ rot_minus.T
-                        rot_vec = R.from_matrix(diff_rot).as_rotvec() / (2 * delta)
+                        rot_plus = R.from_rotvec(poses_plus[ori_idx:ori_idx+3])
+                        rot_minus = R.from_rotvec(poses_minus[ori_idx:ori_idx+3])
+                        diff_rot = rot_plus * rot_minus.inv()
+                        rot_vec = diff_rot.as_rotvec() / (2 * delta)
                         jacobian[jacobian_ori_idx:jacobian_ori_idx+3, j] = rot_vec
                 
                 # Use damped least squares with single SVD computation
@@ -695,12 +693,10 @@ class Robot(ABC):
                     rot_pelvis = R.from_quat(pelvis_quat, scalar_first=True)
                     rot_ee = R.from_quat(orientation, scalar_first=True)
                     rot_relative = rot_ee * rot_pelvis.inv()
-                    orientation = rot_relative.as_euler('xyz')
+                    orientation = rot_relative.as_rotvec()
                 else:
-                    # Convert wxyz orientation to rpy
-                    orientation = R.from_quat(orientation, scalar_first=True).as_euler('xyz')
-                orientation = (orientation + np.pi) % (2 * np.pi) - np.pi
-                ee_poses.extend([*position, *orientation])  # [x,y,z, rx,ry,rz]
+                    orientation = R.from_quat(orientation, scalar_first=True).as_rotvec()
+                ee_poses.extend([*position, *orientation])  # [x,y,z, rvx,rvy,rvz]
             
             return np.array(ee_poses, dtype=np.float32)
         finally:

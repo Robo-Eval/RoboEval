@@ -166,15 +166,23 @@ class Gripper:
     def is_holding_object(self, other: Union[Geom, Iterable[Geom], Prop]) -> bool:
         """Check if gripper is holding an object.
         
+        Requires every pad body (e.g. both fingers) to be in contact with the
+        object, not just any single pad geom.
+
         Args:
             other: The object (geometry or prop) to check for collision with the gripper
             
         Returns:
-            True if the gripper pads are colliding with the object, False otherwise
+            True if all gripper pad bodies are colliding with the object, False otherwise
         """
-        return has_collided_collections(
-            self._mojo.physics, self._pad_geoms, get_colliders(other)
-        )
+        if not self._pad_bodies:
+            return False
+        other_colliders = get_colliders(other)
+        for body in self._pad_bodies:
+            body_geoms = [g for g in body.geoms if g.is_collidable()]
+            if not has_collided_collections(self._mojo.physics, body_geoms, other_colliders):
+                return False
+        return True
 
     def set_control(self, ctrl: float):
         """Set the control state of the gripper.

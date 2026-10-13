@@ -98,7 +98,9 @@ class PackBox(RoboEvalEnv, ABC, MetricRolloutEval):
             success_flag=self.success_check,
             target_distance={
                 "right gripper-right flap distance": right_gripper_right_flap,
-                "left gripper-left flap distance": left_gripper_left_flap
+                "left gripper-left flap distance": left_gripper_left_flap,
+                "right flap angle": box_state[0],
+                "left flap angle": box_state[1],
             }
             )
 

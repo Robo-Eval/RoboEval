@@ -1,0 +1,16 @@
+{
+    "task_family": "rotate_valve",
+    "object": "valves",
+    "instructions": [
+        "Rotate both valves counterclockwise.",
+        "Turn the two valves by rotating them counterclockwise.",
+        "Grip each valve and twist it counterclockwise.",
+        "Use your hands to turn both valves in the counterclockwise direction.",
+        "Rotate the pair of valves counterclockwise to the target position.",
+        "Grasp and twist each valve counterclockwise.",
+        "Turn both valves to the left until they reach the target angle.",
+        "Rotate each of the two valves counterclockwise on the table.",
+        "Grab the valves one at a time and rotate them counterclockwise.",
+        "Twist both valves counterclockwise to complete the task."
+    ]
+}

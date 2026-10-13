@@ -10,15 +10,15 @@
 ## About
 
 RoboEval is a benchmark for bimanual manipulation featuring:
-- **8 task families** with **28 total variations**
-- **Bimanual tasks**: LiftPot, StackSingleBookShelf, PickSingleBookFromTable, StackTwoBlocks, CubeHandover (including VerticalCubeHandover), RotateValve, PackBox, LiftTray, DragOverAndLiftTray
+- **8 task families** with **30 total variations**
+- **Bimanual tasks**: LiftPot, StackSingleBookShelf, PickSingleBookFromTable, StackTwoBlocks, CubeHandover, RotateValve, PackBox, LiftTray
 - **Bimanual Franka Panda** robot configuration
 - **Data collection tools**: Oculus Quest VR and keyboard teleoperation
 - **Comprehensive metrics**: Coordination, efficiency, safety, and task progression tracking
 
 ### Tasks
 
-RoboEval includes **8 task families** with **28 total variations**:
+RoboEval includes **8 task families** with **30 total variations**:
 
 1. **Lift Pot** (4 variants) - `lift_pot.py`
    - LiftPot, LiftPotPosition, LiftPotOrientation, LiftPotPositionAndOrientation
@@ -32,8 +32,8 @@ RoboEval includes **8 task families** with **28 total variations**:
 4. **Stack Two Blocks** (4 variants) - `manipulation.py`
    - StackTwoBlocks, StackTwoBlocksPosition, StackTwoBlocksOrientation, StackTwoBlocksPositionAndOrientation
 
-5. **Cube Handover** (5 variants) - `manipulation.py`
-   - CubeHandover, CubeHandoverPosition, CubeHandoverOrientation, CubeHandoverPositionAndOrientation, VerticalCubeHandover
+5. **Cube Handover** (4 variants) - `manipulation.py`
+   - CubeHandover, CubeHandoverPosition, CubeHandoverOrientation, CubeHandoverPositionAndOrientation
 
 6. **Rotate Valve** (3 variants) - `rotate_utility_objects.py`
    - RotateValve, RotateValvePosition, RotateValvePositionAndOrientation
@@ -41,14 +41,19 @@ RoboEval includes **8 task families** with **28 total variations**:
 7. **Pack Box** (4 variants) - `pack_objects.py`
    - PackBox, PackBoxPosition, PackBoxOrientation, PackBoxPositionAndOrientation
 
-8. **Lift Tray** (5 variants) - `lift_tray.py`
-   - LiftTray, LiftTrayPosition, LiftTrayOrientation, LiftTrayPositionAndOrientation, DragOverAndLiftTray
+8. **Lift Tray** (4 variants) - `lift_tray.py`
+   - LiftTray, LiftTrayPosition, LiftTrayOrientation, LiftTrayPositionAndOrientation
 
 ## Overview
 
-RoboEval is a structured benchmark for bimanual manipulation, featuring diverse tasks with varying coordination and complexity. Unlike existing benchmarks that evaluate policies solely based on task success, RoboEval introduces an initial suite of tiered, semantically diverse manipulation tasks with fine-grained diagnostic metrics to probe the capabilities and failure modes of learning-based agents. Our benchmark provides 8 task families with 28 total variations that target specific skills such as coordination, precision, and interaction under variability, and are accompanied with 3,000+ total human-collected demonstrations. It additionally includes a standardized asset library—collision meshes, annotated sites, and manipulable objects—for building and augmenting tasks with spatial perturbations and distractors; a VR-based teleoperation interface enables realistic data collection; and rich evaluation tools that go beyond binary success, measuring task progression, coordination, trajectory efficiency, and spatial proximity.
+RoboEval is a structured benchmark for bimanual manipulation, featuring diverse tasks with varying coordination and complexity. Unlike existing benchmarks that evaluate policies solely based on task success, RoboEval introduces an initial suite of tiered, semantically diverse manipulation tasks with fine-grained diagnostic metrics to probe the capabilities and failure modes of learning-based agents. Our benchmark provides 8 task families with 30 total variations that target specific skills such as coordination, precision, and interaction under variability, and are accompanied with 3,000+ total human-collected demonstrations. It additionally includes a standardized asset library—collision meshes, annotated sites, and manipulable objects—for building and augmenting tasks with spatial perturbations and distractors; a VR-based teleoperation interface enables realistic data collection; and rich evaluation tools that go beyond binary success, measuring task progression, coordination, trajectory efficiency, and spatial proximity.
 
 For more information, please visit our [full documentation site](https://robo-eval.github.io/RoboEval-Documentation/)
+
+**CoRL 2026 challenge:** evaluate, validate, and package a submission with
+`python -m roboeval.challenge.{evaluate,validate,package}`. See
+[docs/challenge.md](docs/challenge.md) and the
+[challenge page](https://robo-eval.github.io/challenge.html).
 
 ## Installation
 
@@ -108,6 +113,7 @@ The `examples/` directory contains several scripts demonstrating different aspec
 | `5_gather_metrics.py` | Collect and analyze task metrics | Metrics aggregation and analysis |
 | `6_collect_data.py` | Data collection pipeline (keyboard) | Keyboard teleoperation demonstration collection |
 | `7_collect_data_oculus.py` | Data collection pipeline (Oculus VR) | VR teleoperation demonstration collection |
+| `8_replay_to_lerobot.py` | Replay demos with configurable action mode, convert to LeRobot | LeRobot dataset creation from successful demos |
 
 </details>
 
@@ -172,7 +178,48 @@ python examples/4_eval_openvla.py --ckpt_path /path/to/model/checkpoint \
                                   --num_episodes 10 --max_steps 300
 ```
 
-### 5. Data Collection via Teleoperation
+### 5. LeRobot Dataset Conversion
+
+Convert successful demonstrations to [LeRobot](https://github.com/huggingface/lerobot) format with configurable action mode and frequency:
+
+```bash
+# EE delta at 20 Hz (default) — repo auto-named roboeval_ee_delta_20hz/
+python examples/8_replay_to_lerobot.py
+
+# Joint delta at 10 Hz — repo auto-named roboeval_joint_delta_10hz/
+python examples/8_replay_to_lerobot.py --joint --delta --freq 10
+
+# EE absolute at 20 Hz
+python examples/8_replay_to_lerobot.py --ee --absolute
+
+# Joint absolute at 20 Hz
+python examples/8_replay_to_lerobot.py --joint --absolute
+
+# Limit demos or select tasks
+python examples/8_replay_to_lerobot.py --amount 10 --tasks LiftPot CubeHandover
+```
+
+This script:
+- Supports all four action modes: `ee delta`, `ee absolute`, `joint delta`, `joint absolute`
+- Auto-assembles the repo name from action mode and frequency (e.g. `roboeval_ee_delta_20hz/LiftPot`)
+- Replays each demo in the target action mode to verify success (reward > 0)
+- Converts successful demos to per-task LeRobot datasets with camera observations
+- Outputs a summary of used trajectory names and counts
+
+**Which demonstrations survive filtering.** Not every demonstration replays successfully once
+it has been downsampled from the recorded 500 Hz, and retention varies widely by task — from
+~15% on the LiftPot variations to 100% on LiftTray Orientation/PositionAndOrientation.
+[`successful_demos_ee_delta_20hz.txt`](successful_demos_ee_delta_20hz.txt) lists the exact demo
+UUIDs that were kept for `ee_delta @ 20 Hz`: the 2930 episodes used to train the released
+baselines. Use it to reconstruct that exact training set without re-running the conversion.
+
+This is a different set from the one in [`docs/scaled_dataset.md`](docs/scaled_dataset.md).
+That dataset applies joint-velocity limits by scaling rather than clipping, and uses the
+current success conditions, so a different set of demonstrations replays successfully. Use
+this manifest to reproduce the released baselines, and that dataset for replay-faithful
+training; the two are not interchangeable.
+
+### 6. Data Collection via Teleoperation
 
 RoboEval supports two modes of teleoperation for collecting demonstrations:
 
@@ -331,8 +378,13 @@ for demo in demos:
 1. **MuJoCo Installation Problems**
    ```bash
    # Make sure you have the correct MuJoCo version
-   pip install mujoco==3.1.5
+   pip install mujoco==3.3.3
    ```
+
+   The released demonstrations were *recorded* under MuJoCo 3.1.5, and their
+   `package_versions` metadata says so. Replay is sensitive to the MuJoCo
+   version, but all released results (including the baseline table) were
+   produced with **3.3.3** — use 3.3.3 to reproduce them.
 
 2. **Display Issues (Headless Servers)**
    ```bash

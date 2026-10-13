@@ -1,0 +1,16 @@
+{
+    "task_family": "stack_two_blocks",
+    "object": "cubes",
+    "instructions": [
+        "Stack one block on top of the other.",
+        "Pick up a cube and place it on top of the second cube.",
+        "Stack the two blocks so one is on top of the other.",
+        "Grab one of the cubes and set it on the other one.",
+        "Place one block on the other to form a tower of two.",
+        "Use your grippers to stack the cubes on top of each other.",
+        "Pick up a block and carefully balance it on the other block.",
+        "Take one cube and place it directly on top of the second cube.",
+        "Build a two-block tower by stacking the cubes.",
+        "Lift one cube and set it on the other so they are stacked."
+    ]
+}

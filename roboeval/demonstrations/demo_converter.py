@@ -135,11 +135,13 @@ class DemoConverter:
     def joint_absolute_to_ee_delta(demo: Demo) -> Demo:
         """Converts a demonstration from absolute joint positions to delta end-effector positions.
 
+        Uses rotation vectors (axis-angle) for singularity-free orientation deltas.
+
         :param demo: The demonstration to convert (in absolute joint positions).
         :return: The converted demonstration (in delta end-effector positions).
         """
         
-        # First convert absolute joint to absolute EE
+        # First convert absolute joint to absolute EE (FK now returns rotvec orientations)
         abs_ee_demo = DemoConverter.joint_to_ee(deepcopy(demo))
         
         # Create a new metadata for delta EE control
@@ -160,61 +162,37 @@ class DemoConverter:
         for timestep in timesteps:
             absolute_action = timestep.executed_action + overhead
 
+            # Extract per-arm segments: each arm is [x, y, z, rvx, rvy, rvz]
             absolute_action_arms = absolute_action[floating_dof_count:-grippers_count]
-            absolute_left_action = absolute_action_arms[:len(absolute_action_arms)//2]
-            absolute_right_action = absolute_action_arms[len(absolute_action_arms)//2:]
+            half = len(absolute_action_arms) // 2
+            abs_left = absolute_action_arms[:half]
+            abs_right = absolute_action_arms[half:]
 
-            absolute_left_action_euler = absolute_left_action[3:6]
-            absolute_right_action_euler = absolute_right_action[3:6]
-            
-            # Convert Euler angles to quaternions
-            left_quat = R.from_euler('xyz', absolute_left_action_euler).as_quat()
-            right_quat = R.from_euler('xyz', absolute_right_action_euler).as_quat()
-            
-            # Replace Euler angles with quaternions
-            absolute_left_pos = absolute_left_action[:3]
-            absolute_right_pos = absolute_right_action[:3]
-
-            # Convert last action to quaternion
             last_action_arms = last_action[floating_dof_count:-grippers_count]
-            last_left_action = last_action_arms[:len(last_action_arms)//2]
-            last_right_action = last_action_arms[len(last_action_arms)//2:]
-            last_left_action_euler = last_left_action[3:6]
-            last_right_action_euler = last_right_action[3:6]
-            last_left_quat = R.from_euler('xyz', last_left_action_euler).as_quat()
-            last_right_quat = R.from_euler('xyz', last_right_action_euler).as_quat()
-            last_left_pos = last_left_action[:3]
-            last_right_pos = last_right_action[:3]
+            last_left = last_action_arms[:half]
+            last_right = last_action_arms[half:]
 
-            # Calculate quaternion difference with quaternions using pyquaternion
+            # Position deltas
+            delta_left_pos = abs_left[:3] - last_left[:3]
+            delta_right_pos = abs_right[:3] - last_right[:3]
 
-            left_quat_diff = R.from_quat(left_quat) * R.from_quat(last_left_quat).inv()
-            right_quat_diff = R.from_quat(right_quat) * R.from_quat(last_right_quat).inv()
+            # Orientation deltas as rotation vectors (no gimbal lock, no wrapping needed)
+            r_left_curr = R.from_rotvec(last_left[3:6])
+            r_left_target = R.from_rotvec(abs_left[3:6])
+            delta_left_rotvec = (r_left_target * r_left_curr.inv()).as_rotvec()
 
-            # Convert quaternion difference to Euler angles
-            delta_left_euler = left_quat_diff.as_euler('xyz')
-            delta_right_euler = right_quat_diff.as_euler('xyz')
+            r_right_curr = R.from_rotvec(last_right[3:6])
+            r_right_target = R.from_rotvec(abs_right[3:6])
+            delta_right_rotvec = (r_right_target * r_right_curr.inv()).as_rotvec()
 
-            delta_left_pos = absolute_left_pos - last_left_pos
-            delta_right_pos = absolute_right_pos - last_right_pos
-
+            # Assemble delta action
             delta_action = np.zeros_like(absolute_action)
-
-            # Update the action array with delta values
-            delta_action[floating_dof_count:-grippers_count] = np.concatenate([delta_left_pos, delta_left_euler, delta_right_pos, delta_right_euler])
+            delta_action[floating_dof_count:-grippers_count] = np.concatenate([
+                delta_left_pos, delta_left_rotvec,
+                delta_right_pos, delta_right_rotvec,
+            ])
             
-            # Handle angle wrapping for orientation components of both end-effectors
-            # For first end-effector: roll1, pitch1, yaw1
-            roll1_idx = floating_dof_count + 3  # After floating base + XYZ position
-            for i in range(roll1_idx, roll1_idx + 3):
-                delta_action[i] = ((delta_action[i] + np.pi) % (2 * np.pi)) - np.pi
-                
-            # For second end-effector: roll2, pitch2, yaw2
-            roll2_idx = floating_dof_count + 6 + 3  # After first end-effector
-            for i in range(roll2_idx, roll2_idx + 3):
-                delta_action[i] = ((delta_action[i] + np.pi) % (2 * np.pi)) - np.pi
-            
-            # Special handling for floating base and grippers
+            # Floating base and grippers are passed through as-is
             delta_action[:floating_dof_count] = absolute_action[:floating_dof_count]
             delta_action[-grippers_count:] = absolute_action[-grippers_count:]
             

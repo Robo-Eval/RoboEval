@@ -85,12 +85,8 @@ class RotateValve(_RotateObjectEnv):
         dist_check = {}
 
         for idx, valve in enumerate(self.valves):
-            # for side in self.robot.grippers:
-            #     if self.robot.is_gripper_holding_object(valve, side):
-            #         return False
-            # if not self.table.is_colliding(valve) or valve.is_colliding(self._floor):
-            #     return False
-            if valve.get_state() <= 0.10: 
+            state = float(np.mean(valve.get_state()))
+            if state <= 0.10:
                 self._success_check = False
                 
             # ————————————— distance check —————————————
@@ -98,9 +94,9 @@ class RotateValve(_RotateObjectEnv):
             dist_check[f"valve_{idx}-left gripper distance"] = distance(valve.valve, self.robot.grippers[HandSide.LEFT].body)
 
         # –––––––––––– stage monitoring ––––––––––––––––
-        valve_1_rot = self.valves[0].get_state()
+        valve_1_rot = float(np.mean(self.valves[0].get_state()))
         valve_1_grasp = any(self.robot.is_gripper_holding_object(self.valves[0].valve, side) for side in self.robot.grippers)
-        valve_2_rot = self.valves[1].get_state()
+        valve_2_rot = float(np.mean(self.valves[1].get_state()))
         valve_2_grasp = any(self.robot.is_gripper_holding_object(self.valves[1].valve, side) for side in self.robot.grippers)
             
         if valve_1_grasp: self._metric_stage(1) 
@@ -109,6 +105,9 @@ class RotateValve(_RotateObjectEnv):
         if valve_2_rot >= 0.1: self._metric_stage(4)
 
         
+        dist_check["valve_0 rotation"] = valve_1_rot
+        dist_check["valve_1 rotation"] = valve_2_rot
+
         self._final_metrics = self._metric_finalize(
             success_flag=self._success_check,
             target_distance=dist_check

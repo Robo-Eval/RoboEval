@@ -109,10 +109,13 @@ class StackTwoBlocks(_StackBlocksEnv, MetricRolloutEval):
         cube_1_lift_distance = self.blocks[0].body.get_position()[2] - self._init_z_1_pos
         cube_2_lift_distance = self.blocks[1].body.get_position()[2] - self._init_z_2_pos
         
+        inter_block_dist = distance(self.blocks[0].body, self.blocks[1].body)
+        
         dist_blocks.update(
             {
                 "cube 1 lift distance": cube_1_lift_distance,
-                "cube 2 lift distance": cube_2_lift_distance
+                "cube 2 lift distance": cube_2_lift_distance,
+                "inter-block distance": inter_block_dist
             }
         )
         
@@ -243,6 +246,7 @@ class CubeHandover(RoboEvalEnv, MetricRolloutEval):
         # Create a single cube or 'Prop' (assuming you have a Cube or Prop class).
         # If you need to add geometry, you can do so here. For example:
         self.cube = Rod(self._mojo)
+        self.table = self._preset.get_props(Table)[0]
         self.initial_gripper = None
         
         self._metric_init(
@@ -274,7 +278,7 @@ class CubeHandover(RoboEvalEnv, MetricRolloutEval):
         )
         
         self._init_z_pos = self.cube.body.get_position()[2] - 0.0301
-        for idx in range(1, 3): self._metric_stage(idx, False)
+        for idx in range(1, 4): self._metric_stage(idx, False)
 
     def _on_step(self):
         self._metric_step()
@@ -296,10 +300,11 @@ class CubeHandover(RoboEvalEnv, MetricRolloutEval):
             elif right_holding:
                 self.initial_gripper = HandSide.RIGHT
 
-        # Validate success if cube is transferred to the opposite gripper
-        if self.initial_gripper == HandSide.LEFT and right_holding and not left_holding:
+        # Validate success if cube is transferred to the opposite gripper while suspended
+        table_contact = self.cube.is_colliding(self.table)
+        if self.initial_gripper == HandSide.LEFT and right_holding and not left_holding and not table_contact:
             self.success_check = True
-        elif self.initial_gripper == HandSide.RIGHT and left_holding and not right_holding:
+        elif self.initial_gripper == HandSide.RIGHT and left_holding and not right_holding and not table_contact:
             self.success_check = True
             
         # –––––––––––––– distance checking –––––––––––––––––––
@@ -313,6 +318,7 @@ class CubeHandover(RoboEvalEnv, MetricRolloutEval):
         
         if grasping: self._metric_stage(1)
         if cube_transfer: self._metric_stage(2)
+        if cube_transfer and not table_contact: self._metric_stage(3) # rod is suspended in the air during handover
 
         self._final_metrics = self._metric_finalize(
             success_flag=self.success_check,
@@ -389,7 +395,7 @@ class CubeHandoverPosition(CubeHandover):
             )
 
         self._init_z_pos = self.cube.body.get_position()[2] - 0.0301
-        for idx in range(1, 3): self._metric_stage(idx, False)
+        for idx in range(1, 4): self._metric_stage(idx, False)
         
 
 class CubeHandoverOrientation(CubeHandover):
@@ -429,7 +435,7 @@ class CubeHandoverOrientation(CubeHandover):
             rotation_bounds=self._BLOCKS_ROT_BOUNDS,
         )
         self._init_z_pos = self.cube.body.get_position()[2] - 0.0301
-        for idx in range(1, 3): self._metric_stage(idx, False)
+        for idx in range(1, 4): self._metric_stage(idx, False)
         
 
 
@@ -477,7 +483,7 @@ class CubeHandoverPositionAndOrientation(CubeHandover):
                 rotation_bounds=self._BLOCKS_ROT_BOUNDS,
             )
         self._init_z_pos = self.cube.body.get_position()[2] - 0.0301
-        for idx in range(1, 3): self._metric_stage(idx, False)
+        for idx in range(1, 4): self._metric_stage(idx, False)
 
 
 class VerticalCubeHandover(RoboEvalEnv, MetricRolloutEval):
@@ -503,6 +509,7 @@ class VerticalCubeHandover(RoboEvalEnv, MetricRolloutEval):
         Create the cube(s) here and store references.
         """
         self.cube = Rod(self._mojo)
+        self.table = self._preset.get_props(Table)[0]
         self.initial_gripper = None
         self._metric_init(
             track_vel_sync=True,
@@ -544,7 +551,7 @@ class VerticalCubeHandover(RoboEvalEnv, MetricRolloutEval):
         )
         
         self._init_z_pos = self.cube.body.get_position()[2] - 0.05
-        for idx in range(1, 3): self._metric_stage(idx, False)
+        for idx in range(1, 4): self._metric_stage(idx, False)
 
     def _on_step(self):
         self._metric_step()
@@ -568,10 +575,11 @@ class VerticalCubeHandover(RoboEvalEnv, MetricRolloutEval):
             elif right_holding:
                 self.initial_gripper = HandSide.RIGHT
 
-        # Validate success if cube is transferred to the opposite gripper
-        if self.initial_gripper == HandSide.LEFT and right_holding and not left_holding:
+        # Validate success if cube is transferred to the opposite gripper while suspended
+        table_contact = self.cube.is_colliding(self.table)
+        if self.initial_gripper == HandSide.LEFT and right_holding and not left_holding and not table_contact:
             self.success_check = True
-        elif self.initial_gripper == HandSide.RIGHT and left_holding and not right_holding:
+        elif self.initial_gripper == HandSide.RIGHT and left_holding and not right_holding and not table_contact:
             self.success_check = True
 
         # –––––––––––––– distance checking –––––––––––––––––––
@@ -585,6 +593,7 @@ class VerticalCubeHandover(RoboEvalEnv, MetricRolloutEval):
         
         if grasping: self._metric_stage(1)
         if cube_transfer: self._metric_stage(2)
+        if cube_transfer and not table_contact: self._metric_stage(3) # rod is suspended in the air during handover
 
         self._final_metrics = self._metric_finalize(
             success_flag=self.success_check,

@@ -224,7 +224,8 @@ class GenericUpperBodyIK(UpperBodyIK):
         # Convert array targets to Pose objects if needed
         if not isinstance(target_pose_left, Pose):
             if target_pose_left.shape[0] == 6:
-                quaternion_left = R.from_euler("xyz", target_pose_left[3:]).as_quat(scalar_first=True)
+                # 6D array: [pos(3) + rotvec(3)]
+                quaternion_left = R.from_rotvec(target_pose_left[3:]).as_quat(scalar_first=True)
                 target_pose_left = Pose(position=target_pose_left[:3], orientation=Quaternion(quaternion_left))
             elif target_pose_left.shape[0] == 7:
                 quaternion_left = Quaternion(target_pose_left[3:])
@@ -232,7 +233,8 @@ class GenericUpperBodyIK(UpperBodyIK):
         
         if not is_single_arm and not isinstance(target_pose_right, Pose):
             if target_pose_right.shape[0] == 6:
-                quaternion_right = R.from_euler("xyz", target_pose_right[3:]).as_quat(scalar_first=True)
+                # 6D array: [pos(3) + rotvec(3)]
+                quaternion_right = R.from_rotvec(target_pose_right[3:]).as_quat(scalar_first=True)
                 target_pose_right = Pose(position=target_pose_right[:3], orientation=Quaternion(quaternion_right))
             elif target_pose_right.shape[0] == 7:
                 quaternion_right = Quaternion(target_pose_right[3:])
@@ -283,16 +285,21 @@ class GenericUpperBodyIK(UpperBodyIK):
                     inplace=inplace,
                 )
 
-        # Check convergence
-        if is_single_arm:
-            if not ik_left.success and enable_warning:
-                print("[WARN] IK did not converge for left arm")
-        else:
-            if not (ik_left.success and ik_right.success) and enable_warning:
-                print("[WARN] IK did not converge for both arms")
-
-        # Return the updated joint positions
+        # Check convergence and fall back to pre-solve positions on failure
         solution = self._physics.data.qpos[:len(qpos)].copy()
+
+        if is_single_arm:
+            if not ik_left.success:
+                print("[WARN] IK did not converge for left arm, reverting to previous joint positions")
+                solution = qpos_backup.copy()
+        else:
+            num_joints_per_arm = len(qpos) // 2
+            if not ik_left.success:
+                print("[WARN] IK did not converge for left arm, reverting to previous joint positions")
+                solution[:num_joints_per_arm] = qpos_backup[:num_joints_per_arm]
+            if not ik_right.success:
+                print("[WARN] IK did not converge for right arm, reverting to previous joint positions")
+                solution[num_joints_per_arm:] = qpos_backup[num_joints_per_arm:]
 
         # Revert the changes made to the arm joints if requested
         if forward:

@@ -1,0 +1,3 @@
+# Extra packages your policy needs on top of the pinned RoboEval release,
+# with exact versions, e.g.
+# torch==2.7.1
