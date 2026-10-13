@@ -49,8 +49,9 @@ def report_markdown(items: List[Dict[str, str]]) -> str:
 
 STATUS_TEXT = {
     core.ACCEPTED: "✅ **Accepted.** Your entry is on the leaderboard.",
-    core.REVIEW: "🕵️ **Pending organizer review.** Every automated check passed except the replay, which can differ "
-                 "slightly across machines. Organizers will re-run it; no action needed unless they contact you.",
+    core.REVIEW: "🕵️ **Pending organizer review.** Every automated check passed except the replay or the release "
+                 "check, which can differ for innocent reasons (different hardware, a different dependency version). "
+                 "Organizers will look into it; no action needed unless they contact you.",
     core.REJECTED: "❌ **Rejected by the automated checks.** Fix the FAIL items below and resubmit; "
                    "rejected bundles do not count toward your submission limit.",
 }

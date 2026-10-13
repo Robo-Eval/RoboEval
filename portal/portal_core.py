@@ -16,6 +16,7 @@ import shutil
 import tarfile
 import tempfile
 import uuid
+from functools import lru_cache
 from dataclasses import dataclass, field
 from pathlib import Path, PurePosixPath
 from typing import Any, Dict, List, Optional, Tuple
@@ -389,15 +390,16 @@ def process_submission(cfg: Config, store: Store, user: str, source: str, expect
         check_limits(cfg, records, team)
 
         report = validate(sub, replay=cfg.replay_episodes)
+        results = json.loads((sub / "results.json").read_text()) if (sub / "results.json").exists() else {}
+        check_release_fingerprint(results, report)
         fails = [i for i in report.items if i["level"] == "FAIL"]
         if not fails:
             status = ACCEPTED
-        elif all(i["check"] == "replay" for i in fails) and cfg.replay_mismatch == "review":
+        elif all(i["check"] in REVIEWABLE_CHECKS for i in fails) and cfg.replay_mismatch == "review":
             status = REVIEW
         else:
             status = REJECTED
 
-        results = json.loads((sub / "results.json").read_text()) if (sub / "results.json").exists() else {}
         sid = f"{now_utc().strftime('%Y%m%dT%H%M%SZ')}-{uuid.uuid4().hex[:8]}"
         record = {
             "id": sid,
@@ -429,6 +431,31 @@ def process_submission(cfg: Config, store: Store, user: str, source: str, expect
         store.put_submission(sid, files)
         store.put_record(sid, record)
         return Outcome(record=record, report=report.items)
+
+
+# Failures an organizer can clear after a look: the replay and the release
+# fingerprint can differ for innocent reasons (hardware, an unpinned dependency).
+REVIEWABLE_CHECKS = ("replay", "release")
+
+
+@lru_cache(maxsize=1)
+def official_fingerprint() -> str:
+    """Fingerprint of the release this portal runs, i.e. the challenge tag."""
+    from roboeval.challenge.results import source_fingerprint
+
+    return source_fingerprint()
+
+
+def check_release_fingerprint(results: Dict[str, Any], report) -> None:
+    """Replace the validator's 'not yet published' note with a real comparison."""
+    report.items[:] = [i for i in report.items if "fingerprint not yet published" not in i["message"]]
+    theirs = (results.get("provenance") or {}).get("source_fingerprint")
+    if theirs == official_fingerprint():
+        report.ok("release", "evaluated with the unmodified challenge release")
+    else:
+        report.fail("release", "the benchmark source used for evaluation differs from the challenge release "
+                               "(modified files, another version, or a different roboeval-metrics install); "
+                               "held for organizer review")
 
 
 def set_status(store: Store, records: List[Dict[str, Any]], sid: str, status: str, note: str = "") -> Dict[str, Any]:

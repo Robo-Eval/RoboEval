@@ -221,3 +221,19 @@ def test_leaderboard_views(cfg, store):
     coordination = core.leaderboard_table(records, family="Coordination")
     assert {k for k in coordination[0] if "↑" in k or "↓" in k} == {"SCORE ↑", "COORDINATION SCORE ↑", "BAVD ↓", "BGVD ↓"}
     assert core.leaderboard_table(records, action_mode="Joint delta") == []
+
+
+OLD_RELEASE_BUNDLE = os.environ.get("PORTAL_TEST_OLD_BUNDLE")
+
+
+@pytest.mark.skipif(not OLD_RELEASE_BUNDLE or not Path(OLD_RELEASE_BUNDLE).is_file(), reason="set PORTAL_TEST_OLD_BUNDLE")
+def test_other_release_is_held_for_review(cfg, store):
+    out = core.process_submission(cfg, store, "alice", OLD_RELEASE_BUNDLE, sha(OLD_RELEASE_BUNDLE))
+    assert out.record["status"] == core.REVIEW
+    assert any(i["check"] == "release" and i["level"] == "FAIL" for i in out.report)
+    assert core.leaderboard(store.records()) == []
+
+
+def test_current_release_passes_release_check(cfg, store):
+    out = core.process_submission(cfg, store, "alice", BUNDLE, sha(BUNDLE))
+    assert any(i["check"] == "release" and i["level"] == "PASS" for i in out.report), out.report
