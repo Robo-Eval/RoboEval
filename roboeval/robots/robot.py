@@ -32,6 +32,10 @@ from roboeval.robots.arm import Arm
 
 from scipy.spatial.transform import Rotation as R
 
+# Vertical field of view [deg] of a manual camera whose config sets no "fovy" (MuJoCo's default, which every released
+# demonstration, dataset and challenge evaluation was rendered with).
+DEFAULT_CAMERA_FOVY = 45.0
+
 
 class ActuatorType(Enum):
     """Supported body actuator types."""
@@ -276,7 +280,11 @@ class Robot(ABC):
 
                 position = camera_properties.get("position", [0, 0, 0])
                 quaternion = camera_properties.get("quaternion", [1, 0, 0, 0])
-                fovy = camera_properties.get("fovy", None)
+                if "fov" in camera_properties:
+                    raise ValueError(
+                        f'Camera {camera_name}: unknown key "fov", use "fovy" (vertical field of view in degrees)'
+                    )
+                fovy = camera_properties.get("fovy", DEFAULT_CAMERA_FOVY)
                 focal = camera_properties.get("focal", None)
                 sensor_size = camera_properties.get("sensor_size", None)
                 

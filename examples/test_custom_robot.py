@@ -102,7 +102,7 @@ def test_robot_configuration(robot_cls):
         for camera_name, camera_config in config.cameras.items():
             print(f"  - {camera_name}:")
             print(f"    • Position: {camera_config.get('position', 'N/A')}")
-            print(f"    • FOV: {camera_config.get('fov', 'N/A')}")
+            print(f"    • FOVY: {camera_config.get('fovy', 'N/A')}")
     
     print(f"\n{'='*60}")
     print(f"✓ {robot_cls.__name__} configuration tests passed!")

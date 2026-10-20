@@ -13,6 +13,7 @@ class CameraConfig:
     resolution: tuple[int, int] = (128, 128)
     pos: Optional[tuple[float, float, float]] = None
     quat: Optional[tuple[float, float, float, float]] = None
+    fovy: Optional[float] = None  # vertical field of view [deg]; None keeps the camera's own
 
     def __post_init__(self):
         """Validation."""
@@ -27,6 +28,9 @@ class CameraConfig:
             assert len(self.quat) == 4
             if not isinstance(self.quat, tuple):
                 self.quat = tuple(self.quat)
+        if self.fovy is not None:
+            assert 0 < self.fovy < 180
+            self.fovy = float(self.fovy)
 
     @classmethod
     def from_safetensors_metadata(cls, metadata: dict):
