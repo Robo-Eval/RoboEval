@@ -28,35 +28,35 @@ PANDA_ACTUATORS = {
     "actuator7": True, "left_wrist": True, "right_wrist": True,
 }
 
-# Camera configurations
+# Camera configurations ("fovy": vertical field of view in degrees)
 CAMERA_CONFIG = {
     "head": {
         "manual": True,
         "parent": "invisible_base",
         "position": (-0.7, 0, 1.65),
         "quaternion": (0.6124, 0.3536, -0.3536, -0.6124),
-        "fov": 60,
+        "fovy": 45,
     },
     "front": {
         "manual": True,
         "parent": "invisible_base",
         "position": (1.4, 0, 1.6),
         "quaternion": (0.6124, 0.3536, 0.3536, 0.6124),
-        "fov": 80,
+        "fovy": 45,
     },
     "left_wrist": {
         "manual": True,
         "parent": "panda nohand_left/left_wrist_link",
         "position": (0.05, 0.0, 0.0),
         "quaternion": (0, 1, 0, 0),
-        "fov": 60,
+        "fovy": 45,
     },
     "right_wrist": {
         "manual": True,
         "parent": "panda nohand_right/right_wrist_link",
         "position": (-0.05, 0.0, 0.0),
         "quaternion": (0, 1, 0, 0),
-        "fov": 60,
+        "fovy": 45,
     },
 }
 
@@ -66,21 +66,21 @@ CAMERA_CONFIG_SINGLE = {
         "parent": "invisible_base",
         "position": (-0.4, 0, 1.35),
         "quaternion": (0.6124, 0.3536, -0.3536, -0.6124),
-        "fov": 60,
+        "fovy": 45,
     },
     "left_side": {
         "manual": True,
         "parent": "invisible_base",
         "position": (0, -1.0, 0.5),
         "quaternion": (0.7071, 0.7071, 0, 0),
-        "fov": 60,
+        "fovy": 45,
     },
     "right_side": {
         "manual": True,
         "parent": "invisible_base",
         "position": (0, 1.0, 0.5),
         "quaternion": (0.7071, -0.7071, 0, 0),
-        "fov": 60,
+        "fovy": 45,
     },
 
     "front": {
@@ -93,14 +93,14 @@ CAMERA_CONFIG_SINGLE = {
         # Quaternion (w, x, y, z). This gives a frontal view pointing toward -X with a
         # modest downward pitch. Tweak the values or the Z position to raise/lower tilt.
         "quaternion": (0.6124, 0.3536, 0.3536, 0.6124),
-        "fov": 80,
+        "fovy": 45,
     },
     "left_wrist": {
         "manual": True,
         "parent": "panda nohand_left/left_wrist_link",
         "position": (-0.05, 0.0, 0.00),
         "quaternion": (0, 1, 0, 0),
-        "fov": 60,
+        "fovy": 45,
     },
 }
 

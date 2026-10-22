@@ -349,6 +349,9 @@ class RoboEvalEnv(gym.Env):
                 camera.set_position(np.array(camera_config.pos))
             if camera_config.quat is not None:
                 camera.set_quaternion(np.array(camera_config.quat))
+            if camera_config.fovy is not None:
+                self._mojo.physics.bind(camera.mjcf).fovy = camera_config.fovy
+                camera.mjcf.fovy = camera_config.fovy
         return cameras_map
     
     def _safe_close_renderer(self, renderer) -> None:
