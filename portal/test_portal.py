@@ -81,6 +81,24 @@ def test_checkpoint_hosted_elsewhere_is_accepted(cfg, store, tmp_path):
     assert out.record["status"] == core.ACCEPTED, out.report
 
 
+def test_large_archive_keeps_report_and_code_without_weights(cfg, store):
+    cfg.store_archive_max_gb = 0.0  # every archive counts as too large to keep whole
+    out = core.process_submission(cfg, store, "alice", BUNDLE, sha(BUNDLE))
+    assert out.record["status"] == core.ACCEPTED, out.report
+    kept = Path(cfg.store[6:]) / "submissions" / out.record["id"]
+    assert not (kept / "bundle.tar.gz").exists()
+    assert (kept / "report.pdf").read_bytes().startswith(b"%PDF-")
+    with tarfile.open(kept / "bundle-no-weights.tar.gz") as t:
+        names = t.getnames()
+    assert "submission/report.pdf" in names and "submission/policy/policy.py" in names
+    assert not any(n.startswith("submission/checkpoint/") and not n.endswith("README.md") for n in names)
+    assert out.record["stored"] == ["bundle-no-weights.tar.gz", "metadata.yaml", "report.pdf",
+                                    "results.json", "validation.json"]
+    warned = [i for i in out.report if i["check"] == "storage"]
+    assert bool(warned) == (not out.record["checkpoint_url"])
+    assert json.loads((kept / "validation.json").read_text()) == out.report
+
+
 def test_sha_mismatch_rejected_before_recording(cfg, store):
     with pytest.raises(core.SubmissionError, match="SHA-256 mismatch"):
         core.process_submission(cfg, store, "alice", BUNDLE, "0" * 64)

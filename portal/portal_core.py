@@ -51,6 +51,7 @@ class Config:
     limit_total: Optional[int] = None           # per team over the challenge
     max_archive_gb: float = 5.0
     store_archive_max_gb: float = 2.0           # keep a copy for audits below this size
+    store_lite_max_gb: float = 1.0              # above that, keep everything except checkpoint/ up to this size
     replay_episodes: int = 20
     replay_mismatch: str = "review"             # "review" or "reject"
     organizers: Tuple[str, ...] = ()            # HF usernames: admin tab, marked not prize-eligible
@@ -73,6 +74,7 @@ class Config:
             limit_total=opt_int("SUBMISSION_LIMIT_TOTAL", cls.limit_total),
             max_archive_gb=float(os.environ.get("MAX_ARCHIVE_GB", cls.max_archive_gb)),
             store_archive_max_gb=float(os.environ.get("STORE_ARCHIVE_MAX_GB", cls.store_archive_max_gb)),
+            store_lite_max_gb=float(os.environ.get("STORE_LITE_MAX_GB", cls.store_lite_max_gb)),
             replay_episodes=int(os.environ.get("REPLAY_EPISODES", cls.replay_episodes)),
             replay_mismatch=os.environ.get("REPLAY_MISMATCH", cls.replay_mismatch),
             organizers=tuple(u.strip() for u in os.environ.get("ORGANIZERS", "").split(",") if u.strip()),
@@ -346,6 +348,16 @@ def check_identity(records: List[Dict[str, Any]], user: str, team: str) -> None:
 
 
 # ─────────────────────────────── ingest ────────────────────────────────
+def pack_without_weights(sub: Path, dst: Path) -> Path:
+    """Re-pack a submission without checkpoint/ (report, policy code, logs and results stay)."""
+    with tarfile.open(dst, "w:gz") as t:
+        for p in sorted(sub.rglob("*")):
+            rel = p.relative_to(sub)
+            if p.is_file() and not (rel.parts[0] == "checkpoint" and rel.name != "README.md"):
+                t.add(p, arcname=str(PurePosixPath("submission", *rel.parts)))
+    return dst
+
+
 @dataclass
 class Outcome:
     record: Dict[str, Any]
@@ -423,11 +435,22 @@ def process_submission(cfg: Config, store: Store, user: str, source: str, expect
             "provenance": results.get("provenance", {}),
         }
         files = {"metadata.yaml": sub / "metadata.yaml", "validation.json": tmp / "validation.json"}
-        (tmp / "validation.json").write_text(json.dumps(report.items, indent=2))
         if (sub / "results.json").exists():
             files["results.json"] = sub / "results.json"
+        if (sub / "report.pdf").is_file():
+            files["report.pdf"] = sub / "report.pdf"
         if archive.stat().st_size <= cfg.store_archive_max_gb * 1e9:
             files["bundle.tar.gz"] = archive
+        else:
+            lite = pack_without_weights(sub, tmp / "bundle-no-weights.tar.gz")
+            if lite.stat().st_size <= cfg.store_lite_max_gb * 1e9:
+                files["bundle-no-weights.tar.gz"] = lite
+            if not record["checkpoint_url"]:
+                report.warn("storage", "the archive is too large for the portal to keep, so organizers have no copy "
+                                       "of your weights; upload them to Hugging Face and send organizers the link "
+                                       "(or set checkpoint_url and use package --exclude-checkpoint next time)")
+        (tmp / "validation.json").write_text(json.dumps(report.items, indent=2))
+        record["stored"] = sorted(files)
         store.put_submission(sid, files)
         store.put_record(sid, record)
         return Outcome(record=record, report=report.items)

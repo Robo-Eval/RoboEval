@@ -36,8 +36,12 @@ back in a few minutes.
    Anything else → **rejected**; rejected bundles do not count toward limits.
 
 Everything is stored in a private dataset repo: per submission, `record.json`,
-`results.json`, `metadata.yaml`, `validation.json`, and the archive itself when
-it is under `STORE_ARCHIVE_MAX_GB` (for audits and held-out re-runs).
+`results.json`, `metadata.yaml`, `validation.json`, `report.pdf`, and the archive
+itself when it is under `STORE_ARCHIVE_MAX_GB` (for audits and held-out re-runs).
+A larger archive is kept without its `checkpoint/` weights as
+`bundle-no-weights.tar.gz` (report, policy code, logs) when that is under
+`STORE_LITE_MAX_GB`; if the team gave no `checkpoint_url`, the report warns them
+to upload the weights to Hugging Face and send the link.
 
 The leaderboard shows each team's most recent accepted submission, ranked by
 the RoboEval Diagnostic Score (`roboeval/challenge/scoring.py`), then Success,
@@ -60,6 +64,7 @@ Space **variables**:
 | `SUBMISSION_LIMIT_TOTAL` | unset | per team over the challenge |
 | `MAX_ARCHIVE_GB` | `5` | download and upload cap |
 | `STORE_ARCHIVE_MAX_GB` | `2` | keep a copy of archives up to this size |
+| `STORE_LITE_MAX_GB` | `1` | above that, keep the archive minus `checkpoint/` up to this size |
 | `REPLAY_EPISODES` | `20` | episodes replayed per submission |
 | `REPLAY_MISMATCH` | `review` | `review` or `reject` |
 | `ORGANIZERS` | unset | comma-separated HF usernames: Organizers tab, entries marked not prize-eligible |
